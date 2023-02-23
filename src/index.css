@@ -1,0 +1,24 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+:root{
+  --SVP-main: #CBAB3A;
+  --SVP-main50: #FFF07D;
+  --SVP-main200: #E6C452;
+  --SVP-main400: #E6C452;
+  --white: #FFFFFF;
+  --textblack: #3F3F3F;
+  --black50: #F3F3F3;
+  --black100: #DDDDDD;
+  --black200: #C6C6C6;
+  --black400:#9B9B9B;
+  --black600:#727272;
+  --success: #45C000;
+  --warning: #FCE83A;
+  --error: #FF3838;
+  --dashboard-yellow: #FFFCF4;
+  --active-selection-black: rgba(104, 102, 95, 0.1);
+}

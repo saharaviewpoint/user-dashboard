@@ -1,8 +1,12 @@
 import React from 'react'
+import { Container } from 'react-bootstrap';
+
 
 const Sidebar = () => {
   return (
-    <div>Sidebar</div>
+   <Container>
+    <p>Batman</p>
+   </Container>
   )
 }
 
