@@ -1,0 +1,12 @@
+body {
+  max-width: 100%;
+  background-color: aqua;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+main {
+  width: 95%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
