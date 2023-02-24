@@ -1,6 +1,6 @@
 import React from "react";
 import side from "./User.module.css";
-import { Container, Image } from "react-bootstrap";
+import { Container, Image, Row, Col } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -61,6 +61,25 @@ const Sidebar = () => {
             name="Messages"
             path="message"
           />
+        </div>
+        <div className={side.logOutContainer}>
+          <div className={side.center}>
+          <div className={side.flex}>
+            <div>
+              <Image src = "/images/avatar.png" alt = "avatar"/>
+            </div>
+            <div className={side.textcontainer}>
+              <p className={side.avatartitle}>John Doe</p>
+              <p className={side.avatarcontext}>johndoe@gmail.com</p>
+            </div>
+          </div>
+        </div>
+        <div className={side.center1}>
+        <div className={side.button}>
+        <p className={side.logouttext}>Log Out</p>
+        <Image src = "/icons/log-out.svg" alt="log-out-icon"/>
+        </div>
+        </div>
         </div>
       </div>
     </Container>

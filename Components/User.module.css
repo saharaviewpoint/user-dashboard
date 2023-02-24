@@ -1,6 +1,5 @@
 .container {
   background-color: var(--dashboard-yellow);
-  /* background-color: aquamarine; */
   display: flex;
   width: 100%;
   padding: 0rem !important;
@@ -34,7 +33,7 @@
   background-color: var(--active-selection-black);
 }
 
-.centercontainer{
+.centercontainer {
   width: 80%;
   margin: 2rem auto;
 }
@@ -55,18 +54,64 @@
   font-family: "Inter", sans-serif;
 }
 
-
-a{
+a {
   text-decoration: none !important;
-   width: 80% !important;
+  width: 80% !important;
 }
 
-.linkActive{
-    text-decoration: none;
+.linkActive {
+  text-decoration: none;
+}
+
+.flex {
+  display: flex;
+  gap: 1rem;
 }
 
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.center1 {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logOutContainer {
+  margin-top: 4rem;
+}
+
+.avatartitle {
+  font-weight: 600;
+  font-size: 1.2rem;
+  font-family: "Inter", sans-serif;
+  color: var(--textblack);
+}
+
+.avatarcontext {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  font-family: "Inter", sans-serif;
+  color: var(--black400);
+}
+
+.textcontainer {
+  padding-top: 0.3rem;
+}
+
+.button {
+  width: fit-content;
+  gap: 1rem;
+  display: flex;
+}
+
+.logouttext {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--SVP-main);
+  font-family: "Inter", sans-serif;
 }
