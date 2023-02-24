@@ -1,13 +1,13 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar';
-import './dashboard.css'
+import dash from './Layout.module.css'
 import { Container, Row, Col } from 'react-bootstrap';
 
 
 
 const Dashboard = () => {
   return (
-    <Container>
+    <Container className={dash.container}>
       <Row>
         <Col lg = {2}>
         <Sidebar/>
