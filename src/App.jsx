@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "../Pages/Homepage";
-import HomepageAdmin from "../Pages/HomepageAdmin";
+import HomepageAdmin from "../pages/HomepageAdmin";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
-import NotFound from "../Pages/NotFound";
+import NotFound from "../pages/NotFound";
 import { createMedia } from "@artsy/fresnel";
+import Homepage from '../pages/user/Homepage';
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
