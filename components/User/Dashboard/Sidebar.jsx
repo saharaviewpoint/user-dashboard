@@ -1,31 +1,8 @@
 import React from "react";
 import side from "./User.module.css";
 import { Container, Image, Row, Col } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const navbarlinksandtitle = [
-  {
-    name: "Dashboard",
-    links: "/icons/dashboard-icon.svg",
-  },
-  {
-    name: "Projects",
-    links: "/icons/project-icon.svg",
-  },
-  {
-    name: "Tasks",
-    links: "/icons/tasks-icon.svg",
-  },
-  {
-    name: "Reports",
-    links: "/icons/reports-icon.svg",
-  },
-  {
-    name: "Messages",
-    links: "/icons/messages-icon.svg",
-  },
-];
 
 const Sidebar = () => {
   // const active = navbarlinksandtitle.
@@ -37,27 +14,27 @@ const Sidebar = () => {
         </div>
         <div className={side.centercontainer}>
           <NavbarTab
-            imagelink="/icons/dashboard-icon.svg"
+            imagelink="/icons/sidebar/dashboard-icon.svg"
             name="Dashboard"
             path="/"
           />
           <NavbarTab
-            imagelink="/icons/project-icon.svg"
+            imagelink="/icons/sidebar/project-icon.svg"
             name="Projects"
             path="project"
           />
           <NavbarTab
-            imagelink="/icons/tasks-icon.svg"
+            imagelink="/icons/sidebar/tasks-icon.svg"
             name="Tasks"
             path="tasks"
           />
           <NavbarTab
-            imagelink="/icons/reports-icon.svg"
+            imagelink="/icons/sidebar/reports-icon.svg"
             name="Reports"
             path="report"
           />
           <NavbarTab
-            imagelink="/icons/messages-icon.svg"
+            imagelink="/icons/sidebar/messages-icon.svg"
             name="Messages"
             path="message"
           />
@@ -77,7 +54,7 @@ const Sidebar = () => {
         <div className={side.center1}>
         <div className={side.button}>
         <p className={side.logouttext}>Log Out</p>
-        <Image src = "/icons/log-out.svg" alt="log-out-icon"/>
+        <Image src = "/icons/sidebar/log-out.svg" alt="log-out-icon"/>
         </div>
         </div>
         </div>

@@ -2,13 +2,15 @@
   background-color: var(--dashboard-yellow);
   display: flex;
   width: 100%;
+  position: sticky;
+  top: 0;
   padding: 0rem !important;
   margin: 0 auto;
   justify-content: center;
 }
 
 .navbar {
-  margin-top: 3rem;
+  margin-top: 2rem;
   width: 100%;
 }
 
@@ -75,14 +77,14 @@ a {
 }
 
 .center1 {
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .logOutContainer {
-  margin-top: 4rem;
+  margin-top: 16rem;
 }
 
 .avatartitle {
@@ -110,8 +112,78 @@ a {
 }
 
 .logouttext {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--SVP-main);
   font-family: "Inter", sans-serif;
+}
+
+/* content.jsx */
+.contentcontainer {
+  width: 92%;
+  margin: 0 auto;
+}
+
+.buttondashboard {
+  font-size: 1rem;
+  border: none;
+  margin-top: 1.4rem;
+  display: block;
+  outline: none;
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  float: right;
+  /* text-transform: uppercase; */
+  font-weight: 600;
+  color: var(--white);
+  font-family: "Inter", sans-serif;
+  background-color: var(--SVP-main);
+}
+
+.innercontent {
+  padding: 2rem;
+}
+
+.contentcardscontainer {
+  border: 1px solid;
+  margin-top: 2rem;
+  width: 23rem;
+  border-radius: 1rem;
+  border-color: var(--SVP-main);
+}
+
+.flexcontainer{
+  display: flex;
+  gap: 2rem;
+}
+
+.contentheader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contentheadertext {
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--SVP-main);
+}
+
+.title {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-top: 4rem;
+  color: var(--SVP-main);
+}
+
+.description {
+  margin-top: 1.6rem;
+  font-size: 1.3rem;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 1rem;
+}
+
+.arrow{
+  margin-left: 0.5rem;
 }
