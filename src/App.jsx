@@ -7,6 +7,7 @@ import "./index.css";
 import NotFound from "../pages/NotFound";
 import { createMedia } from "@artsy/fresnel";
 import Homepage from '../pages/user/Homepage';
+import Projects from "../pages/user/Projects";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -31,6 +32,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="*" element={<NotFound />} />
+            <Route path = "/project" element = {<Projects/>}/>
             <Route path="/admin" element={<HomepageAdmin />} />
           </Routes>
         </BrowserRouter>

@@ -3,3 +3,8 @@
   padding: 0rem !important;
   /* background-color: var(--dashboard-yellow); */
 }
+
+.overallcontainer{
+  background-color: white;
+  height: 100vh;
+}
