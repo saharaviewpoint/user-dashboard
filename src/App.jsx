@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
 import { createMedia } from "@artsy/fresnel";
-import Homepage from "../pages/user/Homepage";
 import Projects from "../pages/user/Projects/Projects";
 import ProjectBoard from "../pages/user/Projects/ProjectBoard";
 import ProjectGrid from "../pages/user/Projects/ProjectGrid";
@@ -14,6 +13,7 @@ import TaskBoard from "../pages/user/Tasks/TaskBoard";
 import ProjectForm from "../pages/user/Projects/ProjectForm";
 import TaskCalendar from "../pages/user/Tasks/TaskCalendar";
 import NotFound from "../pages/NotFound";
+import Homepage from '../pages/user/Homepage';
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
