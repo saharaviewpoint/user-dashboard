@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomepageAdmin from "../pages/HomepageAdmin";
+// import HomepageAdmin from "../pages/HomepageAdmin";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
@@ -45,7 +45,7 @@ const App = () => {
             <Route path="/task" element={<Tasks />} />
             <Route path="/task/board" element={<TaskBoard />} />
             <Route path="/task/calendar" element={<TaskCalendar />} />
-            <Route path="/admin" element={<HomepageAdmin />} />
+            {/* <Route path="/admin" element={<HomepageAdmin />} /> */}
           </Routes>
         </BrowserRouter>
       </Media>
