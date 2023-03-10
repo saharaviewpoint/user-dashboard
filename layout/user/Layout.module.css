@@ -1,36 +1,5 @@
 .container {
   max-width: 1600px !important;
   padding: 0rem !important;
-  background-color: var(--dashboard-yellow);
-}
-
-.rightcontainer {
-  display: flex;
-  justify-content: flex-end;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.titlecontainer {
-  width: 60%;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 2rem;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.title {
-  font-weight: 700;
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
-  text-transform: uppercase;
-}
-
-.contentscontainer {
-  margin-top: 2rem;
-  background-color: var(--white);
+  /* background-color: var(--dashboard-yellow); */
 }
