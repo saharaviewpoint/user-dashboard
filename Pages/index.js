@@ -1,1 +1,2 @@
-export * from './NotFound'
+export * from "./Homepage";
+export * from "./NotFound";
