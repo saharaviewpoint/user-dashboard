@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
-import NotFound from "../pages/NotFound";
 import { createMedia } from "@artsy/fresnel";
 import Homepage from "../pages/user/Homepage";
 import Projects from "../pages/user/Projects/Projects";
@@ -14,6 +13,7 @@ import Tasks from "../pages/user/Tasks/Tasks";
 import TaskBoard from "../pages/user/Tasks/TaskBoard";
 import ProjectForm from "../pages/user/Projects/ProjectForm";
 import TaskCalendar from "../pages/user/Tasks/TaskCalendar";
+import NotFound from "../pages/NotFound";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
