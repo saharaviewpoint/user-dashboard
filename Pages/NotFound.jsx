@@ -1,16 +1,15 @@
-import React from 'react'
-import general from "./General.module.css"
-import { Container } from 'react-bootstrap';
-
+import React from "react";
+import general from "./General.module.css";
+import { Container } from "react-bootstrap";
 
 const NotFound = () => {
   return (
-    <Container className = {general.maincontainer}>
-    <div className={general.centerContainer}>
+    <Container className={general.maincontainer}>
+      <div className={general.centerContainer}>
         <p className={general.centertext}>Error 404 | Page Not Found</p>
-    </div>
+      </div>
     </Container>
-  )
-}
+  );
+};
 
-export default NotFound
+export default NotFound;

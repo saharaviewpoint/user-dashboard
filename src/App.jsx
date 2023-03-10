@@ -1,19 +1,20 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomepageAdmin from "../pages/HomepageAdmin";
+// import HomepageAdmin from "../pages/HomepageAdmin";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
-import NotFound from "../pages/NotFound";
 import { createMedia } from "@artsy/fresnel";
+import NotFound from "../pages/NotFound";
 import Homepage from "../pages/user/Homepage";
 import Projects from "../pages/user/Projects/Projects";
 import ProjectBoard from "../pages/user/Projects/ProjectBoard";
 import ProjectGrid from "../pages/user/Projects/ProjectGrid";
 import Tasks from "../pages/user/Tasks/Tasks";
+
 import TaskBoard from "../pages/user/Tasks/TaskBoard";
-import ProjectForm from "../pages/user/Projects/ProjectForm";
 import TaskCalendar from "../pages/user/Tasks/TaskCalendar";
+import ProjectForm from '../pages/user/Projects/ProjectForm';
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -45,7 +46,7 @@ const App = () => {
             <Route path="/task" element={<Tasks />} />
             <Route path="/task/board" element={<TaskBoard />} />
             <Route path="/task/calendar" element={<TaskCalendar />} />
-            <Route path="/admin" element={<HomepageAdmin />} />
+            {/* <Route path="/admin" element={<HomepageAdmin />} /> */}
           </Routes>
         </BrowserRouter>
       </Media>
