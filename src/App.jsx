@@ -12,7 +12,6 @@ import ProjectBoard from "../pages/user/Projects/ProjectBoard";
 import ProjectGrid from "../pages/user/Projects/ProjectGrid";
 import Tasks from "../pages/user/Tasks/Tasks";
 import TaskBoard from "../pages/user/Tasks/TaskBoard";
-import ProjectForm from "../pages/user/Projects/ProjectForm";
 import TaskCalendar from "../pages/user/Tasks/TaskCalendar";
 
 const { MediaContextProvider, Media } = createMedia({
@@ -26,30 +25,30 @@ const { MediaContextProvider, Media } = createMedia({
 
 const App = () => {
   return (
-    // <MediaContextProvider>
-    //   <Media at="sm">
-    //     <p>lorem</p>
-    //   </Media>
-    //   <Media at="md">
-    //     <p>lorem</p>
-    //   </Media>
-    //   <Media greaterThanOrEqual="xl">
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/project" element={<Projects />} />
-        <Route path="/project/board" element={<ProjectBoard />} />
-        <Route path="/project/grid" element={<ProjectGrid />} />
-        <Route path="/project/form" element={<ProjectForm />} />
-        <Route path="/task" element={<Tasks />} />
-        <Route path="/task/board" element={<TaskBoard />} />
-        <Route path="/task/calendar" element={<TaskCalendar />} />
-        {/* <Route path="/admin" element={<HomepageAdmin />} /> */}
-      </Routes>
-    </BrowserRouter>
-    //   </Media>
-    // </MediaContextProvider>
+    <MediaContextProvider>
+      <Media at="sm">
+        <p>lorem</p>
+      </Media>
+      <Media at="md">
+        <p>lorem</p>
+      </Media>
+      <Media greaterThanOrEqual="xl">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/project" element={<Projects />} />
+            <Route path="/project/board" element={<ProjectBoard />} />
+            <Route path="/project/grid" element={<ProjectGrid />} />
+            <Route path="/project/form" element={<ProjectForm />} />
+            <Route path="/task" element={<Tasks />} />
+            <Route path="/task/board" element={<TaskBoard />} />
+            <Route path="/task/calendar" element={<TaskCalendar />} />
+            {/* <Route path="/admin" element={<HomepageAdmin />} /> */}
+          </Routes>
+        </BrowserRouter>
+      </Media>
+    </MediaContextProvider>
   );
 };
 
