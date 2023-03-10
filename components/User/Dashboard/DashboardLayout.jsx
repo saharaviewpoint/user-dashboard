@@ -8,7 +8,7 @@ const DashboardLayout = (props) => {
   return (
     <Container className={side.container}>
       <Row className={side.rowcontainer}>
-        <Col lg={2} className = {side.mainnav}>
+        <Col lg={2} className={side.mainnav}>
           <div className={side.navbar}>
             <div className={side.center}>
               <img
@@ -19,27 +19,33 @@ const DashboardLayout = (props) => {
             </div>
             <div className={side.centercontainer1}>
               <NavbarTab
-                imagelink="/icons/sidebar/dashboard-icon.svg"
+                imagelinkactive="/icons/sidebar/dashboard-icon.svg"
+                imagelink="/icons/sidebar/dashboard.svg"
+                // imagelinkactive = "/icons/sidebar/svp.svg"
                 name="Dashboard"
                 path="/"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/project-icon.svg"
+                imagelinkactive="/icons/sidebar/active-project.svg"
                 name="Projects"
                 path="/project"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/tasks-icon.svg"
+                imagelinkactive="/icons/sidebar/active-tasks.svg"
                 name="Tasks"
-                path="tasks"
+                path="/task"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/reports-icon.svg"
+                imagelinkactive="/icons/sidebar/active-reports.svg"
                 name="Reports"
                 path="report"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/messages-icon.svg"
+                imagelinkactive="/icons/sidebar/active-messages.svg"
                 name="Messages"
                 path="message"
               />
@@ -71,7 +77,10 @@ const DashboardLayout = (props) => {
               <div className={side.center}>
                 <p className={side.headertitle}>{props.name}</p>
               </div>
-              <Image src="/icons/dashboard/alarm-icon.svg" className={side.alarm} />
+              <Image
+                src="/icons/dashboard/alarm-icon.svg"
+                className={side.alarm}
+              />
             </div>
           </div>
           <div className={side.contentscontainer}>{props.children}</div>
@@ -84,7 +93,13 @@ const DashboardLayout = (props) => {
 export default DashboardLayout;
 
 const NavbarTab = (props) => {
-  const active = location.pathname === props.path;
+  console.log(props.path);
+  const active =
+    location.pathname === props.path && location.pathname.includes(props.path);
+  console.log(active);
+  console.log(location.pathname.includes(props.path));
+  console.log(location.pathname);
+  // console.log(props.path);
   return (
     <div className={side.hovertext}>
       <Link to={props.path} className={active ? side.linkactive : side.link}>
@@ -94,12 +109,16 @@ const NavbarTab = (props) => {
           }
         >
           <div className={side.center}>
-            <Image src={`${props.imagelink}`} />
+            {active ? (
+              <Image src={`${props.imagelinkactive}`} />
+            ) : (
+              <Image src={`${props.imagelink}`} />
+            )}
           </div>
           <div className={side.center}>
-          <p className={active ? side.linktextactive : side.linktext}>
-            {props.name}
-          </p>
+            <p className={active ? side.linktextactive : side.linktext}>
+              {props.name}
+            </p>
           </div>
         </div>
       </Link>

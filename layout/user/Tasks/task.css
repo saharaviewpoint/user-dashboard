@@ -1,0 +1,11 @@
+.rbc-event,
+.rbc-day-slot .rbc-background-event {
+  background-color: var(--SVP-main) !important;
+}
+
+.rbc-ellipsis,
+.rbc-show-more,
+.rbc-row-segment .rbc-event-content,
+.rbc-event-label {
+  font-family: "Inter", sans-serif;
+}

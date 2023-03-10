@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Image, Modal, Nav, } from "react-bootstrap";
+import { Image, Modal, Nav } from "react-bootstrap";
 import { Today, week } from "../../../data/notification";
 import notification from "./User.module.css";
-import './Modal.css'
+import "./Modal.css";
 
 const Notification = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -49,7 +49,7 @@ const NotificationContent = (props) => {
       <div className={notification.flexcontainercontents}>
         <div className={notification.flexedcontainer}>
           <div className={notification.centernotification}>
-            <Image src={`${props.image}`} class="img-fluid" />
+            <Image src={`${props.image}`} />
           </div>
           <div>
             <p className={notification.notificationcontenttext}>
@@ -73,14 +73,14 @@ const NotificationContent = (props) => {
 const ModalContainer = (props) => {
   return (
     <Modal
-      className = {notification.modal}
+      className={notification.modal}
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-    {/* <div className={notification. modalcontent}> */}
-      <Modal.Header  closeButton>
+      {/* <div className={notification. modalcontent}> */}
+      <Modal.Header closeButton>
         <Modal.Title
           className={notification.containedmodaltitlevcenter}
           id="contained-modal-title-vcenter"
@@ -91,7 +91,7 @@ const ModalContainer = (props) => {
       <Modal.Body className={notification.modalbody}>
         <Nav
           activeKey="/home"
-          className = {notification.nav}
+          className={notification.nav}
           // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
         >
           <Nav.Item className={notification.navitem}>
@@ -116,8 +116,8 @@ const ModalContainer = (props) => {
           </Nav.Item>
         </Nav>
         <div className={notification.notificationcontainer1}>
-        <div className={notification.firstext1container1}>
-          <p className={notification.firsttext1}>Today</p>
+          <div className={notification.firstext1container1}>
+            <p className={notification.firsttext1}>Today</p>
           </div>
           <div className={notification.notificationcontent1}>
             {Today.map((data, index) => (
@@ -130,20 +130,20 @@ const ModalContainer = (props) => {
               />
             ))}
           </div>
-              <div className={notification.firstext1container1}>
-          <p className={notification.firsttext1}>THIS WEEK</p>
+          <div className={notification.firstext1container1}>
+            <p className={notification.firsttext1}>THIS WEEK</p>
           </div>
-               <div className={notification.notificationcontent1}>
-          {week.map((notify, index) => (
-            <NotificationContent
-              image={notify.image}
-              name={notify.name}
-              time={notify.time}
-              id={notify.id}
-              key={index}
-            />
-          ))}
-        </div>
+          <div className={notification.notificationcontent1}>
+            {week.map((notify, index) => (
+              <NotificationContent
+                image={notify.image}
+                name={notify.name}
+                time={notify.time}
+                id={notify.id}
+                key={index}
+              />
+            ))}
+          </div>
         </div>
       </Modal.Body>
       {/* </div> */}
@@ -158,7 +158,6 @@ const ButtonModal = (props) => {
         View all
         <Image
           src="/icons/notification/arrow-down.svg"
-          class="img-fluid"
           className={notification.arrowdown}
           alt="arrow-down"
         />

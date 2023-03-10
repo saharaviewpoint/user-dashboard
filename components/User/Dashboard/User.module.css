@@ -37,7 +37,6 @@
   /* color: var(--SVP-main) !important; */
 }
 
-
 .navbarTabContainerActive {
   border-radius: 0.4rem;
   margin-bottom: 0.2rem;
@@ -65,7 +64,7 @@
   top: 0;
 }
 
-.link:hover{
+.link:hover {
   color: var(--SVP-main);
 }
 
@@ -77,10 +76,8 @@
   font-family: "Inter", sans-serif;
 }
 
-.linktext:hover{
- 
+.linktext:hover {
 }
-
 
 .linktextactive {
   font-size: 1rem;
@@ -375,6 +372,16 @@ a {
   border: none;
 }
 
+.modalbutton:hover {
+  background-color: var(--SVP-main);
+  color: white;
+}
+
+.modalbutton:focus {
+  background-color: var(--SVP-main) !important;
+  color: white;
+}
+
 .modalcontent {
   border-radius: 0px;
 }
@@ -382,7 +389,6 @@ a {
 .modal-content {
   border-top: 0px !important;
   border-bottom: 25px;
-  background-color: aquamarine;
 }
 .modal-content {
   border-radius: 0px !important;
@@ -616,4 +622,10 @@ td {
 
 .notificationcontent1 {
   padding-left: 1rem;
+}
+
+.absoluterightcontainer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2rem;
 }
