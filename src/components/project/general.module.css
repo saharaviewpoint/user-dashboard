@@ -32,6 +32,7 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   padding-bottom: 0.5rem;
+  margin-bottom: 0px;
   color: var(--white);
   font-weight: 600;
 }
@@ -39,6 +40,7 @@
 .titlenavigation {
   font-weight: 600;
   font-size: 1.4rem;
+  margin-bottom: 0px;
   color: var(--textblack);
   font-family: "Inter", sans-serif;
 }
@@ -92,6 +94,7 @@
 
 .linkcontaineractive {
   border-bottom: 2px solid;
+  padding-bottom: 0.5rem;
   border-color: var(--SVP-main);
 }
 
@@ -147,7 +150,7 @@
 }
 
 .tablecontainer {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   border-top: 1px solid;
   border-color: var(--black100);
 }
@@ -257,6 +260,7 @@
   font-family: "Inter", sans-serif;
   color: var(--black600);
   margin-left: 0.3rem;
+  margin-bottom: 0px;
   white-space: nowrap;
 }
 
@@ -325,7 +329,6 @@
 .flexheader {
   display: flex;
   gap: 1rem;
-  height: 2rem;
 }
 .calendartextcontainer {
   border-left: 1px solid;

@@ -21,7 +21,7 @@
   border-bottom-right-radius: 0px;
   cursor: pointer;
   white-space: nowrap;
-  padding: 1rem;
+  padding: 0.8rem;
   font-family: "Inter", sans-serif;
   color: black;
   font-weight: 600;
@@ -84,6 +84,7 @@
 .avatar {
   padding: 7px 6px 7px 6px;
   border-radius: 50%;
+  margin-bottom: 0px;
   color: white;
   background-color: var(--SVP-main);
   font-family: "Inter", sans-serif;
@@ -106,6 +107,7 @@
 .statusbuttontext {
   font-family: "Inter", sans-serif;
   font-size: 1rem;
+  margin-bottom: 0px;
   text-align: center;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -118,6 +120,7 @@
   text-align: center;
   padding: 0.7rem;
   color: var(--white);
+  margin-bottom: 0px;
   font-weight: 600;
 }
 
@@ -183,6 +186,9 @@
 
 .contentcontainer {
   margin-top: 2rem;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
   box-shadow: 4px 8px 13px rgba(0, 0, 0, 0.05);
 }
 
@@ -204,6 +210,7 @@
 
 .innercontainer {
   padding: 0.5rem;
+  flex: 1;
 }
 
 .flextext {
@@ -223,6 +230,7 @@
   font-family: "Inter", sans-serif;
   font-size: 0.8rem;
   margin-right: 4rem;
+  margin-bottom: 0px;
 }
 
 .textname {
@@ -236,6 +244,7 @@
   color: var(--textblack);
   font-family: "Inter", sans-serif;
   font-weight: 700;
+  margin-bottom: 0px;
   margin-left: 1rem;
   font-size: 0.9rem;
 }
@@ -291,6 +300,7 @@
   font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 1rem;
+  margin-bottom: 0px;
   color: var(--black600);
 }
 
