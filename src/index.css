@@ -28,7 +28,7 @@ body {
 }
 
 p {
-  margin-bottom: 0rem;
+  margin-bottom: 0rem !important;
 }
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
