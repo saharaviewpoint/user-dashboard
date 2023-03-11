@@ -3,6 +3,7 @@ import project from "./User.module.css";
 import { Image } from "react-bootstrap";
 import { Projects } from "../../../data/projects";
 import Table from "react-bootstrap/Table";
+import "./Modal.css";
 
 const Project = () => {
   return (

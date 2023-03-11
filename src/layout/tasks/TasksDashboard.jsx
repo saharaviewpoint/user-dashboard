@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Container, Button, Image } from "react-bootstrap";
 import task from "./task.module.css";
+import "./task.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import TableHeaderNav from "../../components/project/TableHeaderNav";
 import TaskTableDisplay from "../../components/tasks/TaskTableDisplay";
