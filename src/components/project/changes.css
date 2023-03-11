@@ -17,11 +17,19 @@
   border-color: var(--black100);
 }
 
-.react-datepicker__aria-live {
-}
-
 .react-datepicker-wrapper,
 .react-datepicker__input-container,
-.react-datepicker__input-container input::placeholder{
+.react-datepicker__input-container input::placeholder {
   padding-left: 12px;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-color: none;
+  border-style: none;
+  border-width: 0px;
 }

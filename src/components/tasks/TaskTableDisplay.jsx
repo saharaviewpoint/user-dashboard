@@ -1,6 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import tasktable from "./tasktable.module.css";
+import "./table.css";
 
 const TaskTableDisplay = (props) => {
   return (

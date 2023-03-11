@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Button, Container, Image } from "react-bootstrap";
 import project from "./project.module.css";
+import "./projects.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import Header from "../../components/project/Header";
 import { ProjectsCollection } from "../../../data/projects";

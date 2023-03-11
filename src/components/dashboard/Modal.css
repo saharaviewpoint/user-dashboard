@@ -27,3 +27,14 @@
 .form-check-input:focus {
   box-shadow: none;
 }
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-color: none;
+  border-style: none;
+  border-width: 0px;
+}
