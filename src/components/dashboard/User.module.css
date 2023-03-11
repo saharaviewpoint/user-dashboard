@@ -73,6 +73,7 @@
   font-weight: 600;
   margin-left: 1rem;
   color: black;
+  margin-bottom: 0px;
   font-family: "Inter", sans-serif;
 }
 
@@ -81,6 +82,7 @@
 
 .linktextactive {
   font-size: 1rem;
+  margin-bottom: 0px;
   color: var(--SVP-main);
   text-decoration: none;
   font-weight: 600;
@@ -232,6 +234,7 @@ a {
   font-family: "Inter", sans-serif;
   font-size: 2rem;
   font-weight: 600;
+  margin-bottom: 0px;
   color: var(--SVP-main);
 }
 
@@ -239,7 +242,7 @@ a {
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  margin-top: 4rem;
+  margin-top: 6rem;
   color: var(--SVP-main);
 }
 
@@ -345,6 +348,7 @@ a {
   color: var(--black400);
   font-size: 0.8rem;
   font-weight: 600;
+  margin-bottom: 0px;
   font-family: "Inter", sans-serif;
 }
 
@@ -506,6 +510,7 @@ th {
   font-size: 1rem;
   display: inline-block;
   margin-left: 0.5rem;
+  margin-bottom: 0px;
 }
 
 td {
@@ -534,8 +539,9 @@ td {
 .projectheader {
   font-family: "Inter", sans-serif;
   font-weight: 700;
+  margin-bottom: 0px;
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   text-transform: uppercase;
 }
 
@@ -562,6 +568,7 @@ td {
   font-family: "Inter", sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
+  margin-bottom: 0px;
   display: inline-block;
 }
 
@@ -570,6 +577,7 @@ td {
   font-size: 0.9rem;
   color: var(--SVP-main);
   font-weight: 600;
+  margin-bottom: 0px;
   display: inline-block;
 }
 
@@ -601,6 +609,7 @@ td {
 .avatar {
   padding: 7px 6px 7px 6px;
   border-radius: 50%;
+  margin-bottom: 0px;
   color: white;
   background-color: var(--SVP-main);
   font-family: "Inter", sans-serif;

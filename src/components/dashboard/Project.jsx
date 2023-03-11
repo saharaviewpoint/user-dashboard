@@ -8,7 +8,9 @@ const Project = () => {
   return (
     <div className={project.projectContainer}>
       <div className={project.projectflexcontainer}>
-        <p className={project.projectheader}>project</p>
+        <div className={project.absolutecenter}>
+          <p className={project.projectheader}>project</p>
+        </div>
         <div className={project.projectflexbuttonscontainer}>
           <Buttons name="All Categories" />
           <Buttons
@@ -22,40 +24,39 @@ const Project = () => {
         </div>
       </div>
       <div className={project.tablecontainer}>
-      <Table striped className={project.tablestriped}>
-        <thead className={project.tableheader}>
-          <tr>
-            <th>PROJECT NAME</th>
-            <th className={project.centericon}>ASSIGNED BY</th>
-            <th className={project.centericon}>DUE DATE</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Projects.map((projectdata, index) => (
-            <tr key={index}>
-              <td>
-                <div className={project.flexcontent}>
-                  {projectdata.star === "starred" ? (
-                    <Icon imagelink="/icons/dashboard/task/starred.svg" />
-                  ) : (
-                    <Icon imagelink="/icons/dashboard/task/star.svg" />
-                  )}
-                  <div className={project.centertext}>
-                    <p className={project.tasktitle}>{projectdata.name}</p>
-                  </div>
-                </div>
-              </td>
-              <td className={project.centericon}>
-              <div className={project.absolutecenter}> 
-              <p className={project.avatar}>
-              {projectdata.initials}</p>
-              </div>
-              </td>
-              <td className={project.centericon}>{projectdata.date}</td>
+        <Table striped className={project.tablestriped}>
+          <thead className={project.tableheader}>
+            <tr>
+              <th>PROJECT NAME</th>
+              <th className={project.centericon}>ASSIGNED BY</th>
+              <th className={project.centericon}>DUE DATE</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {Projects.map((projectdata, index) => (
+              <tr key={index}>
+                <td>
+                  <div className={project.flexcontent}>
+                    {projectdata.star === "starred" ? (
+                      <Icon imagelink="/icons/dashboard/task/starred.svg" />
+                    ) : (
+                      <Icon imagelink="/icons/dashboard/task/star.svg" />
+                    )}
+                    <div className={project.centertext}>
+                      <p className={project.tasktitle}>{projectdata.name}</p>
+                    </div>
+                  </div>
+                </td>
+                <td className={project.centericon}>
+                  <div className={project.absolutecenter}>
+                    <p className={project.avatar}>{projectdata.initials}</p>
+                  </div>
+                </td>
+                <td className={project.centericon}>{projectdata.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     </div>
   );
