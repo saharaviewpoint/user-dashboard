@@ -1,32 +1,35 @@
-*{
+* {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
 }
 
-:root{
-  --SVP-main: #CBAB3A;
-  --SVP-main50: #FFF07D;
-  --SVP-main200: #E6C452;
-  --SVP-main400: #E6C452;
-  --white: #FFFFFF;
-  --textblack: #3F3F3F;
-  --black50: #F3F3F3;
-  --black100: #DDDDDD;
-  --black200: #C6C6C6;
-  --black400:#9B9B9B;
-  --black600:#727272;
-  --success: #45C000;
-  --warning: #FCE83A;
-  --error: #FF3838;
-  --dashboard-yellow: #FFFCF4;
+:root {
+  --SVP-main: #cbab3a;
+  --SVP-main50: #fff07d;
+  --SVP-main200: #e6c452;
+  --SVP-main400: #e6c452;
+  --white: #ffffff;
+  --textblack: #3f3f3f;
+  --black50: #f3f3f3;
+  --black100: #dddddd;
+  --black200: #c6c6c6;
+  --black400: #9b9b9b;
+  --black600: #727272;
+  --success: #45c000;
+  --warning: #fce83a;
+  --error: #ff3838;
+  --dashboard-yellow: #fffcf4;
   --active-selection-black: rgba(104, 102, 95, 0.1);
 }
 
-body{
-  font-family: 'Inter', sans-serif;
+body {
+  font-family: "Inter", sans-serif;
 }
 
+p {
+  margin-bottom: 0rem;
+}
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -45,7 +48,6 @@ h3,
 h4,
 h5,
 h6,
-p,
 blockquote,
 pre,
 a,
@@ -154,7 +156,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 

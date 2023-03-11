@@ -93,7 +93,6 @@ const DashboardLayout = (props) => {
 export default DashboardLayout;
 
 const NavbarTab = (props) => {
-  console.log(props.path);
   const active =
     location.pathname === props.path && location.pathname.includes(props.path);
   console.log(active);
