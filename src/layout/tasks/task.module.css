@@ -35,6 +35,8 @@
   background-color: white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   border: none;
   padding: 0rem;
   cursor: pointer;
@@ -79,6 +81,7 @@
   font-size: 1rem;
   display: inline-block;
   margin-left: 0.5rem;
+  margin-bottom: 0px;
 }
 
 .absolutecenter {
@@ -91,6 +94,7 @@
   padding: 7px 6px 7px 6px;
   border-radius: 50%;
   color: white;
+  margin-bottom: 0px;
   background-color: var(--SVP-main);
   font-family: "Inter", sans-serif;
 }
@@ -122,6 +126,7 @@
   text-align: center;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  margin-bottom: 0px;
   color: var(--white);
   font-weight: 600;
 }

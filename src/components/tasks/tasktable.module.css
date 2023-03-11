@@ -1,5 +1,5 @@
 .tablecontainer {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   border-top: 1px solid;
   border-color: var(--black100);
 }
@@ -52,6 +52,7 @@
 .titlenavigation {
   font-weight: 600;
   font-size: 1.4rem;
+  margin-bottom: 0px;
   color: var(--textblack);
   font-family: "Inter", sans-serif;
 }
@@ -95,12 +96,14 @@
   color: var(--black400);
   font-weight: 500;
   font-size: 1rem;
+  margin-bottom: 0px;
   margin-right: 1rem;
 }
 .navboxestextactive {
   font-family: "Inter", sans-serif;
   color: var(--SVP-main);
   font-weight: 500;
+  margin-bottom: 0px;
   font-size: 1rem;
   margin-right: 1rem;
 }
