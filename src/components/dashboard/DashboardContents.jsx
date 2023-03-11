@@ -13,7 +13,7 @@ const DashboardContents = () => {
       {/* <div className={user.absoluterightcontainer}>
         <ButtonProject />
       </div> */}
-      
+
       <ButtonProject />
       <div className={user.flexcontainer}>
         {collections.map((collection, index) => (
@@ -43,7 +43,9 @@ const Cards = (props) => {
       <div className={user.innercontent}>
         <div className={user.contentheader}>
           <Image src={`${props.imagelink}`} />
-          <p className={user.contentheadertext}>{props.text}</p>
+          <div className={user.absolutecenter}>
+            <p className={user.contentheadertext}>{props.text}</p>
+          </div>
         </div>
         <p className={user.title}>{props.title}</p>
         <p className={user.description}>{props.description}</p>
