@@ -87,6 +87,12 @@
   margin-left: 1rem;
 }
 
+.linkcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .linkcontainer:hover {
   border-bottom: 2px solid;
   border-color: var(--SVP-main);
@@ -95,6 +101,9 @@
 .linkcontaineractive {
   border-bottom: 2px solid;
   padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-color: var(--SVP-main);
 }
 
