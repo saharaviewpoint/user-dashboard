@@ -1,7 +1,7 @@
 import React from "react";
-import DashboardLayout from "../../../components/User/Dashboard/DashboardLayout";
-import TaskHeader from "../../../components/User/Tasks/TaskHeader";
-import TableHeaderNav from "../../../components/User/Project/TableHeaderNav";
+import DashboardLayout from "../../../components/user/dashboard/DashboardLayout";
+import TaskHeader from "../../../components/user/tasks/TaskHeader";
+import TableHeaderNav from "../../../components/user/project/TableHeaderNav";
 import taskcalendar from "./task.module.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -32,8 +32,8 @@ const TaskCalendarDashboard = () => {
               step={60}
               localizer={localizer}
               // views={allViews}
-              defaultView={week}
-              views={["week"]}
+              // defaultView={week}
+              // views={["week"]}
               defaultDate={new Date(2015, 3, 1)}
               popup={false}
               //   onShowMore={(events, date) =>

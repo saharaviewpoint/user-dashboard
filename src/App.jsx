@@ -7,13 +7,13 @@ import "./index.css";
 import { createMedia } from "@artsy/fresnel";
 import NotFound from "../pages/NotFound";
 import Homepage from "../pages/Homepage";
-import ProjectBoard from "../pages/Projects/ProjectBoard";
-import ProjectGrid from "../pages/Projects/ProjectGrid";
-import ProjectForm from "../pages/Projects/ProjectForm";
-import Tasks from "../pages/Tasks/Tasks";
-import TaskBoard from "../pages/Tasks/TaskBoard";
-import TaskCalendar from "../pages/Tasks/TaskCalendar";
-import Projects from "../pages/Projects/Projects";
+import ProjectBoard from "../pages/projects/ProjectBoard";
+import ProjectGrid from "../pages/projects/ProjectGrid";
+import ProjectForm from "../pages/projects/ProjectForm";
+import Tasks from "../pages/tasks/Tasks";
+import TaskBoard from "../pages/tasks/TaskBoard";
+import TaskCalendar from "../pages/tasks/TaskCalendar";
+import Projects from "../pages/projects/Projects";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {

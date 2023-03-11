@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from "react";
 import { Container, Button, Image } from "react-bootstrap";
 import task from "./task.module.css";
-import DashboardLayout from "../../../components/User/Dashboard/DashboardLayout";
-import Header from "../../../components/User/Project/Header";
-import TableHeaderNav from "../../../components/User/Project/TableHeaderNav";
-import TaskTableDisplay from "../../../components/User/Tasks/TaskTableDisplay";
+import DashboardLayout from "../../../components/user/dashboard/DashboardLayout";
+import Header from "../../../components/user/project/Header";
+import TableHeaderNav from "../../../components/user/project/TableHeaderNav";
+import TaskTableDisplay from "../../../components/user/tasks/TaskTableDisplay";
 import { TasksCollection } from "../../../data/task";
-import TaskHeader from "../../../components/User/Tasks/TaskHeader";
+import TaskHeader from "../../../components/user/tasks/TaskHeader";
 
 const TasksDashboard = () => {
   const [filter, setFilter] = useState(null);

@@ -1,11 +1,11 @@
 import React from "react";
-import DashboardLayout from "../../../components/User/Dashboard/DashboardLayout";
-import Header from "../../../components/User/Project/Header";
+import DashboardLayout from "../../../components/user/dashboard/DashboardLayout";
+import Header from "../../../components/user/project/Header";
 import grid from "./project.module.css";
 import { Container, Image } from "react-bootstrap";
 import { ProjectBoardData } from "../../../data/projects";
-import TableHeaderNav from "../../../components/User/Project/TableHeaderNav";
-import { ButtonProject } from "../../../components/User/Dashboard/DashboardContents";
+import TableHeaderNav from "../../../components/user/project/TableHeaderNav";
+import { ButtonProject } from "../../../components/user/dashboard/DashboardContents";
 
 const ProjectBoardDashboard = () => {
   // const [upcoming, setUpcoming] = useState(null);

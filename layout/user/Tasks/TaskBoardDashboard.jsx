@@ -1,9 +1,9 @@
 import React from "react";
-import DashboardLayout from "../../../components/User/Dashboard/DashboardLayout";
-import TableHeaderNav from "../../../components/User/Project/TableHeaderNav";
+import DashboardLayout from "../../../components/user/dashboard/DashboardLayout";
+import TableHeaderNav from "../../../components/user/project/TableHeaderNav";
 import { Container, Image } from "react-bootstrap";
 import taskboard from "./task.module.css";
-import TaskHeader from "../../../components/User/Tasks/TaskHeader";
+import TaskHeader from "../../../components/user/tasks/TaskHeader";
 import { TaskBoardData } from "../../../data/task";
 
 const TaskBoardDashboard = () => {
