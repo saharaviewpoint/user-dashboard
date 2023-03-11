@@ -7,7 +7,7 @@ import "./index.css";
 import { createMedia } from "@artsy/fresnel";
 import Homepage from "./pages/Homepage";
 import NotFound from "./pages/NotFound";
-import Projects from "./pages/Projects/Projects";
+import Projects from "./pages/projects/Projects";
 import TaskCalendar from "./pages/tasks/TaskCalendar";
 import TaskBoard from "./pages/tasks/TaskBoard";
 import Tasks from "./pages/tasks/Tasks";
