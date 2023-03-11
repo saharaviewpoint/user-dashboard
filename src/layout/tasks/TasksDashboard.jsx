@@ -38,12 +38,12 @@ const TasksDashboard = () => {
               onClick={() => setFilter("Approved")}
             />
             <NavCategories
-              name="In Progress"
+              name="Pending"
               total="(10)"
               onClick={() => setFilter("Pending")}
             />
             <NavCategories
-              name="Completed"
+              name="Declined"
               total="(11)"
               onClick={() => setFilter("Declined")}
             />
