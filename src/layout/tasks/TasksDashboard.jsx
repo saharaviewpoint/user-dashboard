@@ -47,6 +47,8 @@ const TasksDashboard = () => {
               total="(11)"
               onClick={() => setFilter("Declined")}
             />
+          </div>
+          <div className={task.rightcontainer}>
             <TableHeaderNav />
           </div>
           <TaskTableDisplay>

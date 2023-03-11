@@ -49,16 +49,20 @@
 
 .leftcontainer {
   display: flex;
+  justify-content: center;
   gap: 1rem;
+  /* border-bottom: 1px solid; */
+  /* border-color: var(--black100); */
   /* border-bottom: 1px solid; */
   margin-top: 1rem;
 }
 
-.absoluterightcontainer {
+/* .absoluterightcontainer {
   display: flex;
+  margin-top: 0rem;
   align-items: center;
   justify-content: flex-end;
-}
+} */
 
 .tablenavtext {
   padding: 1rem;
@@ -136,6 +140,8 @@
   flex-wrap: wrap;
   gap: 2rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 2rem;
 }
 
@@ -284,7 +290,9 @@
 .absoluterightcontainer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid;
+  border-color: var(--black100);
 }
 
 .flexicon {
@@ -404,4 +412,13 @@
   font-weight: 500;
   font-size: 1rem;
   border-color: var(--SVP-main);
+}
+
+.rightcontainer {
+  display: flex;
+  border-top: 1px solid;
+  border-color: var(--black100);
+  margin-top: 0.4rem;
+  padding-top: 1rem;
+  justify-content: flex-end;
 }
