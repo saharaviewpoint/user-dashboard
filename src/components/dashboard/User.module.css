@@ -610,7 +610,10 @@ td {
 }
 
 .avatar {
-  padding: 0.5rem 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
   border-radius: 50%;
   margin-bottom: 0px;
   color: white;
