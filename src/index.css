@@ -28,7 +28,7 @@ body {
 }
 
 p {
-  margin-bottom: 0px;
+  margin-bottom: 0rem;
 }
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -48,7 +48,6 @@ h3,
 h4,
 h5,
 h6,
-p,
 blockquote,
 pre,
 a,
