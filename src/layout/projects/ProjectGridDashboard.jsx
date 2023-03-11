@@ -19,38 +19,51 @@ const ProjectGridDashboard = () => {
     );
     return filteredData;
   }, [filter]);
+
+  const filteredInProgressData = ProjectsCollection.filter(
+    (item) => item.activestatus === "InProgress"
+  );
+
+  const filteredUpcomingData = ProjectsCollection.filter(
+    (item) => item.activestatus === "Upcoming"
+  );
+
+  const filteredCompleteData = ProjectsCollection.filter(
+    (item) => item.activestatus === "Complete"
+  );
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">
         <div className={project.overallcontainer}>
           <ButtonProject />
           <Header name="My Projects" />
+          {/* <div className={project.absolutecenter}> */}
           <div className={project.leftcontainer}>
             <NavCategories
               name="All Projects"
-              total="(23)"
+              total={`(${ProjectsCollection.length})`}
               onClick={() => setFilter(null)}
             />
 
             <NavCategories
               name="Upcoming"
-              total="(02)"
+              total={`(${filteredUpcomingData.length})`}
               onClick={() => setFilter("Upcoming")}
             />
             <NavCategories
               name="In Progress"
-              total="(10)"
+              total={`(${filteredInProgressData.length})`}
               onClick={() => setFilter("InProgress")}
             />
             <NavCategories
               name="Completed"
-              total="(11)"
+              total={`(${filteredCompleteData.length})`}
               onClick={() => setFilter("Complete")}
             />
-
-            <div className={project.absoluterightcontainer}>
-              <TableHeaderNav />
-            </div>
+          </div>
+          {/* </div> */}
+          <div className={project.absoluterightcontainer}>
+            <TableHeaderNav />
           </div>
           <div className={project.wrap}>
             {data.map((projectcollect, index) => (

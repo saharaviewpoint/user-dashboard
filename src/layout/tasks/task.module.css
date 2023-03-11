@@ -28,6 +28,7 @@
 .leftcontainer {
   display: flex;
   gap: 1rem;
+  justify-content: center;
   margin-top: 1rem;
 }
 
@@ -277,4 +278,13 @@
   font-weight: 500;
   font-size: 1rem;
   color: var(--black400);
+}
+
+.rightcontainer {
+  display: flex;
+  border-top: 1px solid;
+  border-color: var(--black100);
+  margin-top: 0.4rem;
+  padding-top: 1rem;
+  justify-content: flex-end;
 }

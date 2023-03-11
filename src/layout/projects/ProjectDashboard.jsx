@@ -55,6 +55,8 @@ const ProjectDashboard = () => {
               total="(11)"
               onClick={() => setFilter("Complete")}
             />
+          </div>
+          <div className={project.rightcontainer}>
             <TableHeaderNav />
           </div>
           <TableDisplay>
