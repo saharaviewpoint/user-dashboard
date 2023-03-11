@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardLayout from "../../../components/user/dashboard/DashboardLayout";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import projectform from "./project.module.css";
 import Form from "react-bootstrap/Form";
 import { Container, Button } from "react-bootstrap";

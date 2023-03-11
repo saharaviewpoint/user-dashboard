@@ -1,5 +1,5 @@
 import React from "react";
-import TaskBoardDashboard from "../../layout/user/tasks/TaskBoardDashboard";
+import TaskBoardDashboard from "../../layout/tasks/TaskBoardDashboard";
 
 const TaskBoard = () => {
   return <TaskBoardDashboard />;

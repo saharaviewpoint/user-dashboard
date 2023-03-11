@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectGridDashboard from "../../layout/user/projects/ProjectGridDashboard";
+import ProjectGridDashboard from "../../layout/projects/ProjectGridDashboard";
 
 const ProjectGrid = () => {
   return (
