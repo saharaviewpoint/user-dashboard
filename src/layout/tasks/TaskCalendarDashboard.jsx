@@ -1,14 +1,14 @@
 import React from "react";
-import DashboardLayout from "../../../components/user/dashboard/DashboardLayout";
-import TaskHeader from "../../../components/user/tasks/TaskHeader";
-import TableHeaderNav from "../../../components/user/project/TableHeaderNav";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import TaskHeader from "../../components/tasks/TaskHeader";
+import TableHeaderNav from '../../components/project/TableHeaderNav'
 import taskcalendar from "./task.module.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "./task.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Container } from "react-bootstrap";
-import { calendarevents } from "../../../../data/calendarevents";
+import { calendarevents } from "../../../data/calendarevents";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);

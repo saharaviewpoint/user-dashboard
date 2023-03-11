@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectFormDashboard from "../../../layout/user/Projects/ProjectFormDashboard";
+import ProjectFormDashboard from "../../layout/projects/ProjectFormDashboard";
 
 const ProjectForm = () => {
   return (

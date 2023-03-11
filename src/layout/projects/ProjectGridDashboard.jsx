@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { Container, Image, Button } from "react-bootstrap";
 import project from "./project.module.css";
-import DashboardLayout from "../../../components/User/Dashboard/DashboardLayout";
-import Header from "../../../components/User/Project/Header";
-import { ProjectsCollection } from "../../../data/projects";
-import TableHeaderNav from "../../../components/User/Project/TableHeaderNav";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import Header from "../../components/project/Header";
+import TableHeaderNav from "../../components/project/TableHeaderNav";
 // import TableDisplay from "../../../components/User/Project/TableDisplay";
-import ProjectGridContainer from "../../../components/User/Project/ProjectGridContainer";
-import { ButtonProject } from "../../../components/User/Dashboard/DashboardContents";
+import ProjectGridContainer from "../../components/project/ProjectGridContainer";
+import { ButtonProject } from "../../components/dashboard/DashboardContents";
+import { ProjectsCollection } from "../../../data/projects";
 
 const ProjectGridDashboard = () => {
   const [filter, setFilter] = useState(null);

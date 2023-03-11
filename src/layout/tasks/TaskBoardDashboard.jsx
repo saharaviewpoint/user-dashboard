@@ -1,10 +1,10 @@
 import React from "react";
-import DashboardLayout from "../../../components/user/dashboard/DashboardLayout";
-import TableHeaderNav from "../../../components/user/project/TableHeaderNav";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import TableHeaderNav from "../../components/project/TableHeaderNav";
 import { Container, Image } from "react-bootstrap";
 import taskboard from "./task.module.css";
-import TaskHeader from "../../../components/user/tasks/TaskHeader";
-import { TaskBoardData } from "../../../../data/task";
+import TaskHeader from "../../components/tasks/TaskHeader";
+import { TaskBoardData } from "../../../data/task";
 
 const TaskBoardDashboard = () => {
   const filteredInProgressData = TaskBoardData.filter(
