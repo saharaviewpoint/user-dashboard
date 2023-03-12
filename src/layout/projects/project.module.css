@@ -49,12 +49,16 @@
 
 .leftcontainer {
   display: flex;
-  justify-content: center;
   gap: 1rem;
   /* border-bottom: 1px solid; */
   /* border-color: var(--black100); */
   /* border-bottom: 1px solid; */
   margin-top: 1rem;
+}
+
+.flexwrap {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* .absoluterightcontainer {
@@ -421,4 +425,8 @@
   margin-top: 0.4rem;
   padding-top: 1rem;
   justify-content: flex-end;
+}
+
+.align {
+  vertical-align: middle;
 }

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Image, Modal, Nav } from "react-bootstrap";
+import React from "react";
+import { Image, Modal, Nav, Button } from "react-bootstrap";
 import { Today, week } from "../../../data/notification";
 import notification from "./User.module.css";
 import "./Modal.css";
@@ -62,7 +62,7 @@ const NotificationContent = (props) => {
           </div>
         </div>
         <div>
-          <button className={notification.view}>View</button>
+          <Button className={notification.view}>View</Button>
         </div>
       </div>
       {props.id === "1" ? <hr className={notification.horizontalline} /> : null}
@@ -154,14 +154,14 @@ const ModalContainer = (props) => {
 const ButtonModal = (props) => {
   return (
     <div>
-      <button className={notification.modalbutton} onClick={props.handleclick}>
+      <Button className={notification.modalbutton} onClick={props.handleclick}>
         View all
         <Image
           src="/icons/notification/arrow-down.svg"
           className={notification.arrowdown}
           alt="arrow-down"
         />
-      </button>
+      </Button>
     </div>
   );
 };

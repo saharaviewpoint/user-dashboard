@@ -128,8 +128,10 @@
   font-family: "Inter", sans-serif;
   font-size: 1rem;
   text-align: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.8rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  padding-bottom: 0.8rem;
   margin-bottom: 0px;
   color: var(--white);
   font-weight: 600;
@@ -287,4 +289,9 @@
   margin-top: 0.4rem;
   padding-top: 1rem;
   justify-content: flex-end;
+}
+
+.flexwrap {
+  display: flex;
+  flex-wrap: wrap;
 }

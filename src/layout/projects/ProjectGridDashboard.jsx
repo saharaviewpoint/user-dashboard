@@ -21,7 +21,7 @@ const ProjectGridDashboard = () => {
   }, [filter]);
 
   const filteredInProgressData = ProjectsCollection.filter(
-    (item) => item.activestatus === "InProgress"
+    (item) => item.activestatus === "In Progress"
   );
 
   const filteredUpcomingData = ProjectsCollection.filter(
@@ -39,32 +39,32 @@ const ProjectGridDashboard = () => {
           <Header name="My Projects" />
           {/* <div className={project.absolutecenter}> */}
           <div className={project.leftcontainer}>
-            <NavCategories
-              name="All Projects"
-              total={`(${ProjectsCollection.length})`}
-              onClick={() => setFilter(null)}
-            />
+            <div className={project.flexwrap}>
+              <NavCategories
+                name="All Projects"
+                total={`(${ProjectsCollection.length})`}
+                onClick={() => setFilter(null)}
+              />
 
-            <NavCategories
-              name="Upcoming"
-              total={`(${filteredUpcomingData.length})`}
-              onClick={() => setFilter("Upcoming")}
-            />
-            <NavCategories
-              name="In Progress"
-              total={`(${filteredInProgressData.length})`}
-              onClick={() => setFilter("InProgress")}
-            />
-            <NavCategories
-              name="Completed"
-              total={`(${filteredCompleteData.length})`}
-              onClick={() => setFilter("Complete")}
-            />
-          </div>
-          {/* </div> */}
-          <div className={project.absoluterightcontainer}>
+              <NavCategories
+                name="Upcoming"
+                total={`(${filteredUpcomingData.length})`}
+                onClick={() => setFilter("Upcoming")}
+              />
+              <NavCategories
+                name="In Progress"
+                total={`(${filteredInProgressData.length})`}
+                onClick={() => setFilter("In Progress")}
+              />
+              <NavCategories
+                name="Completed"
+                total={`(${filteredCompleteData.length})`}
+                onClick={() => setFilter("Complete")}
+              />
+            </div>
             <TableHeaderNav />
           </div>
+          {/* </div> */}
           <div className={project.wrap}>
             {data.map((projectcollect, index) => (
               <ProjectGridContainer
