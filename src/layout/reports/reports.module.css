@@ -1,0 +1,56 @@
+.container {
+  max-width: 1600px !important;
+  padding: 0rem !important;
+  /* background-color: var(--dashboard-yellow); */
+}
+
+.overallcontainer {
+  background-color: white;
+  margin: 0 auto;
+  /* padding-bottom: 2rem; */
+  width: 90%;
+}
+
+.leftcontainer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.flexwrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tablenavcontainer {
+  background-color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border: none;
+  padding: 0rem;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 1rem;
+  font-family: "Inter", sans-serif;
+  color: black;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.tablenavcontainer:active {
+  background-color: var(--SVP-main);
+}
+
+.tablenavcontainer:focus {
+  background-color: var(--SVP-main) !important;
+  color: white;
+}
+
+.tablenavcontainer:hover {
+  background-color: var(--SVP-main) !important;
+}

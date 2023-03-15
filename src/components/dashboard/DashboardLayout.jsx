@@ -41,7 +41,7 @@ const DashboardLayout = (props) => {
                 imagelink="/icons/sidebar/reports-icon.svg"
                 imagelinkactive="/icons/sidebar/active-reports.svg"
                 name="Reports"
-                path="report"
+                path="/reports"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/messages-icon.svg"
