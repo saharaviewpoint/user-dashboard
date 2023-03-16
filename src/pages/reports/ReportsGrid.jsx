@@ -1,7 +1,8 @@
 import React from "react";
+import ReportsGridDashboard from "../../layout/reports/ReportsGridDashboard";
 
 const ReportsGrid = () => {
-  return <div>ReportsGrid</div>;
+  return <ReportsGridDashboard />;
 };
 
 export default ReportsGrid;

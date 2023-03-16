@@ -1,7 +1,8 @@
+import ReportsTableDashboard from "@/layout/reports/ReportsTableDashboard";
 import React from "react";
 
 const ReportsTable = () => {
-  return <div>ReportsTable</div>;
+  return <ReportsTableDashboard />;
 };
 
 export default ReportsTable;

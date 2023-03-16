@@ -197,3 +197,20 @@
   padding-top: 0.5rem;
   color: #9b9b9b;
 }
+
+.spacing {
+  padding-bottom: 5rem;
+}
+
+.tablecontainer {
+  margin-top: 1rem;
+  /* border-top: 1px solid; */
+  border-color: var(--black100);
+}
+
+.centericon1 {
+  font-family: "Inter", sans-serif;
+  color: var(--black400);
+  font-size: 0.8rem;
+  font-weight: 700;
+}

@@ -19,7 +19,7 @@ const Header = (props) => {
           />
           <NavBoxes
             pathlink="/reports/grid"
-            title="Board"
+            title="Grid"
             imagelink="/icons/header/grid.svg"
             imagelinkactive="/icons/header/active-grid.svg"
           />
