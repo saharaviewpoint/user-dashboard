@@ -10,7 +10,7 @@ import { ButtonProject } from "../../components/dashboard/DashboardContents";
 const ProjectBoardDashboard = () => {
   // const [upcoming, setUpcoming] = useState(null);
   const filteredInProgressData = ProjectBoardData.filter(
-    (item) => item.activestatus === "InProgress"
+    (item) => item.activestatus === "In Progress"
   );
 
   const filteredUpcomingData = ProjectBoardData.filter(
@@ -134,7 +134,7 @@ const ContentContainer = (props) => {
           </div>
           <div
             className={
-              props.status === "InProgress"
+              props.status === "In Progress"
                 ? grid.statusbutton
                 : grid.completebutton
             }

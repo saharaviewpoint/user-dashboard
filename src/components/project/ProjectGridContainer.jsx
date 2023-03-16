@@ -33,7 +33,7 @@ const Button = (props) => {
   return (
     <div
       className={
-        props.text === "InProgress"
+        props.text === "In Progress"
           ? grid.statusbutton
           : props.text === "Complete"
           ? grid.completebutton

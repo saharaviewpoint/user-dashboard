@@ -26,29 +26,29 @@ const TasksDashboard = () => {
         <div className={task.overallcontainer}>
           <TaskHeader name="My Tasks" />
           <div className={task.leftcontainer}>
-            <NavCategories
-              name="All Projects"
-              total="(23)"
-              onClick={() => setFilter(null)}
-            />
+            <div className={task.flexwrap}>
+              <NavCategories
+                name="All Projects"
+                total="(23)"
+                onClick={() => setFilter(null)}
+              />
 
-            <NavCategories
-              name="Approved"
-              total="(02)"
-              onClick={() => setFilter("Approved")}
-            />
-            <NavCategories
-              name="Pending"
-              total="(10)"
-              onClick={() => setFilter("Pending")}
-            />
-            <NavCategories
-              name="Declined"
-              total="(11)"
-              onClick={() => setFilter("Declined")}
-            />
-          </div>
-          <div className={task.rightcontainer}>
+              <NavCategories
+                name="Approved"
+                total="(02)"
+                onClick={() => setFilter("Approved")}
+              />
+              <NavCategories
+                name="Pending"
+                total="(10)"
+                onClick={() => setFilter("Pending")}
+              />
+              <NavCategories
+                name="Declined"
+                total="(11)"
+                onClick={() => setFilter("Declined")}
+              />
+            </div>
             <TableHeaderNav />
           </div>
           <TaskTableDisplay>
@@ -111,7 +111,7 @@ const StatusButton = (props) => {
   return (
     <div
       className={
-        props.text === "InProgress"
+        props.text === "In Progress"
           ? task.statusbutton
           : props.text === "Declined"
           ? task.declinedbutton

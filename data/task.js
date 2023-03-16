@@ -92,8 +92,8 @@ export const TasksCollection = [
     personname: "Reed Richards",
     date: "16/09/23",
     id: "12345",
-    status: "InProgress",
-    activestatus: "InProgress",
+    status: "In Progress",
+    activestatus: "In Progress",
     priority: "important",
   },
   {
@@ -106,8 +106,8 @@ export const TasksCollection = [
     personname: "Susan Storm",
     id: "52345",
     date: "16/09/23",
-    status: "InProgress",
-    activestatus: "InProgress",
+    status: "In Progress",
+    activestatus: "In Progress",
     priority: "normal",
   },
   {
@@ -231,7 +231,7 @@ export const TaskBoardData = [
     description:
       "Site hoarding for 6-Bedroom Building Construction for Danjuma Homes.",
     duedate: "17/01/2023",
-    activestatus: "InProgress",
+    activestatus: "In Progress",
     priority: "important",
   },
   {
@@ -240,7 +240,7 @@ export const TaskBoardData = [
     description:
       "Excavation for 6-Bedroom Building Construction for Danjuma Homes.",
     duedate: "17/01/2023",
-    activestatus: "InProgress",
+    activestatus: "In Progress",
     priority: "normal",
   },
   {
@@ -249,7 +249,7 @@ export const TaskBoardData = [
     description:
       "Foundation for 6-Bedroom Building Construction for Danjuma Homes.",
     duedate: "17/01/2023",
-    activestatus: "InProgress",
+    activestatus: "In Progress",
     priority: "warning",
   },
   {

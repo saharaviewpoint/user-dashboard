@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Button, Container, Image } from "react-bootstrap";
+import { Button, Container, Image, Row, Col } from "react-bootstrap";
 import project from "./project.module.css";
 import "./projects.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
@@ -34,29 +34,29 @@ const ProjectDashboard = () => {
           <ButtonProject />
           <Header name="My Projects" />
           <div className={project.leftcontainer}>
-            <NavCategories
-              name="All Projects"
-              total="(23)"
-              onClick={() => setFilter(null)}
-            />
+            <div className={project.flexwrap}>
+              <NavCategories
+                name="All Projects"
+                total="(23)"
+                onClick={() => setFilter(null)}
+              />
 
-            <NavCategories
-              name="Upcoming"
-              total="(02)"
-              onClick={() => setFilter("Upcoming")}
-            />
-            <NavCategories
-              name="In Progress"
-              total="(10)"
-              onClick={() => setFilter("InProgress")}
-            />
-            <NavCategories
-              name="Completed"
-              total="(11)"
-              onClick={() => setFilter("Complete")}
-            />
-          </div>
-          <div className={project.rightcontainer}>
+              <NavCategories
+                name="Upcoming"
+                total="(02)"
+                onClick={() => setFilter("Upcoming")}
+              />
+              <NavCategories
+                name="In Progress"
+                total="(10)"
+                onClick={() => setFilter("In Progress")}
+              />
+              <NavCategories
+                name="Completed"
+                total="(11)"
+                onClick={() => setFilter("Complete")}
+              />
+            </div>
             <TableHeaderNav />
           </div>
           <TableDisplay>
@@ -69,7 +69,7 @@ const ProjectDashboard = () => {
                 key={index}
                 className={project.tablerow}
               >
-                <td>{projectcollect.name}</td>
+                <td className={project.align}>{projectcollect.name}</td>
                 <td>
                   <div className={project.absolutecenter}>
                     <p className={project.avatar}>{projectcollect.initials}</p>
@@ -109,7 +109,7 @@ const StatusButton = (props) => {
   return (
     <div
       className={
-        props.text === "InProgress"
+        props.text === "In Progress"
           ? project.statusbutton
           : props.text === "Complete"
           ? project.completebutton

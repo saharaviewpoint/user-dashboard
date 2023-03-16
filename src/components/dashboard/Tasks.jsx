@@ -3,7 +3,7 @@ import task from "./User.module.css";
 import Table from "react-bootstrap/Table";
 import { Image } from "react-bootstrap";
 import { TasksData } from "../../../data/task";
-import { truncateString } from '../../../util/text';
+import { truncateString } from "../../../util/text";
 
 const Tasks = () => {
   return (
@@ -21,20 +21,22 @@ const Tasks = () => {
         </thead>
         <tbody>
           {TasksData.map((Taskdata, index) => (
-            <tr key = {index}>
-              <td>
+            <tr key={index}>
+              <td className={task.align}>
                 <div className={task.flexcontent}>
-                {Taskdata.star === "starred" ? (
-                  <Icon imagelink="/icons/dashboard/task/starred.svg" />
-                ) : (
-                  <Icon imagelink="/icons/dashboard/task/star.svg" />
-                )}
-                <div className={task.centertext}>
-                <p className={task.tasktitle}>{truncateString(Taskdata.name,10)}</p>
-                </div>
+                  {Taskdata.star === "starred" ? (
+                    <Icon imagelink="/icons/dashboard/task/starred.svg" />
+                  ) : (
+                    <Icon imagelink="/icons/dashboard/task/star.svg" />
+                  )}
+                  <div className={task.centertext}>
+                    <p className={task.tasktitle}>
+                      {truncateString(Taskdata.name, 10)}
+                    </p>
+                  </div>
                 </div>
               </td>
-              <td>{Taskdata.date}</td>
+              <td className={task.align}>{Taskdata.date}</td>
               <td className={task.centericon}>
                 {Taskdata.approved === true ? (
                   <Icon imagelink="/icons/dashboard/task/progress-true.svg" />
@@ -61,15 +63,15 @@ const Tasks = () => {
         </tbody>
       </Table>
       <div className={task.rightbuttoncontainer}>
-      <button className={task.modalbutton}>
-        View all
-        <Image
-          src="/icons/notification/arrow-down.svg"
-          class="img-fluid"
-          className={task.arrowdown}
-          alt="arrow-down"
-        />
-      </button>
+        <button className={task.modalbutton}>
+          View all
+          <Image
+            src="/icons/notification/arrow-down.svg"
+            class="img-fluid"
+            className={task.arrowdown}
+            alt="arrow-down"
+          />
+        </button>
       </div>
     </div>
   );

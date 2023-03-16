@@ -36,7 +36,7 @@ const Project = () => {
           <tbody>
             {Projects.map((projectdata, index) => (
               <tr key={index}>
-                <td>
+                <td className={project.align}>
                   <div className={project.flexcontent}>
                     {projectdata.star === "starred" ? (
                       <Icon imagelink="/icons/dashboard/task/starred.svg" />
