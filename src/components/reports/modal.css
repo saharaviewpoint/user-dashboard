@@ -1,0 +1,11 @@
+.modal-content {
+  border-radius: 20px;
+}
+
+.form-check-input:checked[type="radio"] {
+  background-image: url("/icons/dot.svg");
+}
+
+.form-check-input:checked {
+  background-color: white;
+}
