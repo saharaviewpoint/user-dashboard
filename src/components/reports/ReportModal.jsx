@@ -69,6 +69,72 @@ const ReportModal = (props) => {
             id="disabled-custom-switch"
           />
         </Form>
+        <div className={modal.flexcontainer}>
+          <p className={modal.title}>Send to:</p>
+          <div className={modal.absolutecenter3}>
+            <div className={modal.searchiconcontainer}>
+              <input
+                type="text"
+                placeholder="Search Clients"
+                className={modal.search}
+              ></input>
+              <Image src="/icons/search.svg" className={modal.searchicon} />
+            </div>
+          </div>
+        </div>
+        <Form>
+          <Form.Check
+            defaultChecked
+            type="checkbox"
+            id="custom-switch1"
+            label="Anthony"
+          />
+          <Form.Check
+            type="checkbox"
+            label="Anthony"
+            id="disabled-custom-switch1"
+          />
+          <Form.Check
+            type="checkbox"
+            label="Annabelle"
+            id="disabled-custom-switch1"
+          />
+          <Form.Check
+            type="checkbox"
+            label="Annabelle"
+            id="disabled-custom-switch1"
+          />
+          <Form.Check
+            type="checkbox"
+            label="Amara"
+            id="disabled-custom-switch1"
+          />
+          <Form.Check
+            type="checkbox"
+            label="Amara"
+            id="disabled-custom-switch1"
+          />
+        </Form>
+        <p className={modal.title}>Note</p>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Control
+            as="textarea"
+            className={modal.textarea}
+            rows={3}
+            placeholder="Type here"
+          />
+        </Form.Group>
+        <div className={modal.absoluterightendcontainer}>
+          <div className={modal.flexbuttoncontainer}>
+            <Button
+              className={modal.cancelbutton}
+              onClick={() => navigate(-1)}
+            >
+              Cancel
+            </Button>
+            <Button className={modal.sharebutton}>Submit Form</Button>
+          </div>
+        </div>
       </Modal.Body>
     </Modal>
   );
