@@ -641,3 +641,34 @@
   justify-content: flex-end;
   padding-top: 2rem;
 }
+
+.search {
+  border-radius: 25px;
+  width: 144px;
+  border-color: var(--black200);
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  text-indent: 30px;
+  height: 32px;
+}
+
+.search::placeholder {
+  /* padding-left: 1rem; */
+}
+
+.searchiconcontainer {
+  position: relative;
+}
+
+.searchicon {
+  position: absolute;
+  left: 12px;
+  top: 8px;
+}
+
+.absolutecenter3 {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+}

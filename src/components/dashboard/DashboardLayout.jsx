@@ -47,7 +47,7 @@ const DashboardLayout = (props) => {
                 imagelink="/icons/sidebar/messages-icon.svg"
                 imagelinkactive="/icons/sidebar/active-messages.svg"
                 name="Messages"
-                path="message"
+                path="/message"
               />
             </div>
             <div className={side.logOutContainer}>

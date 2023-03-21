@@ -3,10 +3,22 @@
   background-color: var(--SVP-main) !important;
 }
 
+.rbc-toolbar {
+  display: none !important;
+}
+
 .rbc-ellipsis,
 .rbc-show-more,
 .rbc-row-segment .rbc-event-content,
 .rbc-event-label {
+  font-family: "Inter", sans-serif;
+}
+
+.rbc-header {
+  font-family: "Inter", sans-serif;
+}
+
+.rbc-button-link {
   font-family: "Inter", sans-serif;
 }
 

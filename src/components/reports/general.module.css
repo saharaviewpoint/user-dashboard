@@ -386,7 +386,7 @@
   border-color: var(--SVP-main);
 }
 
-.cancelbutton:focus{
+.cancelbutton:focus {
   border-radius: 8px;
   padding: 12px 24px 12px 24px;
   font-family: "Inter", sans-serif;
@@ -408,4 +408,35 @@
   font-weight: 500;
   font-size: 1rem;
   border-color: var(--SVP-main);
+}
+
+.search {
+  border-radius: 25px;
+  width: 144px;
+  border-color: var(--black200);
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  text-indent: 30px;
+  height: 32px;
+}
+
+.search::placeholder {
+  /* padding-left: 1rem; */
+}
+
+.searchiconcontainer {
+  position: relative;
+}
+
+.searchicon {
+  position: absolute;
+  left: 12px;
+  top: 8px;
+}
+
+.absolutecenter3 {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
 }
