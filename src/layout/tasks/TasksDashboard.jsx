@@ -7,9 +7,11 @@ import TableHeaderNav from "../../components/project/TableHeaderNav";
 import TaskTableDisplay from "../../components/tasks/TaskTableDisplay";
 import TaskHeader from "../../components/tasks/TaskHeader";
 import { TasksCollection } from "../../../data/task";
+import ModalTask from "@/components/tasks/ModalTask";
 
 const TasksDashboard = () => {
   const [filter, setFilter] = useState(null);
+  const [setting, setSetting] = useState("");
   const [modalShow, setModalShow] = React.useState(false);
 
   const filtereddata = useMemo(() => {
@@ -53,7 +55,13 @@ const TasksDashboard = () => {
           </div>
           <TaskTableDisplay>
             {filtereddata.map((taskcollect, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                onClick={() => {
+                  setSetting(taskcollect.id);
+                  setModalShow(true);
+                }}
+              >
                 <td>
                   <div className={task.flexcontent}>
                     {taskcollect.star === "starred" ? (
@@ -90,6 +98,11 @@ const TasksDashboard = () => {
           </TaskTableDisplay>
         </div>
       </DashboardLayout>
+      <ModalTask
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        id={setting}
+      />
     </Container>
   );
 };

@@ -30,6 +30,16 @@ const TaskHeader = (props) => {
             imagelinkactive="/icons/header/active-grid.svg"
           />
         </div>
+        <div className={task.absolutecenter3}>
+          <div className={task.searchiconcontainer}>
+            <input
+              type="text"
+              placeholder="Search Clients"
+              className={task.search}
+            ></input>
+            <Image src="/icons/search.svg" className={task.searchicon} />
+          </div>
+        </div>
       </div>
       {/* <TableHeaderNav /> */}
     </div>

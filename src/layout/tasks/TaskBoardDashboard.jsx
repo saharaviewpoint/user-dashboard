@@ -8,7 +8,7 @@ import { TaskBoardData } from "../../../data/task";
 
 const TaskBoardDashboard = () => {
   const filteredInProgressData = TaskBoardData.filter(
-    (item) => item.activestatus === "InProgress"
+    (item) => item.activestatus === "In Progress"
   );
 
   const filteredUpcomingData = TaskBoardData.filter(

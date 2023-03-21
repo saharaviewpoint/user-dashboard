@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
 import { createMedia } from "@artsy/fresnel";
 import Homepage from "./pages/Homepage";
+import Messages from "./pages/messages/Messages";
 import NotFound from "./pages/NotFound";
 import Projects from "./pages/projects/Projects";
 import TaskCalendar from "./pages/tasks/TaskCalendar";
@@ -51,7 +52,7 @@ const App = () => {
             <Route path="/reports" element={<Reports />} />
             <Route path="/reports/table" element={<ReportsTable />} />
             <Route path="/reports/grid" element={<ReportsGrid />} />
-
+            <Route path="/message" element={<Messages />} />
             {/* <Route path="/admin" element={<HomepageAdmin />} /> */}
           </Routes>
         </BrowserRouter>

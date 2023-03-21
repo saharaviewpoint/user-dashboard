@@ -85,6 +85,7 @@ export const TasksCollection = [
   {
     task: "Site clearing",
     name: "Skyline Building Construction",
+    id: "1234567",
     star: "starred",
     description:
       "A complete construction of a 6 storey skyscraper belonging to Dr. James",
@@ -98,6 +99,7 @@ export const TasksCollection = [
   },
   {
     task: "Site hoarding",
+    id: "7654321",
     name: "Skyline Building Construction",
     star: "star",
     description:
@@ -112,6 +114,7 @@ export const TasksCollection = [
   },
   {
     task: "Plant procurement",
+    id: "5671231",
     name: "Skyline Building Construction",
     star: "starred",
     description:
@@ -126,6 +129,7 @@ export const TasksCollection = [
   },
   {
     task: "Sand procurement",
+    id: "6754213",
     name: "Skyline Building Construction",
     star: "star",
     personname: "Bruce Wayne",
@@ -141,6 +145,7 @@ export const TasksCollection = [
   {
     task: "Cement procurement",
     star: "star",
+    id: "1325647",
     name: "Skyline Building Construction",
     personname: "Clark Kent",
     description:
@@ -155,6 +160,7 @@ export const TasksCollection = [
   {
     task: "Gravel procurement",
     star: "starred",
+    id: "2543127",
     name: "Skyline Building Construction",
     personname: "Barry Allen",
     description:
@@ -169,6 +175,7 @@ export const TasksCollection = [
   {
     task: "Setting out",
     star: "star",
+    id: "3412657",
     name: "Skyline Building Construction",
     personname: "Lex Luthor",
     description:
@@ -183,6 +190,7 @@ export const TasksCollection = [
   {
     task: "Excavation",
     star: "star",
+    id: "3671236",
     name: "Skyline Building Construction",
     personname: "Johnny Storm",
     description:
@@ -197,6 +205,7 @@ export const TasksCollection = [
   {
     task: "Foundation",
     star: "starred",
+    id: "7562134",
     name: "Skyline Building Construction",
     personname: "Anita Williams",
     description:
@@ -211,6 +220,7 @@ export const TasksCollection = [
   {
     task: "Brick masonry works",
     star: "star",
+    id: "1521677",
     name: "Skyline Building Construction",
     personname: "Hope Van Dyne",
     description:

@@ -6,6 +6,8 @@ import Header from "../../components/reports/Header";
 import TableHeaderNav from "../../components/project/TableHeaderNav";
 import FileInputContainer from "@/components/reports/FileInputContainer";
 import { reports } from "../../../data/reports";
+import ModalTask from "../../components/tasks/ModalTask";
+import ReportModal from "@/components/reports/ReportModal";
 
 const ReportsDashboard = () => {
   const [filter, setFilter] = useState(null);
@@ -60,11 +62,15 @@ const ReportsDashboard = () => {
                 name={report.name}
                 size={report.size}
                 date={report.dateuploaded}
+                handleclick={() => {
+                  setModalShow(true);
+                }}
               />
             ))}
           </div>
         </div>
       </DashboardLayout>
+      <ReportModal show={modalShow} onHide={() => setModalShow(false)} />
     </Container>
   );
 };
@@ -84,7 +90,7 @@ const NavCategories = (props) => {
 
 const FileContainer = (props) => {
   return (
-    <div className={report.filecontainer}>
+    <div className={report.filecontainer} onClick={props.handleclick}>
       <div className={report.centericon}>
         <Image src={`${props.imagelink}`} alt="imageicon" />
       </div>

@@ -30,6 +30,16 @@ const Header = (props) => {
             imagelinkactive="/icons/header/active-grid.svg"
           />
         </div>
+        <div className={head.absolutecenter3}>
+          <div className={head.searchiconcontainer}>
+            <input
+              type="text"
+              placeholder="Search Clients"
+              className={head.search}
+            ></input>
+            <Image src="/icons/search.svg" className={head.searchicon} />
+          </div>
+        </div>
       </div>
       {/* <TableHeaderNav /> */}
     </div>

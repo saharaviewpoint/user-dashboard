@@ -1,9 +1,9 @@
 import React from "react";
+import modal from "./tasktable.module.css";
+import { TasksCollection } from "../../../data/task";
 import { Modal, Image } from "react-bootstrap";
-import { ProjectsCollection } from "../../../data/projects";
-import modal from "./general.module.css";
 import Form from "react-bootstrap/Form";
-import "./Modal.css";
+import "../project/Modal.css";
 
 const ImageAttachment = [
   {
@@ -18,16 +18,16 @@ const ImageAttachment = [
   },
 ];
 
-const ModalProject = (props) => {
+const ModalTask = (props) => {
   return (
     <Modal
       className={modal.modal}
       {...props}
-      size="xl"
+      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      {ProjectsCollection.map((collect, index) =>
+      {TasksCollection.map((collect, index) =>
         props.id === collect.id ? (
           <>
             <Modal.Header closeButton>
@@ -130,43 +130,6 @@ const ModalProject = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className={modal.descriptionrightcontainer}>
-                  <div className={modal.activitycontainer1}>
-                    <p className={modal.activitytext}>Recent Activity</p>
-                    <div className={modal.activityboardcontainer}>
-                      <Activitycontainer
-                        src="/icons/activity/activity.svg"
-                        description="Admin declined task:"
-                        name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/check.svg"
-                        description="Admin approved task:"
-                        name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/time.svg"
-                        description="John Doe requested task approval"
-                        // name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/add.svg"
-                        description="Admin assigned Tasks to John doe"
-                        // name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/user.svg"
-                        description="Admin assigned John Doe as new project manager"
-                        // name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
             </Modal.Body>
           </>
@@ -176,7 +139,7 @@ const ModalProject = (props) => {
   );
 };
 
-export default ModalProject;
+export default ModalTask;
 
 const StatusButton = (props) => {
   return (
@@ -184,10 +147,12 @@ const StatusButton = (props) => {
       className={
         props.text === "In Progress"
           ? modal.statusbutton
-          : props.text === "Complete"
-          ? modal.completebutton
-          : props.text == "Upcoming"
-          ? modal.upcoming
+          : props.text === "Declined"
+          ? modal.declinedbutton
+          : props.text == "Approved"
+          ? modal.approvedbutton
+          : props.text == "Pending"
+          ? modal.pendingbutton
           : null
       }
     >
@@ -225,21 +190,6 @@ const Attachment = (props) => {
       <div>
         <p className={modal.attachmenttext}>{props.attachmentname}</p>
         <p className={modal.attachmentsize}>{props.attachmentsize}</p>
-      </div>
-    </div>
-  );
-};
-
-const Activitycontainer = (props) => {
-  return (
-    <div className={modal.activitycontainer}>
-      <Image src={`${props.src}`} className={modal.imageactivity} />
-      <div className={modal.spacecontainer}>
-        <p className={modal.activitydescription}>
-          {props.description}
-          <span className={modal.spantext}>{props.name}</span>
-        </p>
-        <p className={modal.activitydate}>{props.date}</p>
       </div>
     </div>
   );

@@ -93,7 +93,6 @@ const ProjectDashboard = () => {
           </TableDisplay>
         </div>
       </DashboardLayout>
-      x
       <ModalProject
         show={modalShow}
         onHide={() => setModalShow(false)}
