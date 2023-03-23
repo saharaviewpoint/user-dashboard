@@ -94,11 +94,16 @@ export default DashboardLayout;
 
 const NavbarTab = (props) => {
   const active =
-    location.pathname === props.path && location.pathname.includes(props.path);
-  console.log(active);
-  console.log(location.pathname.includes(props.path));
+    location.pathname === props.path
+      ? true
+      : location.pathname === "/"
+      ? location.pathname.match(props.path)
+      : null;
+  // : location.pathname.match(props.path);
+  // console.log(location.pathname.includes(props.path));
   console.log(location.pathname);
-  // console.log(props.path);
+  console.log(location.pathname === props.path);
+  console.log(props.path);
   return (
     <div className={side.hovertext}>
       <Link to={props.path} className={active ? side.linkactive : side.link}>
