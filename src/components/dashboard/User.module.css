@@ -107,7 +107,8 @@ a {
 }
 
 .center1 {
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -139,6 +140,7 @@ a {
 
 .button {
   width: fit-content;
+  margin-top: 0.5rem;
   gap: 1rem;
   display: flex;
 }
@@ -152,6 +154,7 @@ a {
 
 .logouttext {
   font-size: 1rem;
+  margin-top: 0px;
   font-weight: 600;
   margin-bottom: 0px;
   color: var(--SVP-main);
@@ -221,7 +224,7 @@ a {
 .contentcardscontainer {
   border: 1px solid;
   margin-top: 2rem;
-  width: 23rem;
+  width: 18rem;
   border-style: dashed;
   border-radius: 1rem;
   border-color: var(--SVP-main);
@@ -287,8 +290,9 @@ a {
 .flexcontainer {
   display: flex;
   gap: 2rem;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
+
 .flexingcontainer {
   margin-bottom: 2rem;
 }
@@ -562,7 +566,9 @@ td {
   margin-bottom: 0rem;
   text-transform: uppercase;
 }
-
+.projectcontainer1 {
+  padding-bottom: 1rem;
+}
 .projectflexcontainer {
   display: flex;
   justify-content: space-between;
@@ -610,7 +616,8 @@ td {
 
 .tablecontainer {
   margin-top: 1rem;
-  padding-bottom: 2rem;
+  /* margin-bottom: 1rem; */
+  /* padding-bottom: 0.rem; */
   background-color: var(--dashboard-yellow);
 }
 
@@ -666,4 +673,8 @@ td {
 
 .align {
   vertical-align: middle;
+}
+
+.displaytext {
+  display: none;
 }

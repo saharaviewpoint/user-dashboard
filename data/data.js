@@ -6,12 +6,6 @@ export const collections = [
     imagelink: "/icons/dashboard/project-cards-icon.svg",
   },
   {
-    name: "Tasks",
-    total: "12",
-    description: "You have 12 new Tasks.",
-    imagelink: "/icons/dashboard/tasks-cards-icon.svg"
-  },
-  {
     name: "Reports",
     total: "2",
     description: "You have 2 new Reports.",

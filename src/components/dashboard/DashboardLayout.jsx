@@ -30,18 +30,25 @@ const DashboardLayout = (props) => {
                 imagelinkactive="/icons/sidebar/active-project.svg"
                 name="Projects"
                 path="/project"
+                path1="/project/board"
+                path2="/project/grid"
+                path3="/project/form"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/tasks-icon.svg"
                 imagelinkactive="/icons/sidebar/active-tasks.svg"
                 name="Tasks"
                 path="/task"
+                path1="/task/board"
+                path2="/task/calendar"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/reports-icon.svg"
                 imagelinkactive="/icons/sidebar/active-reports.svg"
                 name="Reports"
                 path="/reports"
+                path1="/reports/table"
+                path2="/reports/grid"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/messages-icon.svg"
@@ -94,19 +101,13 @@ export default DashboardLayout;
 
 const NavbarTab = (props) => {
   const active =
-    location.pathname === props.path
-      ? true
-      : location.pathname === "/"
-      ? location.pathname.match(props.path)
-      : null;
-  // : location.pathname.match(props.path);
-  // console.log(location.pathname.includes(props.path));
-  console.log(location.pathname);
-  console.log(location.pathname === props.path);
-  console.log(props.path);
+    location.pathname === props.path ||
+    location.pathname === props.path1 ||
+    location.pathname === props.path2 ||
+    location.pathname === props.path3;
   return (
     <div className={side.hovertext}>
-      <Link to={props.path} className={active ? side.linkactive : side.link}>
+      <Link to={props.path}>
         <div
           className={
             active ? side.navbarTabContainerActive : side.navbarTabContainer
@@ -123,6 +124,7 @@ const NavbarTab = (props) => {
             <p className={active ? side.linktextactive : side.linktext}>
               {props.name}
             </p>
+            <p className={side.displaytext}>{props.path1}</p>
           </div>
         </div>
       </Link>

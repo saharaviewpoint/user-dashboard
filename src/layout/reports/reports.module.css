@@ -45,16 +45,31 @@
   margin-left: 0.5rem;
 }
 
-.tablenavcontainer:active {
+.tablenavcontaineractive {
   background-color: var(--SVP-main);
-}
-
-.tablenavcontainer:focus {
-  background-color: var(--SVP-main) !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border: none;
+  padding: 0rem;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 1rem;
+  font-family: "Inter", sans-serif;
   color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 0.5rem;
 }
 
 .tablenavcontainer:hover {
+  background-color: var(--SVP-main) !important;
+}
+
+.tablenavcontaineractive:hover {
   background-color: var(--SVP-main) !important;
 }
 
@@ -200,4 +215,8 @@
 
 .flextable {
   display: flex;
+}
+
+.disappear{
+  display: none;
 }

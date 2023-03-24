@@ -28,7 +28,7 @@ const DashboardContents = () => {
       </div>
       <div className={user.flexedcontainer1}>
         <Notification />
-        <Tasks />
+        {/* <Tasks /> */}
       </div>
       <Project />
     </div>

@@ -7,7 +7,7 @@ import "./Modal.css";
 
 const Project = () => {
   return (
-    <div className={project.projectContainer}>
+    <div className={project.projectcontainer1}>
       <div className={project.projectflexcontainer}>
         <div className={project.absolutecenter}>
           <p className={project.projectheader}>project</p>

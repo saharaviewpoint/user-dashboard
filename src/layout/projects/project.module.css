@@ -31,6 +31,26 @@
   margin-left: 0.5rem;
 }
 
+.tablenavcontaineractive {
+  background-color: var(--SVP-main);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: none;
+  padding: 0rem;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0.8rem;
+  font-family: "Inter", sans-serif;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
 .disappear {
   display: none;
 }
@@ -44,6 +64,10 @@
 }
 
 .tablenavcontainer:hover {
+  background-color: var(--SVP-main) !important;
+}
+
+.tablenavcontaineractive:hover {
   background-color: var(--SVP-main) !important;
 }
 
@@ -429,4 +453,8 @@
 
 .align {
   vertical-align: middle;
+}
+
+.disappear {
+  display: none;
 }
