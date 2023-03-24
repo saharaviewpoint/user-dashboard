@@ -190,6 +190,13 @@
   border-color: var(--black200);
   border-radius: 24px;
   width: 23rem;
+  margin-bottom: 2rem;
+}
+
+.gridcontainer:hover {
+  background-color: #F0F0F0;
+  cursor: pointer;
+  border-color: var(--SVP-main);
 }
 
 .innercontainer {
