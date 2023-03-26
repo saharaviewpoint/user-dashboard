@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import side from "./User.module.css";
 import { Container, Image, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -8,11 +8,11 @@ const DashboardLayout = (props) => {
   return (
     <Container className={side.container}>
       <Row className={side.rowcontainer}>
-        <Col lg={2} className={side.mainnav}>
+        <Col lg={2} md={3} sm={3} className={side.mainnav}>
           <div className={side.navbar}>
-            <div className={side.center}>
+            <div className={side.centerimage}>
               <img
-                src="/images/svp.svg"
+                src="/images/svp.png"
                 className={side.header}
                 alt="..."
               ></img>
@@ -78,7 +78,7 @@ const DashboardLayout = (props) => {
             </div>
           </div>
         </Col>
-        <Col lg={10} className={side.centercontainer}>
+        <Col lg={10} md={9} sm={9} className={side.centercontainer}>
           <div className={side.rightcontainer}>
             <div className={side.titlecontainer}>
               <div className={side.center}>

@@ -17,6 +17,7 @@
   border-top-right-radius: 5px;
   border: none;
   padding: 0rem;
+  flex: 1;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   cursor: pointer;
@@ -36,6 +37,7 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border: none;
+  flex: 1;
   padding: 0rem;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -82,6 +84,7 @@
 
 .flexwrap {
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
 }
 
@@ -458,4 +461,26 @@
 
 .disappear {
   display: none;
+}
+
+.tabscreen {
+  display: block;
+}
+
+.tabscreen1 {
+  display: none;
+  border-top: 1px solid;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  border-color: var(--black100);
+}
+
+@media (min-width: 600px) and (max-width: 1280px) {
+  .tabscreen {
+    display: none;
+  }
+
+  .tabscreen1 {
+    display: block;
+  }
 }

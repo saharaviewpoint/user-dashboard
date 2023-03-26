@@ -21,8 +21,8 @@ import ReportsGrid from "./pages/reports/ReportsGrid";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
-    sm: 0,
-    md: 768,
+    sm: 400,
+    md: 600,
     lg: 1024,
     xl: 1192,
   },
@@ -34,10 +34,7 @@ const App = () => {
       <Media at="sm">
         <p>lorem</p>
       </Media>
-      <Media at="md">
-        <p>lorem</p>
-      </Media>
-      <Media greaterThanOrEqual="xl">
+      <Media greaterThanOrEqual="md">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Homepage />} />

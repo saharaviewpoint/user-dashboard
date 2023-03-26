@@ -18,6 +18,7 @@ const Notification = () => {
             image={data.image}
             name={data.name}
             time={data.time}
+            project={data.project}
             id={data.id}
             key={index}
           />
@@ -28,6 +29,7 @@ const Notification = () => {
         <NotificationContent
           image={notify.image}
           name={notify.name}
+          project={notify.project}
           time={notify.time}
           id={notify.id}
           key={index}
@@ -53,8 +55,9 @@ const NotificationContent = (props) => {
           </div>
           <div>
             <p className={notification.notificationcontenttext}>
-              New <span className={notification.color}>Message</span> from{" "}
-              <span className={notification.color}>{`${props.name}`}</span>
+              <span className={notification.color}>{`${props.name}`}</span> sent
+              you <span className={notification.color}>a Message</span> on the{" "}
+              <span className={notification.color}>{`${props.project}`}</span>
             </p>
             <p className={notification.notificationcontentdescription}>
               {props.time}

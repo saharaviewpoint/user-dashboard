@@ -62,6 +62,11 @@ const ProjectDashboard = () => {
                 onClick={() => setFilter("Complete")}
               />
             </div>
+            <div className={project.tabscreen}>
+              <TableHeaderNav />
+            </div>
+          </div>
+          <div className={project.tabscreen1}>
             <TableHeaderNav />
           </div>
           <TableDisplay>
@@ -134,7 +139,12 @@ const ImageIcon = (props) => {
 const NavCategories = (props) => {
   const active = props.filter === props.filter1;
   return (
-    <Button className={active ? project.tablenavcontaineractive : project.tablenavcontainer} onClick={props.onClick}>
+    <Button
+      className={
+        active ? project.tablenavcontaineractive : project.tablenavcontainer
+      }
+      onClick={props.onClick}
+    >
       {/* <p className={project.tablenavtext}> */}
       {props.name}
       <span>{props.total}</span>

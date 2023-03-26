@@ -1,3 +1,4 @@
+/* @media only screen and (min-width: 1600px) { */
 .container {
   background-color: var(--dashboard-yellow);
   display: flex;
@@ -55,6 +56,10 @@
 
 .centercontainer1 {
   padding: 0rem;
+  width: 100%;
+
+  /* transition: margin-left 0.5s;
+  padding: 20px; */
   /* margin-top: 1rem; */
 }
 
@@ -100,10 +105,10 @@ a {
   gap: 1rem;
 }
 
-.center {
+.centerimage {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .center1 {
@@ -348,6 +353,7 @@ a {
 
 .color {
   color: var(--SVP-main);
+  font-weight: 700;
 }
 
 .notificationcontentdescription {
@@ -677,4 +683,51 @@ td {
 
 .displaytext {
   display: none;
+}
+/* } */
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  .navbarTabContainerActive {
+    border-radius: 0.4rem;
+    margin-bottom: 0.2rem;
+    padding: 1rem 0.4rem;
+    width: 100%;
+    display: flex;
+    background-color: var(--active-selection-black);
+  }
+
+  .navbarTabContainer {
+    margin-bottom: 0.2rem;
+    display: flex;
+    width: fit-content;
+    padding: 1rem 0.4rem;
+  }
+
+  /* .navbarTabContainer {
+    border-radius: 0.4rem;
+    margin-bottom: 0.2rem;
+    padding: 1rem 0.4rem;
+    width: 100%;
+    /* margin-bottom: 2rem; */
+  /* display: flex; */
+  /* }  */
+
+  .linktextactive {
+    font-size: 1.1rem;
+    margin-bottom: 0px;
+    color: var(--SVP-main);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 1rem;
+    font-family: "Inter", sans-serif;
+  }
+
+  .linktext {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-left: 1rem;
+    color: black;
+    margin-bottom: 0px;
+    font-family: "Inter", sans-serif;
+  }
 }

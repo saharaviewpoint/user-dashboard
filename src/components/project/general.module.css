@@ -194,7 +194,7 @@
 }
 
 .gridcontainer:hover {
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   cursor: pointer;
   border-color: var(--SVP-main);
 }
@@ -680,3 +680,13 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+/* .appear {
+  display: block;
+}
+
+@media (min-width: 600px) and (max-width: 1280px) {
+  .appear {
+    display: none;
+  }
+} */
