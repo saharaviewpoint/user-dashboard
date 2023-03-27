@@ -4,12 +4,22 @@ import { Container, Image, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const DashboardLayout = (props) => {
+  const [display, setDisplay] = useState(false);
   // const active = navbarlinksandtitle.
   return (
     <Container className={side.container}>
       <Row className={side.rowcontainer}>
-        <Col lg={2} md={3} sm={3} className={side.mainnav}>
+        <Col lg={2} className={display ? side.activemainnav : side.mainnav}>
           <div className={side.navbar}>
+            <div
+              className={side.closecontainer}
+              onClick={() => setDisplay(!display)}
+            >
+              <Image
+                src="/icons/sidebar/close.svg"
+                className={side.hamburgericon}
+              />
+            </div>
             <div className={side.centerimage}>
               <img
                 src="/images/svp.png"
@@ -18,6 +28,9 @@ const DashboardLayout = (props) => {
               ></img>
             </div>
             <div className={side.centercontainer1}>
+              <p className={side.welcomemessage}>
+                Hello,<span className={side.welcomecolormessage}> John</span>
+              </p>
               <NavbarTab
                 imagelinkactive="/icons/sidebar/dashboard-icon.svg"
                 imagelink="/icons/sidebar/dashboard.svg"
@@ -81,6 +94,15 @@ const DashboardLayout = (props) => {
         <Col lg={10} md={9} sm={9} className={side.centercontainer}>
           <div className={side.rightcontainer}>
             <div className={side.titlecontainer}>
+              <div
+                className={side.hamburgercontainer}
+                onClick={() => setDisplay(!display)}
+              >
+                <Image
+                  src="/icons/sidebar/hamburger.svg"
+                  className={side.hamburgericon}
+                />
+              </div>
               <div className={side.center}>
                 <p className={side.headertitle}>{props.name}</p>
               </div>

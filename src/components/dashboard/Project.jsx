@@ -35,7 +35,7 @@ const Project = () => {
           </thead>
           <tbody>
             {Projects.map((projectdata, index) => (
-              <tr key={index}>
+              <tr key={index} className ={project.pointer}>
                 <td className={project.align}>
                   <div className={project.flexcontent}>
                     {projectdata.star === "starred" ? (

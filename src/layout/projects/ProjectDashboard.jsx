@@ -62,12 +62,7 @@ const ProjectDashboard = () => {
                 onClick={() => setFilter("Complete")}
               />
             </div>
-            <div className={project.tabscreen}>
-              <TableHeaderNav />
-            </div>
-          </div>
-          <div className={project.tabscreen1}>
-            <TableHeaderNav />
+            {/* <TableHeaderNav /> */}
           </div>
           <TableDisplay>
             {data.map((projectcollect, index) => (

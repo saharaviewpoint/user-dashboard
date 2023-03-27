@@ -39,12 +39,9 @@ tr {
   border-width: 0px;
 }
 
-@media (min-width: 992px) and (max-width: 1024px) {
-  .col-lg-2 {
-    width: 20%;
-  }
+@media (min-width: 992px) and (max-width: 1280px) {
 
   .col-lg-10 {
-    width: 80%;
+    width: 100%;
   }
 }
