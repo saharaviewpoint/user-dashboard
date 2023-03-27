@@ -581,14 +581,14 @@ td {
 .projectbutton {
   border: 1px solid;
   border-color: var(--black200);
-  padding: 0.7rem;
+  padding: 5px 10px;
   border-radius: 0.8rem;
 }
 
 .projectbuttonactive {
   border: 1px solid;
   border-color: var(--SVP-main);
-  padding: 0.7rem;
+  padding: 5px 10px;
   border-radius: 0.8rem;
 }
 
@@ -636,11 +636,12 @@ td {
 }
 
 .avatar {
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 7px;
+  padding-right: 7px;
   border-radius: 50%;
+  font-size: 16px;
   margin-bottom: 0px;
   color: white;
   background-color: var(--SVP-main);

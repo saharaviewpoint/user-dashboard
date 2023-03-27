@@ -62,7 +62,7 @@ const ProjectDashboard = () => {
                 onClick={() => setFilter("Complete")}
               />
             </div>
-            {/* <TableHeaderNav /> */}
+            <TableHeaderNav />
           </div>
           <TableDisplay>
             {data.map((projectcollect, index) => (

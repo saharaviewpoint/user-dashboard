@@ -138,7 +138,7 @@
 
 .cardcontainer {
   border-radius: 8px;
-  width: 17rem;
+  width: 15rem;
   padding: 1rem;
   border: 1px solid;
   border-color: var(--black200);
@@ -146,7 +146,7 @@
 
 .cardcontainer:hover {
   border-radius: 8px;
-  width: 17rem;
+  width: 15rem;
   padding: 1rem;
   border: 1px solid;
   border-color: var(--SVP-main);
@@ -168,7 +168,7 @@
 .mainimage {
   padding: 0.5rem 0rem;
   /* width: 100%; */
-  width: 15rem;
+  width: 13rem;
   height: 180px;
 }
 
@@ -193,6 +193,7 @@
 .flexwrapcontainer {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   gap: 2rem;
   background-color: #fffcf4;
   margin-top: 1.5rem;

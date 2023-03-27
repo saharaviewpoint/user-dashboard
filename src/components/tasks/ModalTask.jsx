@@ -168,7 +168,7 @@ const CalendarText = (props) => {
       <div className={modal.icontextcontainer}>
         <Image
           src="/icons/calendar.svg"
-          className={modal.calendaricon}
+          className={modal.calendaricon1}
           alt="priority"
         />
         <p className={modal.datetext}>{props.date}</p>

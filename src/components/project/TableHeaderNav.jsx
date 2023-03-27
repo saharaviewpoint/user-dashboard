@@ -38,12 +38,12 @@ const TableHeaderNav = (props) => {
               minDate={startDate}
             />
           </div>
-          <div className={cart.absolutecenter}>
+          {/* <div className={cart.absolutecenter}>
             <div className={cart.flexcontent}>
               <Image src="/icons/header/group.svg" />
               <p className={cart.grouptext}>Group By: Name</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

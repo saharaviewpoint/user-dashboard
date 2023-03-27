@@ -80,14 +80,8 @@ const ProjectGridDashboard = () => {
                 text={projectcollect.name}
                 date={projectcollect.date}
                 status={projectcollect.status}
+                priority={projectcollect.priority}
               >
-                {projectcollect.priority === "important" ? (
-                  <ImageIcon imagelink="/icons/table/redflag.svg" />
-                ) : projectcollect.priority === "normal" ? (
-                  <ImageIcon imagelink="/icons/table/normalflag.svg" />
-                ) : projectcollect.priority === "warning" ? (
-                  <ImageIcon imagelink="/icons/table/warningflag.svg" />
-                ) : null}
               </ProjectGridContainer>
             ))}
           </div>

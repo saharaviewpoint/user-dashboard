@@ -25,7 +25,7 @@ const Project = () => {
         </div>
       </div>
       <div className={project.tablecontainer}>
-        <Table striped className={project.tablestriped}>
+        <Table className={project.tablestriped}>
           <thead className={project.tableheader}>
             <tr>
               <th>PROJECT NAME</th>
