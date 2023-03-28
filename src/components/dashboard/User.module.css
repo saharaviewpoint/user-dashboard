@@ -638,8 +638,8 @@ td {
 .avatar {
   padding-top: 7px;
   padding-bottom: 7px;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 50%;
   font-size: 16px;
   margin-bottom: 0px;
