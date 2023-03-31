@@ -18,6 +18,8 @@ import ProjectBoard from "./pages/projects/ProjectBoard";
 import Reports from "./pages/reports/Reports";
 import ReportsTable from "./pages/reports/ReportsTable";
 import ReportsGrid from "./pages/reports/ReportsGrid";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -37,7 +39,9 @@ const App = () => {
       <Media greaterThanOrEqual="md">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Homepage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/dashboard" element={<Homepage />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/project" element={<Projects />} />
             <Route path="/project/board" element={<ProjectBoard />} />
@@ -50,6 +54,7 @@ const App = () => {
             <Route path="/reports/table" element={<ReportsTable />} />
             <Route path="/reports/grid" element={<ReportsGrid />} />
             <Route path="/message" element={<Messages />} />
+            <Route path="/register" element={<Register />} />
             {/* <Route path="/admin" element={<HomepageAdmin />} /> */}
           </Routes>
         </BrowserRouter>
