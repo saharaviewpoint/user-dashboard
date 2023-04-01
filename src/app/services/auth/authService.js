@@ -8,7 +8,7 @@ export const authApi = createApi({
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.userToken;
       if (token) {
-        headers.set("authorization", `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
         return headers;
       }
     },
@@ -16,7 +16,7 @@ export const authApi = createApi({
   endpoints: (build) => ({
     getDetails: build.query({
       query: () => ({
-        url: "/user/projects",
+        url: "/user/profile",
         method: "GET",
       }),
     }),

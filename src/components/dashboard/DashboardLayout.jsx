@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import side from "./User.module.css";
 import { Container, Image, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { logout } from "@/features/auth/authSlice";
+import { useGetDetailsQuery } from "@/app/services/auth/authService";
 
 const DashboardLayout = (props) => {
   const [display, setDisplay] = useState(false);
-  // const active = navbarlinksandtitle.
+  const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { data: user } = useGetDetailsQuery();
+  
+
+  console.log(userInfo);
+
+  console.log(user);
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/login");
+    }
+  }, [navigate, userInfo]);
   return (
     <Container className={side.container}>
       <Row className={side.rowcontainer}>
@@ -77,13 +95,13 @@ const DashboardLayout = (props) => {
                     <Image src="/images/avatar.png" alt="avatar" />
                   </div>
                   <div className={side.textcontainer}>
-                    <p className={side.avatartitle}>John Doe</p>
-                    <p className={side.avatarcontext}>johndoe@gmail.com</p>
+                    <p className={side.avatartitle}>{user?.firstname}</p>
+                    <p className={side.avatarcontext}>{user?.email}</p>
                   </div>
                 </div>
               </div>
               <div className={side.center1}>
-                <div className={side.button}>
+                <div className={side.button} onClick={() => dispatch(logout())}>
                   <p className={side.logouttext}>Log Out</p>
                   <Image src="/icons/sidebar/log-out.svg" alt="log-out-icon" />
                 </div>

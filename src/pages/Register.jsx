@@ -3,14 +3,12 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import registerform from "./General.module.css";
 import "./form.css";
-import { Container, Image, Form, Button } from "react-bootstrap";
+import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Error from "../components/dashboard/Error";
 import { registerUser } from "../features/auth/authActions";
 
 const Register = () => {
-  const [customError, setCustomError] = useState(null);
-
+  const [type, setType] = useState("");
   const { loading, userInfo, error, success } = useSelector(
     (state) => state.auth
   );
@@ -27,14 +25,7 @@ const Register = () => {
   }, [navigate, userInfo, success]);
 
   const submitForm = (data) => {
-    // check if passwords match
-    // if (data.password !== data.confirmPassword) {
-    //   setCustomError("Password mismatch");
-    //   return;
-    // }
-    // transform email string to lowercase to avoid case sensitivity issues in login
     data.email = data.email.toLowerCase();
-
     dispatch(registerUser(data));
   };
 
@@ -57,16 +48,46 @@ const Register = () => {
               <form onSubmit={handleSubmit(submitForm)}>
                 {/* {error && <Error>{error}</Error>}
                 {customError && <Error>{customError}</Error>} */}
-                <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Group className="mb-3" controlId="formBasicFirstName">
                   <Form.Label className={registerform.formlabel}>
-                    Name
+                    FirstName
                   </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder=""
-                    {...register("name")}
+                    {...register("firstname")}
                     required
                   />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicLastName">
+                  <Form.Label className={registerform.formlabel}>
+                    LastName
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    {...register("lastname")}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicRole">
+                  <Form.Label className={registerform.formlabel}>
+                    Role
+                  </Form.Label>
+                  <Form.Select
+                    as="select"
+                    value={type}
+                    {...register("role")}
+                    required
+                    onChange={(e) => {
+                      setType(e.target.value);
+                    }}
+                    size="md"
+                  >
+                    <option>User</option>
+                    <option>Product Manager</option>
+                    <option>Admin</option>
+                  </Form.Select>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label className={registerform.formlabel}>
@@ -91,7 +112,7 @@ const Register = () => {
                   />
                 </Form.Group>
                 <Button type="submit" className={registerform.submitbutton1}>
-                  {loading ? "Skip" : "Register"}
+                  {loading ? <Spinner /> : "Register"}
                 </Button>
               </form>
             </div>

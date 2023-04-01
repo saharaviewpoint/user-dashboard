@@ -10,6 +10,7 @@ export const userLogin = createAsyncThunk(
       const config = {
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
       };
       const { data } = await axios.post(
@@ -18,10 +19,11 @@ export const userLogin = createAsyncThunk(
         config
       );
 
-      localStorage.setItem("userToken", data.userToken);
+      localStorage.setItem("userToken", data.token);
 
       return data;
     } catch (error) {
+      console.log(error.message);
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
       } else {
@@ -33,14 +35,21 @@ export const userLogin = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   "/auth/signup",
-  async ({ name, email, password }, { rejectWithValue }) => {
+  async (
+    { firstname, role, lastname, email, password },
+    { rejectWithValue }
+  ) => {
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      await axios.post(`${url}/auth/signup`, { name, email, password }, config);
+      await axios.post(
+        `${url}/auth/signup`,
+        { firstname, role, lastname, email, password },
+        config
+      );
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
