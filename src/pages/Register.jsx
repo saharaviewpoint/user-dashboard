@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import registerform from "./General.module.css";
 import "./form.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../features/auth/authActions";
+import { EMAIL_VALIDATION } from "@/constants/regex";
 
 const Register = () => {
   const [type, setType] = useState("");
@@ -19,7 +22,12 @@ const Register = () => {
 
   useEffect(() => {
     // redirect authenticated user to profile screen
-    if (userInfo) navigate("/user-profile");
+    if (userInfo) {
+      toast.success("Registration Successful", {
+        position: toast.POSITION.TOP_LEFT,
+      });
+      navigate("/user-profile");
+    }
     // redirect user to login page if registration was successful
     if (success) navigate("/");
   }, [navigate, userInfo, success]);
@@ -55,8 +63,12 @@ const Register = () => {
                   <Form.Control
                     type="text"
                     placeholder=""
-                    {...register("firstname")}
+                    {...register("firstname", {
+                      required: "Name is required",
+                      maxLength: { value: 50, message: "Name is too long" },
+                    })}
                     required
+                    errorMessage={error.firstname?.message}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicLastName">
@@ -66,8 +78,12 @@ const Register = () => {
                   <Form.Control
                     type="text"
                     placeholder=""
-                    {...register("lastname")}
+                    {...register("lastname", {
+                      required: "Name is required",
+                      maxLength: { value: 50, message: "Name is too long" },
+                    })}
                     required
+                    errorMessage={error.lastname?.message}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicRole">
@@ -97,7 +113,7 @@ const Register = () => {
                     type="email"
                     placeholder=""
                     required
-                    {...register("email")}
+                    {...register("email", EMAIL_VALIDATION)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -108,7 +124,15 @@ const Register = () => {
                     type="password"
                     required
                     placeholder=""
-                    {...register("password")}
+                    {...register("password", {
+                      required: "Password is required",
+                      pattern: {
+                        value:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
+                        message:
+                          "Password should be at least 8 characters, At least 1 uppercase character, 1 lowercase character and 1 number",
+                      },
+                    })}
                   />
                 </Form.Group>
                 <Button type="submit" className={registerform.submitbutton1}>

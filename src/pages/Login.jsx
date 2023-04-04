@@ -6,6 +6,7 @@ import { Container, Image, Form, Button } from "react-bootstrap";
 import login from "./General.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { EMAIL_VALIDATION } from "@/constants/regex";
 import Spinner from "../components/dashboard/Spinner";
 
 const Login = () => {
@@ -42,17 +43,27 @@ const Login = () => {
               <Form.Control
                 type="email"
                 placeholder=""
-                {...register("email")}
+                {...register("email", EMAIL_VALIDATION)}
+                required
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
-                {...register("password")}
+                {...register("password", {
+                  required: "Password is required",
+                  pattern: {
+                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
+                    message:
+                      "Password should be at least 8 characters, At least 1 uppercase character, 1 lowercase character and 1 number",
+                  },
+                })}
+                required
                 type="password"
                 placeholder=""
               />
             </Form.Group>
+            {/* <Spinner /> */}
             <Button
               type="submit"
               disabled={loading}

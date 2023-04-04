@@ -4,8 +4,14 @@ import { Image } from "react-bootstrap";
 import { Projects } from "../../../data/projects";
 import Table from "react-bootstrap/Table";
 import "./Modal.css";
+import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
 
 const Project = () => {
+  const { data: userprojects } = useGetProjectDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  console.log(userprojects);
   return (
     <div className={project.projectcontainer1}>
       <div className={project.projectflexcontainer}>
@@ -35,7 +41,7 @@ const Project = () => {
           </thead>
           <tbody>
             {Projects.map((projectdata, index) => (
-              <tr key={index} className ={project.pointer}>
+              <tr key={index} className={project.pointer}>
                 <td className={project.align}>
                   <div className={project.flexcontent}>
                     {projectdata.star === "starred" ? (

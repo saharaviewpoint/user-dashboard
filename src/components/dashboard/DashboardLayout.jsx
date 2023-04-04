@@ -13,20 +13,18 @@ const DashboardLayout = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data: user } = useGetDetailsQuery();
-  
-
-  console.log(userInfo);
-
-  console.log(user);
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
     }
   }, [navigate, userInfo]);
+
+  // console.log(user);
+
   return (
     <Container className={side.container}>
-      <Row className={side.rowcontainer}>
+      <Row  className={side.rowcontainer}>
         <Col lg={2} className={display ? side.activemainnav : side.mainnav}>
           <div className={side.navbar}>
             <div
@@ -47,14 +45,17 @@ const DashboardLayout = (props) => {
             </div>
             <div className={side.centercontainer1}>
               <p className={side.welcomemessage}>
-                Hello,<span className={side.welcomecolormessage}> John</span>
+                Hello,
+                <span className={side.welcomecolormessage}>
+                  {user?.firstname}
+                </span>
               </p>
               <NavbarTab
                 imagelinkactive="/icons/sidebar/dashboard-icon.svg"
                 imagelink="/icons/sidebar/dashboard.svg"
                 // imagelinkactive = "/icons/sidebar/svp.svg"
                 name="Dashboard"
-                path="/"
+                path="/dashboard"
               />
               <NavbarTab
                 imagelink="/icons/sidebar/project-icon.svg"

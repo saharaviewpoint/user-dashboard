@@ -5,14 +5,15 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://svp.hypen.blog",
     // baseUrl: 'http://127.0.0.1:5000/',
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.userToken;
+    prepareHeaders: (headers, {}) => {
+      const token = localStorage.getItem("userToken");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
         return headers;
       }
     },
   }),
+  tagTypes: ["Projects", "User"],
   endpoints: (build) => ({
     getDetails: build.query({
       query: () => ({
@@ -20,8 +21,32 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    getProjectDetails: build.query({
+      query: () => ({
+        url: "/user/projects",
+        method: "GET",
+      }),
+      providesTags: ["Projects"],
+    }),
+    addProjectDetails: build.mutation({
+      query: (data) => ({
+        url: "/user/projects/new/",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getTaskDetails: build.query({
+      query: (data) => ({
+        url: "/user/tasks",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 // export react hook
-export const { useGetDetailsQuery } = authApi;
+export const {
+  useGetDetailsQuery,
+  useGetProjectDetailsQuery,
+  useAddProjectDetailsMutation,
+} = authApi;

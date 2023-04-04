@@ -66,6 +66,7 @@
   border: 1px solid !important;
   background-color: var(--SVP-main) !important;
   font-weight: 500;
+  position: relative;
   width: 100%;
   margin: 1rem 0;
   font-size: 1rem;
