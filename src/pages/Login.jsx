@@ -13,7 +13,11 @@ const Login = () => {
   const { loading, userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -44,8 +48,18 @@ const Login = () => {
                 type="email"
                 placeholder=""
                 {...register("email", EMAIL_VALIDATION)}
-                required
               />
+              <div className={login.errorcontainer}>
+                {errors.email && errors.email.type === "required" && (
+                  <span className={login.error}>This field is required</span>
+                )}
+                {errors.email && errors.email.type === "maxLength" && (
+                  <span className={login.error}>Max length exceeded</span>
+                )}
+                {errors.email && errors.email.type === "pattern" && (
+                  <span className={login.error}>Email is Invalid</span>
+                )}
+              </div>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
@@ -58,10 +72,22 @@ const Login = () => {
                       "Password should be at least 8 characters, At least 1 uppercase character, 1 lowercase character and 1 number",
                   },
                 })}
-                required
                 type="password"
                 placeholder=""
               />
+              <div className={login.errorcontainer}>
+                {errors.password && errors.password.type === "required" && (
+                  <span className={login.error}>This field is required</span>
+                )}
+                {errors.password && errors.password.type === "maxLength" && (
+                  <span className={login.error}>Max length exceeded</span>
+                )}
+                {errors.password && errors.password.type === "pattern" && (
+                  <span className={login.error}>
+                    Password is invalid
+                  </span>
+                )}
+              </div>
             </Form.Group>
             {/* <Spinner /> */}
             <Button

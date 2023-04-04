@@ -141,3 +141,15 @@
   font-family: "Inter", sans-serif;
   margin-bottom: 0.2rem;
 }
+
+.error {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: red;
+  padding-top: 10px;
+  font-weight: 500;
+}
+
+.errorcontainer {
+  margin-top: 5px;
+}

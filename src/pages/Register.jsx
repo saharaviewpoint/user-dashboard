@@ -12,12 +12,14 @@ import { EMAIL_VALIDATION } from "@/constants/regex";
 
 const Register = () => {
   const [type, setType] = useState("");
-  const { loading, userInfo, error, success } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, userInfo, success } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,14 +64,27 @@ const Register = () => {
                   </Form.Label>
                   <Form.Control
                     type="text"
+                    id="firstname"
                     placeholder=""
                     {...register("firstname", {
                       required: "Name is required",
                       maxLength: { value: 50, message: "Name is too long" },
                     })}
-                    required
-                    errorMessage={error.firstname?.message}
                   />
+                  <div className={registerform.errorcontainer}>
+                    {errors.firstname &&
+                      errors.firstname.type === "required" && (
+                        <span className={registerform.error}>
+                          This field is required
+                        </span>
+                      )}
+                    {errors.firstname &&
+                      errors.firstname.type === "maxLength" && (
+                        <span className={registerform.error}>
+                          Max length exceeded
+                        </span>
+                      )}
+                  </div>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicLastName">
                   <Form.Label className={registerform.formlabel}>
@@ -82,9 +97,21 @@ const Register = () => {
                       required: "Name is required",
                       maxLength: { value: 50, message: "Name is too long" },
                     })}
-                    required
-                    errorMessage={error.lastname?.message}
+                    // required
                   />
+                  <div className={registerform.errorcontainer}>
+                    {errors.lastname && errors.lastname.type === "required" && (
+                      <span className={registerform.error}>
+                        This field is required
+                      </span>
+                    )}
+                    {errors.lastname &&
+                      errors.lastname.type === "maxLength" && (
+                        <span className={registerform.error}>
+                          Max length exceeded
+                        </span>
+                      )}
+                  </div>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicRole">
                   <Form.Label className={registerform.formlabel}>
@@ -112,9 +139,26 @@ const Register = () => {
                   <Form.Control
                     type="email"
                     placeholder=""
-                    required
+                    // required
                     {...register("email", EMAIL_VALIDATION)}
                   />
+                  <div className={registerform.errorcontainer}>
+                    {errors.email && errors.email.type === "required" && (
+                      <span className={registerform.error}>
+                        This field is required
+                      </span>
+                    )}
+                    {errors.email && errors.email.type === "maxLength" && (
+                      <span className={registerform.error}>
+                        Max length exceeded
+                      </span>
+                    )}
+                    {errors.email && errors.email.type === "pattern" && (
+                      <span className={registerform.error}>
+                        Email is Invalid
+                      </span>
+                    )}
+                  </div>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label className={registerform.formlabel}>
@@ -122,7 +166,7 @@ const Register = () => {
                   </Form.Label>
                   <Form.Control
                     type="password"
-                    required
+                    // required
                     placeholder=""
                     {...register("password", {
                       required: "Password is required",
@@ -134,6 +178,18 @@ const Register = () => {
                       },
                     })}
                   />
+                  <div className={registerform.errorcontainer}>
+                    {errors.password && errors.password.type === "required" && (
+                      <span className={registerform.error}>
+                        This field is required
+                      </span>
+                    )}
+                    {errors.password && errors.password.type === "pattern" && (
+                      <span className={registerform.error}>
+                        Password is invalid
+                      </span>
+                    )}
+                  </div>
                 </Form.Group>
                 <Button type="submit" className={registerform.submitbutton1}>
                   {loading ? <Spinner /> : "Register"}

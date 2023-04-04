@@ -35,12 +35,12 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-    getTaskDetails: build.query({
-      query: (data) => ({
-        url: "/user/tasks",
-        method: "GET",
-      }),
-    }),
+    // getTaskDetails: build.query({
+    //   query: () => ({
+    //     url: "/user/tasks",
+    //     method: "GET",
+    //   }),
+    // }),
   }),
 });
 
