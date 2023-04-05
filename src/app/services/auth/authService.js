@@ -13,7 +13,6 @@ export const authApi = createApi({
       }
     },
   }),
-  tagTypes: ["Projects", "User"],
   endpoints: (build) => ({
     getDetails: build.query({
       query: () => ({
@@ -26,7 +25,6 @@ export const authApi = createApi({
         url: "/user/projects",
         method: "GET",
       }),
-      providesTags: ["Projects"],
     }),
     addProjectDetails: build.mutation({
       query: (data) => ({
@@ -35,12 +33,12 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-    // getTaskDetails: build.query({
-    //   query: () => ({
-    //     url: "/user/tasks",
-    //     method: "GET",
-    //   }),
-    // }),
+    getTaskDetails: build.query({
+      query: () => ({
+        url: "/user/tasks",
+        method: "GET",
+      }),
+    }),
   }),
 });
 

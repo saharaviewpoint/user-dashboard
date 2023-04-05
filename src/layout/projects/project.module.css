@@ -476,6 +476,17 @@
   gap: 1rem;
 }
 
+.label {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.label1 {
+  margin-left: 5px;
+}
 @media (min-width: 600px) and (max-width: 1280px) {
   .tabscreen {
     display: none;

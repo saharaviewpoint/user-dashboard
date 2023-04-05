@@ -19,15 +19,12 @@ const Register = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm({});
   const navigate = useNavigate();
 
   useEffect(() => {
     // redirect authenticated user to profile screen
     if (userInfo) {
-      toast.success("Registration Successful", {
-        position: toast.POSITION.TOP_LEFT,
-      });
       navigate("/user-profile");
     }
     // redirect user to login page if registration was successful
@@ -37,6 +34,12 @@ const Register = () => {
   const submitForm = (data) => {
     data.email = data.email.toLowerCase();
     dispatch(registerUser(data));
+  };
+
+  const notifyDefault = () => {
+    toast.success("Registration Successful", {
+      position: toast.POSITION.TOP_LEFT,
+    });
   };
 
   return (
@@ -191,7 +194,11 @@ const Register = () => {
                     )}
                   </div>
                 </Form.Group>
-                <Button type="submit" className={registerform.submitbutton1}>
+                <Button
+                  type="submit"
+                  onClick={notifyDefault}
+                  className={registerform.submitbutton1}
+                >
                   {loading ? <Spinner /> : "Register"}
                 </Button>
               </form>

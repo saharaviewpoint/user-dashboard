@@ -9,22 +9,26 @@ import { useGetDetailsQuery } from "@/app/services/auth/authService";
 
 const DashboardLayout = (props) => {
   const [display, setDisplay] = useState(false);
-  const { userInfo } = useSelector((state) => state.auth);
+  // const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data: user } = useGetDetailsQuery();
 
-  useEffect(() => {
-    if (!userInfo) {
-      navigate("/login");
-    }
-  }, [navigate, userInfo]);
+  // useEffect(() => {
+  //   if (!userInfo) {
+  //     navigate("/");
+  //   }
+  // }, [navigate, userInfo]);
 
   // console.log(user);
 
+  const LogOut = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <Container className={side.container}>
-      <Row  className={side.rowcontainer}>
+      <Row className={side.rowcontainer}>
         <Col lg={2} className={display ? side.activemainnav : side.mainnav}>
           <div className={side.navbar}>
             <div
@@ -102,7 +106,7 @@ const DashboardLayout = (props) => {
                 </div>
               </div>
               <div className={side.center1}>
-                <div className={side.button} onClick={() => dispatch(logout())}>
+                <div className={side.button} onClick={LogOut}>
                   <p className={side.logouttext}>Log Out</p>
                   <Image src="/icons/sidebar/log-out.svg" alt="log-out-icon" />
                 </div>

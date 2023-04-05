@@ -10,20 +10,17 @@ import {
   useAddProjectDetailsMutation,
   useGetDetailsQuery,
 } from "@/app/services/auth/authService";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProjectFormDashboard = () => {
   const [type, setType] = useState("");
   const [addProjectDetailsMutation] = useAddProjectDetailsMutation();
   const navigate = useNavigate();
   const { data: user } = useGetDetailsQuery();
+  // toast.configure();
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, control, handleSubmit } = useForm();
 
   const submitForm = async (data) => {
     const useradditionaldetails = {
@@ -45,12 +42,16 @@ const ProjectFormDashboard = () => {
     console.log(completeform);
     try {
       await addProjectDetailsMutation(completeform).unwrap();
-      // navigate("/dashboard")
-      console.log("green");
+      navigate("/dashboard");
     } catch (error) {
       console.log("error", error);
     }
   };
+
+  const notifyDefault = () =>
+    toast.success("Project Registered Successfully", {
+      position: toast.POSITION.TOP_LEFT,
+    });
 
   function MyBooleanInput({ control, name }) {
     return (
@@ -59,26 +60,30 @@ const ProjectFormDashboard = () => {
         name={name}
         render={({ field: { onChange, onBlur, value, ref } }) => (
           <>
-            <label>
-              Oui
-              <input
-                type="radio"
-                onBlur={onBlur} // notify when input is touched
-                onChange={() => onChange(true)} // send value to hook form
-                checked={value === true}
-                inputRef={ref}
-              />
-            </label>
-            <label>
-              Non
-              <input
-                type="radio"
-                onBlur={onBlur} // notify when input is touched
-                onChange={() => onChange(false)} // send value to hook form
-                checked={value === false}
-                inputRef={ref}
-              />
-            </label>
+            <div className="radio-item">
+              <label className={projectform.label}>
+                <input
+                  type="radio"
+                  onBlur={onBlur} // notify when input is touched
+                  onChange={() => onChange(true)} // send value to hook form
+                  checked={value === true}
+                  inputRef={ref}
+                />
+                <span className={projectform.label1}>Yes</span>
+              </label>
+            </div>
+            <div className="radio-item">
+              <label className={projectform.label}>
+                <input
+                  type="radio"
+                  onBlur={onBlur} // notify when input is touched
+                  onChange={() => onChange(false)} // send value to hook form
+                  checked={value === false}
+                  inputRef={ref}
+                />
+                <span className={projectform.label1}>No</span>
+              </label>
+            </div>
           </>
         )}
       />
@@ -90,6 +95,7 @@ const ProjectFormDashboard = () => {
         <div className={projectform.overallcontainer}>
           <p className={projectform.header}>Project Request Form</p>
           <div className={projectform.secondheader}>
+            <ToastContainer />
             <p className={projectform.header1}>PROJECT INFORMATION</p>
           </div>
           <form onSubmit={handleSubmit(submitForm)}>
@@ -255,7 +261,11 @@ const ProjectFormDashboard = () => {
                 >
                   Cancel
                 </Button>
-                <Button type="submit" className={projectform.submitbutton}>
+                <Button
+                  type="submit"
+                  onClick={notifyDefault}
+                  className={projectform.submitbutton}
+                >
                   Submit Form
                 </Button>
               </div>
