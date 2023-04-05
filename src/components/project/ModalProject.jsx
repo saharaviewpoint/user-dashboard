@@ -4,6 +4,7 @@ import { ProjectsCollection } from "../../../data/projects";
 import modal from "./general.module.css";
 import Form from "react-bootstrap/Form";
 import "./Modal.css";
+import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
 
 const ImageAttachment = [
   {
@@ -19,6 +20,13 @@ const ImageAttachment = [
 ];
 
 const ModalProject = (props) => {
+  const { data: UserProjects } = useGetProjectDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const ModalProjectsCollection = UserProjects || [];
+
+  console.log(ModalProjectsCollection);
   return (
     <Modal
       className={modal.modal}
@@ -27,9 +35,9 @@ const ModalProject = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      {ProjectsCollection.map((collect, index) =>
-        props.id === collect.id ? (
-          <>
+      {ModalProjectsCollection.map((collect, index) =>
+        props.id === collect._id ? (
+          <div key={index}>
             <Modal.Header closeButton>
               <Modal.Title
                 className={modal.containedmodaltitlecenter}
@@ -40,9 +48,12 @@ const ModalProject = (props) => {
                   <StatusButton text={collect.status} />
                   <CalendarText
                     datetitle="Project created:"
-                    date="02 Feb 2023"
+                    date={new Date(collect.date).toLocaleDateString()}
                   />
-                  <CalendarText datetitle="Due date:" date="02 Apr 2023" />
+                  <CalendarText
+                    datetitle="Due date:"
+                    date={new Date(collect.due).toLocaleDateString()}
+                  />
                 </div>
                 {/* </div> */}
               </Modal.Title>
@@ -52,7 +63,7 @@ const ModalProject = (props) => {
                 <div className={modal.descriptionleftcontainer}>
                   <div className={modal.paddingcontain}>
                     <p className={modal.nameproject}>{collect.name}</p>
-                    <p className={modal.description}>{collect.description}</p>
+                    <p className={modal.description}>{collect.details}</p>
                     <p className={modal.assigned}>Assigned to:</p>
                     <div className={modal.yellowbackground}>
                       <Image
@@ -61,7 +72,11 @@ const ModalProject = (props) => {
                         alt="avatar"
                       />
                       <div className={modal.absolutecenter}>
-                        <p className={modal.textname}>{collect.personname}</p>
+                        <p className={modal.textname}>
+                          {" "}
+                          {collect.requested_by.firstname}
+                          <span>{collect.requested_by.lastname}</span>
+                        </p>
                       </div>
                     </div>
                     <p className={modal.taskname}>Tasks</p>
@@ -169,7 +184,7 @@ const ModalProject = (props) => {
                 </div>
               </div>
             </Modal.Body>
-          </>
+          </div>
         ) : null
       )}
     </Modal>
@@ -182,7 +197,7 @@ const StatusButton = (props) => {
   return (
     <div
       className={
-        props.text === "In Progress"
+        props.text === "inprogress"
           ? modal.statusbutton
           : props.text === "Complete"
           ? modal.completebutton

@@ -115,10 +115,11 @@
 }
 
 .avatar {
-  padding: 7px 6px;
+  padding: 10px 8px;
   border-radius: 50%;
   margin-bottom: 0px;
-  font-size: 16px;
+  font-size: 15px;
+  display: flex;
   color: white;
   background-color: var(--SVP-main);
   font-family: "Inter", sans-serif;

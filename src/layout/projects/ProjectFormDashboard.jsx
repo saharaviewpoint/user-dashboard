@@ -10,8 +10,7 @@ import {
   useAddProjectDetailsMutation,
   useGetDetailsQuery,
 } from "@/app/services/auth/authService";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 
 const ProjectFormDashboard = () => {
   const [type, setType] = useState("");
@@ -42,16 +41,13 @@ const ProjectFormDashboard = () => {
     console.log(completeform);
     try {
       await addProjectDetailsMutation(completeform).unwrap();
+      toast.success("Project Registered Successfully");
       navigate("/dashboard");
     } catch (error) {
       console.log("error", error);
     }
   };
 
-  const notifyDefault = () =>
-    toast.success("Project Registered Successfully", {
-      position: toast.POSITION.TOP_LEFT,
-    });
 
   function MyBooleanInput({ control, name }) {
     return (
@@ -95,7 +91,6 @@ const ProjectFormDashboard = () => {
         <div className={projectform.overallcontainer}>
           <p className={projectform.header}>Project Request Form</p>
           <div className={projectform.secondheader}>
-            <ToastContainer />
             <p className={projectform.header1}>PROJECT INFORMATION</p>
           </div>
           <form onSubmit={handleSubmit(submitForm)}>
@@ -147,7 +142,7 @@ const ProjectFormDashboard = () => {
                   id="due"
                   value={type}
                   name="due"
-                  {...register("date")}
+                  {...register("due")}
                   required
                   onChange={(e) => {
                     setType(e.target.value);
@@ -261,11 +256,7 @@ const ProjectFormDashboard = () => {
                 >
                   Cancel
                 </Button>
-                <Button
-                  type="submit"
-                  onClick={notifyDefault}
-                  className={projectform.submitbutton}
-                >
+                <Button type="submit" className={projectform.submitbutton}>
                   Submit Form
                 </Button>
               </div>

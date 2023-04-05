@@ -4,26 +4,31 @@ import project from "./project.module.css";
 import "./projects.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import Header from "../../components/project/Header";
-import { ProjectsCollection } from "../../../data/projects";
 import TableHeaderNav from "../../components/project/TableHeaderNav";
 import TableDisplay from "../../components/project/TableDisplay";
 import ModalProject from "../../components/project/ModalProject";
+import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
 import { ButtonProject } from "../../components/dashboard/DashboardContents";
 
 const ProjectDashboard = () => {
   const [filter, setFilter] = useState(null);
   const [modalShow, setModalShow] = React.useState(false);
   const [setting, setSetting] = useState("");
-  // const handleclick = () => setModalShow(true);
+  const { data: UserProjects } = useGetProjectDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
 
-  const data = useMemo(() => {
-    if (!filter) return ProjectsCollection;
-    const filteredData = ProjectsCollection.filter(
-      (item) => item.activestatus === filter
-    );
-    return filteredData;
-  }, [filter]);
+  // const data = useMemo(() => {
+  //   if (!filter) return ProjectsCollection;
+  //   const filteredData = ProjectsCollection.filter(
+  //     (item) => item.activestatus === filter
+  //   );
+  //   return filteredData;
+  // }, [filter]);
 
+  const ProjectsCollection = UserProjects || [];
+
+  console.log(setting);
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">
@@ -35,9 +40,9 @@ const ProjectDashboard = () => {
               <NavCategories
                 name="All Projects"
                 total="(23)"
-                filter={filter}
-                filter1={null}
-                onClick={() => setFilter(null)}
+                // filter={filter}
+                // filter1={null}
+                // onClick={() => setFilter(null)}
               />
 
               <NavCategories
@@ -45,30 +50,30 @@ const ProjectDashboard = () => {
                 total="(02)"
                 filter={filter}
                 filter1="Upcoming"
-                onClick={() => setFilter("Upcoming")}
+                // onClick={() => setFilter("Upcoming")}
               />
               <NavCategories
                 name="In Progress"
                 total="(10)"
                 filter1="In Progress"
-                filter={filter}
-                onClick={() => setFilter("In Progress")}
+                // filter={filter}
+                // onClick={() => setFilter("In Progress")}
               />
               <NavCategories
                 name="Completed"
                 total="(11)"
-                filter={filter}
+                // filter={filter}
                 filter1="Complete"
-                onClick={() => setFilter("Complete")}
+                // onClick={() => setFilter("Complete")}
               />
             </div>
             <TableHeaderNav />
           </div>
           <TableDisplay>
-            {data.map((projectcollect, index) => (
+            {ProjectsCollection.map((projectcollect, index) => (
               <tr
                 onClick={() => {
-                  setSetting(projectcollect.id);
+                  setSetting(projectcollect._id);
                   setModalShow(true);
                 }}
                 key={index}
@@ -77,19 +82,27 @@ const ProjectDashboard = () => {
                 <td className={project.align}>{projectcollect.name}</td>
                 <td>
                   <div className={project.absolutecenter}>
-                    <p className={project.avatar}>{projectcollect.initials}</p>
+                    <p className={project.avatar}>
+                      {" "}
+                      {projectcollect.requested_by.firstname.charAt(0)}
+                      <span>
+                        {projectcollect.requested_by.lastname.charAt(0)}
+                      </span>
+                    </p>
                   </div>
                 </td>
                 <td>
                   <StatusButton text={projectcollect.status} />
                 </td>
-                <td className={project.centericon}>{projectcollect.date}</td>
                 <td className={project.centericon}>
-                  {projectcollect.priority === "important" ? (
+                  {new Date(projectcollect.date).toLocaleDateString()}
+                </td>
+                <td className={project.centericon}>
+                  {projectcollect.priority === "red" ? (
                     <ImageIcon imagelink="/icons/table/redflag.svg" />
-                  ) : projectcollect.priority === "normal" ? (
+                  ) : projectcollect.priority === "gray" ? (
                     <ImageIcon imagelink="/icons/table/normalflag.svg" />
-                  ) : projectcollect.priority === "warning" ? (
+                  ) : projectcollect.priority === "yellow" ? (
                     <ImageIcon imagelink="/icons/table/warningflag.svg" />
                   ) : null}
                 </td>
@@ -113,7 +126,7 @@ const StatusButton = (props) => {
   return (
     <div
       className={
-        props.text === "In Progress"
+        props.text === "inprogress"
           ? project.statusbutton
           : props.text === "Complete"
           ? project.completebutton

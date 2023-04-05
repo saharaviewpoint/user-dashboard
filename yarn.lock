@@ -488,7 +488,7 @@
   "resolved" "https://registry.npmjs.org/convert-source-map/-/convert-source-map-1.9.0.tgz"
   "version" "1.9.0"
 
-"csstype@^3.0.2":
+"csstype@^3.0.10", "csstype@^3.0.2":
   "integrity" "sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw=="
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.1.1.tgz"
   "version" "3.1.1"
@@ -614,6 +614,11 @@
   "integrity" "sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA=="
   "resolved" "https://registry.npmjs.org/globals/-/globals-11.12.0.tgz"
   "version" "11.12.0"
+
+"goober@^2.1.10":
+  "integrity" "sha512-yXHAvO08FU1JgTXX6Zn6sYCUFfB/OJSX8HHjDSgerZHZmFKAb08cykp5LBw5QnmyMcZyPRMqkdyHUSSzge788Q=="
+  "resolved" "https://registry.npmjs.org/goober/-/goober-2.1.12.tgz"
+  "version" "2.1.12"
 
 "has-flag@^3.0.0":
   "integrity" "sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw=="
@@ -863,6 +868,13 @@
   "integrity" "sha512-BQm+Ge5KjTk1EchDBRhdP8Pkb7MArO2jFF+UWYr3rtvh6197khi22uloLqlWeuY02ItlCzPunPsFt1/q9wQKnw=="
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.43.8.tgz"
   "version" "7.43.8"
+
+"react-hot-toast@^2.4.0":
+  "integrity" "sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA=="
+  "resolved" "https://registry.npmjs.org/react-hot-toast/-/react-hot-toast-2.4.0.tgz"
+  "version" "2.4.0"
+  dependencies:
+    "goober" "^2.1.10"
 
 "react-icons@^4.8.0":
   "integrity" "sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg=="
