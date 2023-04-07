@@ -1,34 +1,59 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, forwardRef } from "react";
 import { Button, Container, Image, Row, Col } from "react-bootstrap";
 import project from "./project.module.css";
 import "./projects.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import Header from "../../components/project/Header";
-import TableHeaderNav from "../../components/project/TableHeaderNav";
 import TableDisplay from "../../components/project/TableDisplay";
 import ModalProject from "../../components/project/ModalProject";
 import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
 import { ButtonProject } from "../../components/dashboard/DashboardContents";
 
 const ProjectDashboard = () => {
-  const [filter, setFilter] = useState(null);
-  const [modalShow, setModalShow] = React.useState(false);
-  const [setting, setSetting] = useState("");
-  const { data: UserProjects } = useGetProjectDetailsQuery({
+  const { data: UserTableProjects } = useGetProjectDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
 
-  // const data = useMemo(() => {
-  //   if (!filter) return ProjectsCollection;
-  //   const filteredData = ProjectsCollection.filter(
-  //     (item) => item.activestatus === filter
-  //   );
-  //   return filteredData;
-  // }, [filter]);
+  const [filter, setFilter] = useState(null);
+  const [modalShow, setModalShow] = React.useState(false);
+  const [setting, setSetting] = useState("");
 
-  const ProjectsCollection = UserProjects || [];
+  const ProjectsCollection = UserTableProjects || [];
 
-  console.log(setting);
+  const [startDate, setStartDate] = useState(new Date("01/01/1998"));
+  const [endDate, setEndDate] = useState(new Date("01/01/2023"));
+
+  const convertedStartDate = new Date(startDate).toISOString();
+  const convertedEndDate = new Date(endDate).toISOString();
+
+  const finalStartDate = new Date(convertedStartDate).getTime();
+  const finalEndDate = new Date(convertedEndDate).getTime();
+
+  const data = useMemo(() => {
+    if (!filter) return ProjectsCollection;
+    const filteredData = ProjectsCollection.filter(
+      (item) =>
+        item.status === filter &&
+        finalStartDate <= new Date(item.due).getTime() &&
+        new Date(item.due).getTime() <= finalEndDate
+    );
+    return filteredData;
+  }, [filter, finalStartDate, finalEndDate, ProjectsCollection]);
+
+  const filteredInProgressData = ProjectsCollection.filter(
+    (item) => item.status === "inprogress"
+  );
+
+  const filteredUpcomingData = ProjectsCollection.filter(
+    (item) => item.status === "Upcoming"
+  );
+
+  const filteredCompleteData = ProjectsCollection.filter(
+    (item) => item.status === "Complete"
+  );
+
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">
@@ -39,38 +64,60 @@ const ProjectDashboard = () => {
             <div className={project.flexwrap}>
               <NavCategories
                 name="All Projects"
-                total="(23)"
-                // filter={filter}
-                // filter1={null}
-                // onClick={() => setFilter(null)}
+                total={`(${ProjectsCollection.length})`}
+                filter={filter}
+                filter1={null}
+                onClick={() => setFilter(null)}
               />
 
               <NavCategories
                 name="Upcoming"
-                total="(02)"
+                total={`(${filteredUpcomingData.length})`}
                 filter={filter}
                 filter1="Upcoming"
-                // onClick={() => setFilter("Upcoming")}
+                onClick={() => setFilter("Upcoming")}
               />
               <NavCategories
                 name="In Progress"
-                total="(10)"
-                filter1="In Progress"
-                // filter={filter}
-                // onClick={() => setFilter("In Progress")}
+                filter1="inprogress"
+                filter={filter}
+                total={`(${filteredInProgressData.length})`}
+                onClick={() => {
+                  setFilter("inprogress");
+                }}
               />
               <NavCategories
                 name="Completed"
-                total="(11)"
-                // filter={filter}
+                total={`(${filteredCompleteData.length})`}
+                filter={filter}
                 filter1="Complete"
-                // onClick={() => setFilter("Complete")}
+                onClick={() => setFilter("Complete")}
               />
             </div>
-            <TableHeaderNav />
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              dateFormat="dd/MM/yyyy"
+              customInput={<ExampleCustomInput />}
+              // width={300}
+            />
+            <DatePicker
+              showIcon
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              selectsEnd
+              dateFormat="dd/MM/yyyy"
+              customInput={<ExampleCustomInput />}
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+            />
           </div>
           <TableDisplay>
-            {ProjectsCollection.map((projectcollect, index) => (
+            {data.map((projectcollect, index) => (
               <tr
                 onClick={() => {
                   setSetting(projectcollect._id);
@@ -162,3 +209,16 @@ const NavCategories = (props) => {
     </Button>
   );
 };
+
+const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+  <button className={project.datepickerbutton} onClick={onClick} ref={ref}>
+    <div className={project.center}>
+      <Image
+        src="/icons/calendar.svg"
+        alt="icon"
+        className={project.calendaricon}
+      />
+    </div>
+    {value}
+  </button>
+));

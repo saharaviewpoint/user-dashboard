@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import registerform from "./General.module.css";
 import "./form.css";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../features/auth/authActions";
@@ -23,10 +21,10 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // redirect authenticated user to profile screen
-    if (userInfo) {
-      navigate("/user-profile");
-    }
+    // // redirect authenticated user to profile screen
+    // if (userInfo) {
+    //   navigate("/user-profile");
+    // }
     // redirect user to login page if registration was successful
     if (success) navigate("/");
   }, [navigate, userInfo, success]);
@@ -34,12 +32,6 @@ const Register = () => {
   const submitForm = (data) => {
     data.email = data.email.toLowerCase();
     dispatch(registerUser(data));
-  };
-
-  const notifyDefault = () => {
-    toast.success("Registration Successful", {
-      position: toast.POSITION.TOP_LEFT,
-    });
   };
 
   return (
@@ -194,11 +186,7 @@ const Register = () => {
                     )}
                   </div>
                 </Form.Group>
-                <Button
-                  type="submit"
-                  onClick={notifyDefault}
-                  className={registerform.submitbutton1}
-                >
+                <Button type="submit" className={registerform.submitbutton1}>
                   {loading ? <Spinner /> : "Register"}
                 </Button>
               </form>

@@ -35,6 +35,7 @@ const { MediaContextProvider, Media } = createMedia({
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
   return (
     <MediaContextProvider>
       <Media at="sm">
@@ -61,10 +62,7 @@ const App = () => {
               path="/project/board"
               element={userInfo ? <ProjectBoard /> : <Navigate to="/" />}
             />
-            <Route
-              path="/project/grid"
-              element={userInfo ? <ProjectGrid /> : <Navigate to="/" />}
-            />
+            <Route path="/project/grid" element={<ProjectGrid />} />
             <Route
               path="/project/form"
               element={userInfo ? <ProjectForm /> : <Navigate to="/" />}

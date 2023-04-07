@@ -11,9 +11,9 @@ const Project = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  console.log(UserProjects);
-
   const NeededProjects = UserProjects?.slice(0, 5) || [];
+
+  console.log(UserProjects);
 
   return (
     <div className={project.projectcontainer1}>

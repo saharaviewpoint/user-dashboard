@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Image } from "react-bootstrap";
 import { ProjectsCollection } from "../../../data/projects";
 import modal from "./general.module.css";
 import Form from "react-bootstrap/Form";
 import "./Modal.css";
-import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
+import {
+  useGetProjectDetailsQuery,
+  useGetProjectSpecificTaskQuery,
+} from "@/app/services/auth/authService";
 
 const ImageAttachment = [
   {
@@ -24,9 +27,16 @@ const ModalProject = (props) => {
     refetchOnMountOrArgChange: true,
   });
 
+  const { data: UserProjectTask } = useGetProjectSpecificTaskQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
   const ModalProjectsCollection = UserProjects || [];
 
-  console.log(ModalProjectsCollection);
+  const specificUserProjectTask = UserProjectTask || [];
+
+  console.log(specificUserProjectTask);
+
   return (
     <Modal
       className={modal.modal}
@@ -43,7 +53,6 @@ const ModalProject = (props) => {
                 className={modal.containedmodaltitlecenter}
                 id="contained-modal-title-vcenter"
               >
-                {/* <div className={modal.absolutecenter}> */}
                 <div className={modal.flexheader}>
                   <StatusButton text={collect.status} />
                   <CalendarText
@@ -55,7 +64,6 @@ const ModalProject = (props) => {
                     date={new Date(collect.due).toLocaleDateString()}
                   />
                 </div>
-                {/* </div> */}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body className={modal.modalbody}>

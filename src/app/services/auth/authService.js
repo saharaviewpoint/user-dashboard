@@ -39,6 +39,12 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    getProjectSpecificTask: build.query({
+      query: (id) => ({
+        url: `/user/tasks/project/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -47,4 +53,5 @@ export const {
   useGetDetailsQuery,
   useGetProjectDetailsQuery,
   useAddProjectDetailsMutation,
+  useGetProjectSpecificTaskQuery,
 } = authApi;

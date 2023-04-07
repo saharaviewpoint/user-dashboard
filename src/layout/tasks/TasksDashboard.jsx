@@ -59,7 +59,6 @@ const TasksDashboard = () => {
                 onClick={() => setFilter("Declined")}
               />
             </div>
-            <TableHeaderNav />
           </div>
           <TaskTableDisplay>
             {filtereddata.map((taskcollect, index) => (

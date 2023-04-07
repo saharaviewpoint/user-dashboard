@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../features/auth/authActions";
-import { Container, Image, Form, Button } from "react-bootstrap";
+import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import login from "./General.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { EMAIL_VALIDATION } from "@/constants/regex";
-import Spinner from "../components/dashboard/Spinner";
 
 const Login = () => {
   const { loading, userInfo } = useSelector((state) => state.auth);
@@ -83,9 +82,7 @@ const Login = () => {
                   <span className={login.error}>Max length exceeded</span>
                 )}
                 {errors.password && errors.password.type === "pattern" && (
-                  <span className={login.error}>
-                    Password is invalid
-                  </span>
+                  <span className={login.error}>Password is invalid</span>
                 )}
               </div>
             </Form.Group>

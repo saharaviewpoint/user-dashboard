@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import side from "./User.module.css";
@@ -14,13 +14,6 @@ const DashboardLayout = (props) => {
   const navigate = useNavigate();
   const { data: user } = useGetDetailsQuery();
 
-  // useEffect(() => {
-  //   if (!userInfo) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, userInfo]);
-
-  // console.log(user);
 
   const LogOut = () => {
     dispatch(logout());
