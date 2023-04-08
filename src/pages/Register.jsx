@@ -6,7 +6,7 @@ import "./form.css";
 import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../features/auth/authActions";
-import { EMAIL_VALIDATION } from "@/constants/regex";
+import { EMAIL_VALIDATION } from "@/constants/Regex";
 
 const Register = () => {
   const [type, setType] = useState("");

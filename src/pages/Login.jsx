@@ -6,7 +6,7 @@ import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import login from "./General.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { EMAIL_VALIDATION } from "@/constants/regex";
+import { EMAIL_VALIDATION } from "@/constants/Regex";
 
 const Login = () => {
   const { loading, userInfo } = useSelector((state) => state.auth);
