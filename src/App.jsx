@@ -46,55 +46,19 @@ const App = () => {
           <Routes>
             {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/" element={<Login />} />
-            <Route
-              path="/dashboard"
-              element={userInfo ? <Homepage /> : <Navigate to="/" />}
-            />
-            <Route
-              path="*"
-              element={userInfo ? <NotFound /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/project"
-              element={userInfo ? <Projects /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/project/board"
-              element={userInfo ? <ProjectBoard /> : <Navigate to="/" />}
-            />
+            <Route path="/dashboard" element={<Homepage />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/project" element={<Projects />} />
+            <Route path="/project/board" element={<ProjectBoard />} />
             <Route path="/project/grid" element={<ProjectGrid />} />
-            <Route
-              path="/project/form"
-              element={userInfo ? <ProjectForm /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/task"
-              element={userInfo ? <Tasks /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/task/board"
-              element={userInfo ? <TaskBoard /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/task/calendar"
-              element={userInfo ? <TaskCalendar /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/reports"
-              element={userInfo ? <Reports /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/reports/table"
-              element={userInfo ? <ReportsTable /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/reports/grid"
-              element={userInfo ? <ReportsGrid /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/message"
-              element={userInfo ? <Messages /> : <Navigate to="/" />}
-            />
+            <Route path="/project/form" element={<ProjectForm />} />
+            <Route path="/task" element={<Tasks />} />
+            <Route path="/task/board" element={<TaskBoard />} />
+            <Route path="/task/calendar" element={<TaskCalendar />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/reports/table" element={<ReportsTable />} />
+            <Route path="/reports/grid" element={<ReportsGrid />} />
+            <Route path="/message" element={<Messages />} />
 
             <Route path="/register" element={<Register />} />
             {/* <Route path="/admin" element={<HomepageAdmin />} /> */}

@@ -14,6 +14,7 @@ const DashboardLayout = (props) => {
   const navigate = useNavigate();
   const { data: user } = useGetDetailsQuery();
 
+  const UserInfo = user || [];
 
   const LogOut = () => {
     dispatch(logout());
@@ -44,7 +45,7 @@ const DashboardLayout = (props) => {
               <p className={side.welcomemessage}>
                 Hello,
                 <span className={side.welcomecolormessage}>
-                  {user?.firstname}
+                  {UserInfo?.firstname}
                 </span>
               </p>
               <NavbarTab
@@ -93,8 +94,8 @@ const DashboardLayout = (props) => {
                     <Image src="/images/avatar.png" alt="avatar" />
                   </div>
                   <div className={side.textcontainer}>
-                    <p className={side.avatartitle}>{user?.firstname}</p>
-                    <p className={side.avatarcontext}>{user?.email}</p>
+                    <p className={side.avatartitle}>{UserInfo?.firstname}</p>
+                    <p className={side.avatarcontext}>{UserInfo?.email}</p>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import project from "./User.module.css";
 import { Image } from "react-bootstrap";
-import { Projects } from "../../../data/projects";
 import Table from "react-bootstrap/Table";
 import "./Modal.css";
 import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
@@ -11,9 +10,8 @@ const Project = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  const NeededProjects = UserProjects?.slice(0, 5) || [];
-
-  console.log(UserProjects);
+  const FirstFiveProjects = UserProjects || [];
+  const NeededProjects = FirstFiveProjects?.slice(0, 5) || [];
 
   return (
     <div className={project.projectcontainer1}>
