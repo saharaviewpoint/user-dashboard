@@ -21,11 +21,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // // redirect authenticated user to profile screen
-    // if (userInfo) {
-    //   navigate("/user-profile");
-    // }
-    // redirect user to login page if registration was successful
     if (success) navigate("/");
   }, [navigate, userInfo, success]);
 
@@ -108,7 +103,7 @@ const Register = () => {
                       )}
                   </div>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicRole">
+                {/* <Form.Group className="mb-3" controlId="formBasicRole">
                   <Form.Label className={registerform.formlabel}>
                     Role
                   </Form.Label>
@@ -126,7 +121,7 @@ const Register = () => {
                     <option>Product Manager</option>
                     <option>Admin</option>
                   </Form.Select>
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label className={registerform.formlabel}>
                     Email

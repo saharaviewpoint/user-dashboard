@@ -22,7 +22,8 @@
   background-color: white;
   margin: 0 auto;
   /* padding-bottom: 2rem; */
-  width: 90%;
+  width: 95%;
+  height: 100vh;
 }
 
 .leftcontainer {
@@ -320,4 +321,27 @@
 
 .disappear {
   display: none;
+}
+
+.datepickerbutton {
+  border: 1px solid;
+  border-color: var(--black100);
+  border-radius: 8px;
+  background-color: white;
+  padding: 0.5rem;
+  white-space: nowrap;
+  display: flex;
+  /* background-color: blue; */
+}
+
+.calendaricon {
+  margin-right: 0.2rem;
+  width: 15px;
+  height: 15px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

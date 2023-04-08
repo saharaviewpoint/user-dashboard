@@ -45,6 +45,12 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    getReportsDetails: build.query({
+      query: () => ({
+        url: "/user/reports",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -53,5 +59,7 @@ export const {
   useGetDetailsQuery,
   useGetProjectDetailsQuery,
   useAddProjectDetailsMutation,
+  useGetReportsDetailsQuery,
+  useGetTaskDetailsQuery,
   useGetProjectSpecificTaskQuery,
 } = authApi;

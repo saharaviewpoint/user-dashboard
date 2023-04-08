@@ -6,8 +6,30 @@ import Notification from "./Notification";
 import Tasks from "./Tasks";
 import Project from "./Project";
 import { Link } from "react-router-dom";
+import {
+  useGetTaskDetailsQuery,
+  useGetProjectDetailsQuery,
+  useGetReportsDetailsQuery,
+} from "@/app/services/auth/authService";
 
 const DashboardContents = () => {
+  const { data: UserReports } = useGetReportsDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const ReportsCollection = UserReports || [];
+
+  const { data: UserTasks } = useGetTaskDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const TaskCollection = UserTasks || [];
+
+  const { data: UserProjects } = useGetProjectDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const ProjectsCollection = UserProjects || [];
   return (
     <div className={user.contentcontainer}>
       {/* <div className={user.absoluterightcontainer}>
@@ -16,15 +38,27 @@ const DashboardContents = () => {
 
       <ButtonProject />
       <div className={user.flexcontainer}>
-        {collections.map((collection, index) => (
-          <Cards
-            key={index}
-            imagelink={collection.imagelink}
-            text={collection.total}
-            title={collection.name}
-            description={collection.description}
-          />
-        ))}
+        <Cards
+          imagelink="/icons/dashboard/project-cards-icon.svg"
+          text={ProjectsCollection.length}
+          title="Projects"
+          description={ProjectsCollection.description}
+          verb="ongoing"
+        />
+        <Cards
+          imagelink="/icons/dashboard/tasks-cards-icon.svg"
+          text={TaskCollection.length}
+          title="Tasks"
+          description={ProjectsCollection.description}
+          verb="new"
+        />
+        <Cards
+          imagelink="/icons/dashboard/reports-cards-icon.svg"
+          text={ReportsCollection.length}
+          title="Reports"
+          description={ProjectsCollection.description}
+          verb="new"
+        />
       </div>
       <div className={user.flexedcontainer1}>
         <Notification />
@@ -48,7 +82,9 @@ const Cards = (props) => {
           </div>
         </div>
         <p className={user.title}>{props.title}</p>
-        <p className={user.description}>{props.description}</p>
+        <p className={user.description}>
+          You have {props.text} {props.verb} {props.title}
+        </p>
       </div>
     </div>
   );

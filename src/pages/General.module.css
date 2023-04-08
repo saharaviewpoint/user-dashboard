@@ -26,10 +26,14 @@
   background-color: var(--SVP-main);
 }
 
-.container1 {
-  max-width: 1440px !important;
+.container2 {
+  /* max-width: 1440px !important; */
   padding: 0rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
+  background-color: var(--SVP-main);
 }
 
 .logincenteredcontainer {
@@ -152,4 +156,15 @@
 
 .errorcontainer {
   margin-top: 5px;
+}
+
+.container1 {
+  max-width: 1440px !important;
+  padding: 0rem !important;
+  height: 100vh;
+}
+
+.largeicon {
+  width: 70%;
+  margin: 0 auto;
 }
