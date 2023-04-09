@@ -119,6 +119,9 @@
   height: 35px;
   font-size: 16px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   margin-bottom: 0px;
   background-color: var(--SVP-main);
