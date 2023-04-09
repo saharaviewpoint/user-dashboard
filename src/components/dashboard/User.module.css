@@ -129,8 +129,8 @@ a {
 
 .avatarcontext {
   font-size: 0.8rem;
-  margin-bottom: 0px;
-  margin-top: 10px;
+  margin-bottom: 0px !important;
+  margin-top: 5px;
   font-family: "Inter", sans-serif;
   color: var(--black400);
 }
