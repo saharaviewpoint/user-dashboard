@@ -7,7 +7,6 @@ import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../features/auth/authActions";
 import { EMAIL_VALIDATION } from "@/constants/Regex";
-import { toast } from "react-hot-toast";
 
 const Register = () => {
   const [type, setType] = useState("");

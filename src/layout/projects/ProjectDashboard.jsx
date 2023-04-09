@@ -57,6 +57,7 @@ const ProjectDashboard = () => {
     (item) => item.user_status === "Complete"
   );
 
+  console.log(ProjectsCollection);
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">

@@ -161,7 +161,9 @@ const TasksDashboard = () => {
                       </p>
                     </div>
                   </td>
-                  <td>{/* <StatusButton text={taskcollect.status} /> */}</td>
+                  <td>
+                    <StatusButton text={taskcollect.status} />
+                  </td>
                   <td className={task.centericon}>
                     {" "}
                     {new Date(taskcollect.date).toLocaleDateString()}

@@ -4,7 +4,6 @@ import { Image } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import "./Modal.css";
 import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
-import { users } from "../../../data/user";
 import SkeletonLoader from "./SkeletonLoader";
 
 const Project = () => {
