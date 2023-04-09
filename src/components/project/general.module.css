@@ -25,14 +25,16 @@
   margin-bottom: 0.4rem;
 }
 
-.statusbuttontext {
+.awaitbuttontext {
   font-family: "Inter", sans-serif;
   font-size: 14px;
   text-align: center;
   padding: 8px 16px;
+  background-color: #2d9cdb;
   margin-bottom: 0px;
   color: var(--white);
   font-weight: 600;
+  border-radius: 8px;
 }
 
 .titlenavigation {
@@ -233,26 +235,35 @@
   font-size: 14px;
   color: var(--black400);
 }
-
 .statusbutton {
-  background-color: var(--black400);
   border-radius: 8px;
-  width: 10rem;
-  display: inline-block;
-  margin-left: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.upcoming {
-  background-color: orange;
+.completebuttontext {
+  background-color: var(--success);
   border-radius: 8px;
-  width: 10rem;
-  display: inline-block;
-  margin-left: 0.5rem;
-}
-
-.statusbuttontext {
   font-family: "Inter", sans-serif;
   font-size: 14px;
+  border-radius: 8px;
+  margin-bottom: 0px;
+  width: 200px;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+  font-weight: 600;
+}
+.incomingtext {
+  background-color: var(--black400);
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  border-radius: 8px;
+  margin-bottom: 0px;
+  width: 200px;
   text-align: center;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -260,12 +271,18 @@
   font-weight: 600;
 }
 
-.completebutton {
-  background-color: var(--success);
+.statusbuttontext {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   border-radius: 8px;
-  width: 10rem;
-  display: inline-block;
-  margin-left: 0.5rem;
+  margin-bottom: 0px;
+  width: 200px;
+  text-align: center;
+  background-color: #2d9cdb;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+  font-weight: 600;
 }
 
 .space {

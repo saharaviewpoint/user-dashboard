@@ -1,15 +1,17 @@
 import React, { useMemo, useState, forwardRef } from "react";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import Header from "../../components/project/Header";
+import "./changes1.css";
 import grid from "./project.module.css";
 import { Container, Image } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
 import { ButtonProject } from "../../components/dashboard/DashboardContents";
+import SkeleteonGrid from "@/components/dashboard/SkeletonGrid";
 
 const ProjectBoardDashboard = () => {
-  const { data: UserProjectsBoard } = useGetProjectDetailsQuery({
+  const { data: UserProjectsBoard, isLoading } = useGetProjectDetailsQuery({
     refetchOnMountArgChange: true,
   });
 
@@ -26,7 +28,7 @@ const ProjectBoardDashboard = () => {
   const inprogressdata = useMemo(() => {
     const filteredData = ProjectsBoardCollection.filter(
       (item) =>
-        item.status === "inprogress" &&
+        item.user_status === "Awaiting Approval" &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
@@ -61,81 +63,104 @@ const ProjectBoardDashboard = () => {
           <ButtonProject />
           <Header name="My Projects" />
           <div className={grid.rightboardcontainer}>
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              dateFormat="dd/MM/yyyy"
-              customInput={<ExampleCustomInput />}
-              width={300}
+            <div className={grid.datepickertitle3}>
+              <p className={grid.datepickertitlelabel}>Start Date</p>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                width={300}
+              />
+            </div>
+            <Image
+              src="/icons/dash.svg"
+              alt="dash"
+              style={{ marginTop: "18px" }}
             />
-            <DatePicker
-              showIcon
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              selectsEnd
-              dateFormat="dd/MM/yyyy"
-              customInput={<ExampleCustomInput />}
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-            />
+            <div className={grid.datepickertitle4}>
+              <p className={grid.datepickertitlelabel}>End Date</p>
+              <DatePicker
+                showIcon
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+              />
+            </div>
           </div>
           <div className={grid.flexboardcontainer}>
-            <div className={grid.sizecontainer}>
-              <BoarderHeader text="In Progress" />
-              {inprogressdata.map((filtereddata, index) => (
-                <ContentContainer
-                  key={index}
-                  headertext={filtereddata.name}
-                  content={filtereddata.details}
-                  firstname={filtereddata.requested_by.firstname}
-                  lastname={filtereddata.requested_by.lastname}
-                  firstnamefirstletter={filtereddata.requested_by.firstname.charAt(
-                    0
-                  )}
-                  lastnamefirstletter={filtereddata.requested_by.lastname.charAt(
-                    0
-                  )}
-                  date={filtereddata.date}
-                  status={filtereddata.status}
-                  imagelink={filtereddata.imagelink}
-                  priority={filtereddata.priority}
-                />
-              ))}
-            </div>
-            <div className={grid.sizecontainer}>
-              <BoarderHeader text="Upcoming" />
-              {upcomingdata.map((filtereddata, index) => (
-                <ContentContainer
-                  key={index}
-                  headertext={filtereddata.name}
-                  content={filtereddata.details}
-                  name={filtereddata.firstname}
-                  date={filtereddata.duedate}
-                  status={filtereddata.status}
-                  imagelink={filtereddata.imagelink}
-                  priority={filtereddata.priority}
-                />
-              ))}
-            </div>
-            <div className={grid.sizecontainer}>
-              <BoarderHeader text="Completed" />
-              {completedata.map((filtereddata, index) => (
-                <ContentContainer
-                  key={index}
-                  headertext={filtereddata.projectname}
-                  content={filtereddata.description}
-                  name={filtereddata.name}
-                  date={filtereddata.duedate}
-                  status={filtereddata.status}
-                  imagelink={filtereddata.imagelink}
-                  priority={filtereddata.priority}
-                />
-              ))}
-            </div>
+            {isLoading ? (
+              <SkeleteonGrid />
+            ) : (
+              <div className={grid.sizecontainer}>
+                <BoarderHeader text="Awaiting Approval" />
+                {inprogressdata.map((filtereddata, index) => (
+                  <ContentContainer
+                    key={index}
+                    headertext={filtereddata.name}
+                    content={filtereddata.details}
+                    firstname={filtereddata.requested_by.firstname}
+                    lastname={filtereddata.requested_by.lastname}
+                    firstnamefirstletter={filtereddata.requested_by.firstname.charAt(
+                      0
+                    )}
+                    lastnamefirstletter={filtereddata.requested_by.lastname.charAt(
+                      0
+                    )}
+                    date={filtereddata.date}
+                    status={filtereddata.user_status}
+                    imagelink={filtereddata.imagelink}
+                    priority={filtereddata.priority}
+                  />
+                ))}
+              </div>
+            )}
+            {isLoading ? (
+              <SkeleteonGrid />
+            ) : (
+              <div className={grid.sizecontainer}>
+                <BoarderHeader text="Upcoming" />
+                {upcomingdata.map((filtereddata, index) => (
+                  <ContentContainer
+                    key={index}
+                    headertext={filtereddata.name}
+                    content={filtereddata.details}
+                    name={filtereddata.firstname}
+                    date={filtereddata.duedate}
+                    status={filtereddata.user_status}
+                    imagelink={filtereddata.imagelink}
+                    priority={filtereddata.priority}
+                  />
+                ))}
+              </div>
+            )}
+            {isLoading ? (
+              <SkeleteonGrid />
+            ) : (
+              <div className={grid.sizecontainer}>
+                <BoarderHeader text="Completed" />
+                {completedata.map((filtereddata, index) => (
+                  <ContentContainer
+                    key={index}
+                    headertext={filtereddata.projectname}
+                    content={filtereddata.description}
+                    name={filtereddata.name}
+                    date={filtereddata.duedate}
+                    status={filtereddata.user_status}
+                    imagelink={filtereddata.imagelink}
+                    priority={filtereddata.priority}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </DashboardLayout>
@@ -149,7 +174,7 @@ const BoarderHeader = (props) => {
   return (
     <div
       className={
-        props.text === "In Progress"
+        props.text === "Awaiting Approval"
           ? grid.boarderheadercontainer
           : props.text === "Upcoming"
           ? grid.boarderheadercontainerpurple
@@ -180,7 +205,9 @@ const ContentContainer = (props) => {
             </p>
             <div className={grid.absolutecenter}>
               <p className={grid.textname}>{props.firstname}</p>
-              <p className={grid.textname}>{props.lastname}</p>
+              <p className={grid.textname}>
+                {props?.lastname?.substring(0, 5)}
+              </p>
             </div>
           </div>
         </div>
@@ -194,14 +221,20 @@ const ContentContainer = (props) => {
           <div className={grid.absolutecenter}>
             <p className={grid.assigned1}>Status</p>
           </div>
-          <div
-            className={
-              props.status === "inprogress"
-                ? grid.statusbutton
-                : grid.completebutton
-            }
-          >
-            <p className={grid.statusbuttontext1}>{props.status}</p>
+          <div className={grid.statusbutton}>
+            <p
+              className={
+                props.status === "Awaiting Approval"
+                  ? grid.statusbuttontext1
+                  : props.text === "Complete"
+                  ? grid.completebuttontext
+                  : props.text == "Upcoming"
+                  ? grid.upcomingtext
+                  : null
+              }
+            >
+              {props.status}
+            </p>
           </div>
         </div>
         {props.status === "Complete" ? null : (
@@ -254,6 +287,6 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         className={grid.calendaricon}
       />
     </div>
-    {value}
+    <p className={grid.datevalue}>{value}</p>
   </button>
 ));

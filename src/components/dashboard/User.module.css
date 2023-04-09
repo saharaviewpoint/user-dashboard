@@ -169,6 +169,7 @@ a {
   width: 100%;
   position: sticky;
   top: 0;
+  z-index: 100;
   padding: 1.5rem 0;
   background-color: var(--dashboard-yellow);
   margin: 0 auto;

@@ -54,7 +54,7 @@ const ModalProject = (props) => {
                 id="contained-modal-title-vcenter"
               >
                 <div className={modal.flexheader}>
-                  {/* <StatusButton text={collect.status} /> */}
+                  <StatusButton text={collect.user_status} />
                   <CalendarText
                     datetitle="Project created:"
                     date={new Date(collect.date).toLocaleDateString()}
@@ -203,18 +203,20 @@ export default ModalProject;
 
 const StatusButton = (props) => {
   return (
-    <div
-      className={
-        props.text === "inprogress"
-          ? modal.statusbutton
-          : props.text === "Complete"
-          ? modal.completebutton
-          : props.text == "Upcoming"
-          ? modal.upcoming
-          : null
-      }
-    >
-      <p className={modal.statusbuttontext}>{props.text}</p>
+    <div className={modal.statusbutton}>
+      <p
+        className={
+          props.text === "Awaiting Approval"
+            ? modal.statusbuttontext
+            : props.text === "Complete"
+            ? modal.completebuttontext
+            : props.text == "Upcoming"
+            ? modal.upcomingtext
+            : null
+        }
+      >
+        {props.text}
+      </p>
     </div>
   );
 };

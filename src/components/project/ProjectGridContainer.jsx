@@ -19,7 +19,8 @@ const ProjectGridContainer = (props) => {
           </div>
         </div>
         <p className={grid.textdate}>
-          <span className={grid.titledate}>Due:</span> {new Date(props.date).toLocaleDateString()}
+          <span className={grid.titledate}>Due:</span>{" "}
+          {new Date(props.date).toLocaleDateString()}
         </p>
         <div className={grid.space}>
           <div className={grid.absolutecenter}>
@@ -40,18 +41,20 @@ const ImageIcon = (props) => {
 
 const Button = (props) => {
   return (
-    <div
-      className={
-        props.text === "inprogress"
-          ? grid.statusbutton
-          : props.text === "Complete"
-          ? grid.completebutton
-          : props.text == "Upcoming"
-          ? grid.upcoming
-          : null
-      }
-    >
-      <p className={grid.statusbuttontext}>{props.text}</p>
+    <div className={grid.statusbutton} style={{ marginLeft: "10px" }}>
+      <p
+        className={
+          props.text === "Awaiting Approval"
+            ? grid.awaitbuttontext
+            : props.text === "Complete"
+            ? grid.completebuttontext
+            : props.text == "In Progress"
+            ? grid.incomingtext
+            : null
+        }
+      >
+        {props.text}
+      </p>
     </div>
   );
 };

@@ -3,16 +3,16 @@ import { Container, Button, Image } from "react-bootstrap";
 import task from "./task.module.css";
 import "./task.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
-import TableHeaderNav from "../../components/project/TableHeaderNav";
 import TaskTableDisplay from "../../components/tasks/TaskTableDisplay";
 import TaskHeader from "../../components/tasks/TaskHeader";
 import ModalTask from "@/components/tasks/ModalTask";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGetTaskDetailsQuery } from "../../app/services/auth/authService";
+import SkeleteonLoaderTable from "../../components/dashboard/SkeleteonLoaderTable";
 
 const TasksDashboard = () => {
-  const { data: TaskCollection } = useGetTaskDetailsQuery({
+  const { data: TaskCollection, isLoading } = useGetTaskDetailsQuery({
     refetchOnMountArgChange: true,
   });
 
@@ -36,7 +36,7 @@ const TasksDashboard = () => {
     if (!filter) return TasksTableCollection;
     const filteredData = TasksTableCollection.filter(
       (item) =>
-        item.status === filter &&
+        item.user_status === filter &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
@@ -92,78 +92,93 @@ const TasksDashboard = () => {
                 onClick={() => setFilter("Declined")}
               />
             </div>
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              dateFormat="dd/MM/yyyy"
-              customInput={<ExampleCustomInput />}
-              width={300}
+            <div className={task.datepickertitle}>
+              <p className={task.datepickertitlelabel}>Start Date</p>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                width={300}
+              />
+            </div>
+            <Image
+              src="/icons/dash.svg"
+              alt="icon"
+              style={{ marginTop: "18px" }}
             />
-            <DatePicker
-              showIcon
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              selectsEnd
-              dateFormat="dd/MM/yyyy"
-              customInput={<ExampleCustomInput />}
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-            />
+            <div className={task.datepickertitle}>
+              <p className={task.datepickertitlelabel}>End Date</p>
+              <DatePicker
+                showIcon
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+              />
+            </div>
           </div>
-          <TaskTableDisplay>
-            {data.map((taskcollect, index) => (
-              <tr
-                key={index}
-                onClick={() => {
-                  setSetting(taskcollect._id);
-                  setModalShow(true);
-                }}
-              >
-                <td>
-                  <div className={task.flexcontent}>
-                    {taskcollect.star === "true" ? (
-                      <Icon imagelink="/icons/dashboard/task/starred.svg" />
-                    ) : (
-                      <Icon imagelink="/icons/dashboard/task/star.svg" />
-                    )}
-                    <div className={task.centertext}>
-                      <p className={task.tasktitle}>{taskcollect.task}</p>
+          {isLoading ? (
+            <SkeleteonLoaderTable />
+          ) : (
+            <TaskTableDisplay>
+              {data.map((taskcollect, index) => (
+                <tr
+                  key={index}
+                  onClick={() => {
+                    setSetting(taskcollect._id);
+                    setModalShow(true);
+                  }}
+                >
+                  <td>
+                    <div className={task.flexcontent}>
+                      {taskcollect.star === "true" ? (
+                        <Icon imagelink="/icons/dashboard/task/starred.svg" />
+                      ) : (
+                        <Icon imagelink="/icons/dashboard/task/star.svg" />
+                      )}
+                      <div className={task.centertext}>
+                        <p className={task.tasktitle}>{taskcollect.task}</p>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>{taskcollect.name}</td>
-                <td>
-                  <div className={task.absolutecenter}>
-                    <p className={task.avatar}>
-                      {" "}
-                      {taskcollect.assigned_to?.firstname.charAt(0)}
-                      <span>{taskcollect.assigned_to?.lastname.charAt(0)}</span>
-                    </p>
-                  </div>
-                </td>
-                <td>
-                  <StatusButton text={taskcollect.status} />
-                </td>
-                <td className={task.centericon}>
-                  {" "}
-                  {new Date(taskcollect.date).toLocaleDateString()}
-                </td>
-                <td className={task.centericon}>
-                  {taskcollect.priority === "red" ? (
-                    <ImageIcon imagelink="/icons/table/redflag.svg" />
-                  ) : taskcollect.priority === "gray" ? (
-                    <ImageIcon imagelink="/icons/table/normalflag.svg" />
-                  ) : taskcollect.priority === "yellow" ? (
-                    <ImageIcon imagelink="/icons/table/warningflag.svg" />
-                  ) : null}
-                </td>
-              </tr>
-            ))}
-          </TaskTableDisplay>
+                  </td>
+                  <td>{taskcollect.name}</td>
+                  <td>
+                    <div className={task.absolutecenter}>
+                      <p className={task.avatar}>
+                        {" "}
+                        {taskcollect.assigned_to?.firstname.charAt(0)}
+                        <span>
+                          {taskcollect.assigned_to?.lastname.charAt(0)}
+                        </span>
+                      </p>
+                    </div>
+                  </td>
+                  <td>{/* <StatusButton text={taskcollect.status} /> */}</td>
+                  <td className={task.centericon}>
+                    {" "}
+                    {new Date(taskcollect.date).toLocaleDateString()}
+                  </td>
+                  <td className={task.centericon}>
+                    {taskcollect.priority === "red" ? (
+                      <ImageIcon imagelink="/icons/table/redflag.svg" />
+                    ) : taskcollect.priority === "gray" ? (
+                      <ImageIcon imagelink="/icons/table/normalflag.svg" />
+                    ) : taskcollect.priority === "yellow" ? (
+                      <ImageIcon imagelink="/icons/table/warningflag.svg" />
+                    ) : null}
+                  </td>
+                </tr>
+              ))}
+            </TaskTableDisplay>
+          )}
         </div>
       </DashboardLayout>
       <ModalTask
@@ -232,6 +247,6 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         className={task.calendaricon}
       />
     </div>
-    {value}
+    <p className={task.datevalue}>{value}</p>
   </button>
 ));

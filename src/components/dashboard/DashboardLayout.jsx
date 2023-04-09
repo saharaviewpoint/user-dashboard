@@ -8,8 +8,7 @@ import { logout } from "@/features/auth/authSlice";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useGetDetailsQuery } from "@/app/services/auth/authService";
-
-
+import { authApi } from "../../app/services/auth/authService";
 
 const DashboardLayout = (props) => {
   const [display, setDisplay] = useState(false);
@@ -22,6 +21,7 @@ const DashboardLayout = (props) => {
 
   const LogOut = () => {
     dispatch(logout());
+    dispatch(authApi.util.resetApiState());
     navigate("/");
   };
   return (

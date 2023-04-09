@@ -8,9 +8,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import ProjectGridContainer from "../../components/project/ProjectGridContainer";
 import { ButtonProject } from "../../components/dashboard/DashboardContents";
 import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
+import SkeleteonBoard from "@/components/dashboard/SkeletonBoard";
 
 const ProjectGridDashboard = () => {
-  const { data: UserProjectGrid } = useGetProjectDetailsQuery({
+  const { data: UserProjectGrid, isLoading } = useGetProjectDetailsQuery({
     refetchOnMountArgChange: true,
   });
   const ProjectGridCollection = UserProjectGrid || [];
@@ -29,7 +30,7 @@ const ProjectGridDashboard = () => {
     if (!filter) return ProjectGridCollection;
     const filteredData = ProjectGridCollection.filter(
       (item) =>
-        item.status === filter &&
+        item.user_status === filter &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
@@ -37,15 +38,15 @@ const ProjectGridDashboard = () => {
   }, [filter, finalStartDate, finalEndDate, ProjectGridCollection]);
 
   const filteredInProgressData = ProjectGridCollection.filter(
-    (item) => item.status === "inprogress"
+    (item) => item.user_status === "In Progress"
   );
 
   const filteredUpcomingData = ProjectGridCollection.filter(
-    (item) => item.status === "Upcoming"
+    (item) => item.user_status === "Awaiting Approval"
   );
 
   const filteredCompleteData = ProjectGridCollection.filter(
-    (item) => item.status === "Complete"
+    (item) => item.user_status === "Complete"
   );
   return (
     <Container className={project.container}>
@@ -65,18 +66,18 @@ const ProjectGridDashboard = () => {
               />
 
               <NavCategories
-                name="Upcoming"
+                name="Awaiting Approval"
                 filter={filter}
                 filter1="Upcoming"
                 total={`(${filteredUpcomingData.length})`}
-                onClick={() => setFilter("Upcoming")}
+                onClick={() => setFilter("Awaiting Approval")}
               />
               <NavCategories
                 name="In Progress"
                 filter1="inprogress"
                 filter={filter}
                 total={`(${filteredInProgressData.length})`}
-                onClick={() => setFilter("inprogress")}
+                onClick={() => setFilter("In Progress")}
               />
               <NavCategories
                 name="Completed"
@@ -86,40 +87,51 @@ const ProjectGridDashboard = () => {
                 onClick={() => setFilter("Complete")}
               />
             </div>
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              dateFormat="dd/MM/yyyy"
-              customInput={<ExampleCustomInput />}
-              width={300}
-            />
-            <DatePicker
-              showIcon
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              selectsEnd
-              dateFormat="dd/MM/yyyy"
-              customInput={<ExampleCustomInput />}
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-            />
+            <div className={project.datepickertitle}>
+              <p className={project.datepickertitlelabel}>Start Date</p>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                width={300}
+              />
+            </div>
+            <Image style={{ marginTop: "18px" }} src="/icons/dash.svg" />
+            <div className={project.datepickertitle}>
+              <p className={project.datepickertitlelabel}>End Date</p>
+              <DatePicker
+                showIcon
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+              />
+            </div>
           </div>
           {/* </div> */}
-          <div className={project.wrap}>
-            {data.map((projectcollect, index) => (
-              <ProjectGridContainer
-                key={index}
-                text={projectcollect.name}
-                date={projectcollect.due}
-                status={projectcollect.status}
-                priority={projectcollect.priority}
-              ></ProjectGridContainer>
-            ))}
-          </div>
+          {isLoading ? (
+            <SkeleteonBoard />
+          ) : (
+            <div className={project.wrap}>
+              {data.map((projectcollect, index) => (
+                <ProjectGridContainer
+                  key={index}
+                  text={projectcollect.name}
+                  date={projectcollect.due}
+                  status={projectcollect.user_status}
+                  priority={projectcollect.priority}
+                ></ProjectGridContainer>
+              ))}
+            </div>
+          )}
         </div>
       </DashboardLayout>
     </Container>
@@ -160,6 +172,6 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         className={project.calendaricon}
       />
     </div>
-    {value}
+    <p className={project.datevalue}>{value}</p>
   </button>
 ));

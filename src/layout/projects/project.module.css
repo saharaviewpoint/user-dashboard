@@ -12,6 +12,13 @@
   /* height: 100vh; */
 }
 
+.overallcontainer1 {
+  height: 100vh;
+  background-color: white;
+  margin: 0 auto;
+  width: 95%;
+}
+
 .tablenavcontainer {
   background-color: white;
   border-top-left-radius: 5px;
@@ -127,24 +134,49 @@
 }
 
 .statusbutton {
-  background-color: var(--black400);
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.completebutton {
+.completebuttontext {
   background-color: var(--success);
   border-radius: 8px;
-}
-.upcoming {
-  background-color: orange;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   border-radius: 8px;
+  margin-bottom: 0px;
+  width: 200px;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+  font-weight: 600;
+}
+.incomingtext {
+  background-color: var(--black400);
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  border-radius: 8px;
+  margin-bottom: 0px;
+  width: 200px;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+  font-weight: 600;
 }
 
-.statusbuttontext {
+.awaitbuttontext {
   font-family: "Inter", sans-serif;
-  font-size: 1rem;
+  font-size: 14px;
+  border-radius: 8px;
   margin-bottom: 0px;
+  width: 200px;
   text-align: center;
+  background-color: #2d9cdb;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   color: var(--white);
@@ -152,11 +184,15 @@
 }
 .statusbuttontext1 {
   font-family: "Inter", sans-serif;
-  font-size: 16px;
-  text-align: center;
-  padding: 8px 16px;
-  color: var(--white);
+  font-size: 14px;
+  border-radius: 8px;
   margin-bottom: 0px;
+  width: 170px;
+  text-align: center;
+  background-color: #2d9cdb;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
   font-weight: 600;
 }
 
@@ -227,6 +263,7 @@
   margin-top: 2rem;
   height: 360px;
   display: flex;
+  /* background-color: aqua; */
   flex-direction: column;
   box-shadow: 4px 8px 13px rgba(0, 0, 0, 0.05);
 }
@@ -504,14 +541,57 @@
 
 .calendaricon {
   margin-right: 0.2rem;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
 }
 
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.datevalue {
+  margin-bottom: 0px;
+  padding-top: 3px;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+}
+
+.datepickertitle {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  margin-right: 13px;
+}
+
+.datepickertitle1 {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  margin-left: 5px;
+}
+
+.datepickertitle3 {
+  display: flex;
+  flex-direction: column;
+  width: 130px;
+  /* padding-right: 40px; */
+}
+
+.datepickertitle4 {
+  display: flex;
+  flex-direction: column;
+  width: 130px;
+  padding-left: 20px;
+  /* padding-left: 30px; */
+}
+
+.datepickertitlelabel {
+  margin-bottom: 0px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  padding-bottom: 5px;
 }
 
 @media (min-width: 600px) and (max-width: 1280px) {
