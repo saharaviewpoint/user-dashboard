@@ -25,6 +25,7 @@
   border-top-right-radius: 5px;
   border: none;
   padding: 0rem;
+  height: 56px;
   flex: 1;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -45,7 +46,7 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border: none;
-  flex: 1;
+  height: 56px;
   padding: 0rem;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
