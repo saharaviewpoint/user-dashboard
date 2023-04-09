@@ -115,7 +115,8 @@
 }
 
 .avatar {
-  padding: 35px 35px;
+  width: 35px;
+  height: 35px;
   font-size: 16px;
   border-radius: 50%;
   color: white;
@@ -381,7 +382,6 @@
   width: 100px;
   margin-right: 40px;
 }
-
 
 .datepickertitle3 {
   display: flex;
