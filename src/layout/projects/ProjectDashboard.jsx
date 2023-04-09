@@ -22,6 +22,8 @@ const ProjectDashboard = () => {
 
   const ProjectsCollection = UserTableProjects || [];
 
+  console.log(ProjectsCollection);
+
   const [startDate, setStartDate] = useState(new Date("01/01/1998"));
   const [endDate, setEndDate] = useState(new Date("01/01/2023"));
 
@@ -138,9 +140,7 @@ const ProjectDashboard = () => {
                     </p>
                   </div>
                 </td>
-                <td>
-                  <StatusButton text={projectcollect.status} />
-                </td>
+                <td>{/* <StatusButton text={projectcollect.status} /> */}</td>
                 <td className={project.centericon}>
                   {new Date(projectcollect.date).toLocaleDateString()}
                 </td>

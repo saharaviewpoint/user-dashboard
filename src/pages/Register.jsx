@@ -7,6 +7,7 @@ import { Container, Image, Form, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../features/auth/authActions";
 import { EMAIL_VALIDATION } from "@/constants/Regex";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const [type, setType] = useState("");
@@ -29,11 +30,23 @@ const Register = () => {
     dispatch(registerUser(data));
   };
 
+  const onSubmit = async () => {
+    try {
+      data.email = data.email.toLowerCase();
+      dispatch(registerUser(data));
+    } catch (e) {
+      // handle your error
+    }
+  };
   return (
     <Container className={registerform.container1}>
       <div className={registerform.flexcontainer}>
         <div className={registerform.figurecontainer}>
-          <Image src="/icons/login-illustration.svg" alt="icons" />
+          <Image
+            src="/icons/login-illustration.svg"
+            className={registerform.registericon}
+            alt="icons"
+          />
         </div>
         <div className={registerform.rightcontainer}>
           <div className={registerform.logincenteredcontainer1}>

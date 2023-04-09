@@ -23,6 +23,8 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: sticky;
+  top: 0;
   background-color: var(--SVP-main);
 }
 
@@ -119,6 +121,14 @@
   font-weight: 600;
 }
 
+.route:hover {
+  color: var(--SVP-main);
+}
+
+.route:focus {
+  color: var(--SVP-main);
+}
+
 .flexcontainer {
   display: flex;
   height: 100vh;
@@ -166,5 +176,10 @@
 
 .largeicon {
   width: 70%;
+  margin: 0 auto;
+}
+
+.registericon {
+  width: 80%;
   margin: 0 auto;
 }

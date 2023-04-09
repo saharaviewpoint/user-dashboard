@@ -548,6 +548,17 @@ td {
   text-align: center;
 }
 
+.tableheading {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.tableheading1 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
 .centertext {
   display: flex;
   justify-content: center;
@@ -753,8 +764,6 @@ td {
   animation: loading 1s ease infinite;
   z-index: 10;
 }
-
-
 
 @keyframes loading {
   0% {

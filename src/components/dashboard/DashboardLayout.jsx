@@ -5,7 +5,11 @@ import side from "./User.module.css";
 import { Container, Image, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logout } from "@/features/auth/authSlice";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useGetDetailsQuery } from "@/app/services/auth/authService";
+
+
 
 const DashboardLayout = (props) => {
   const [display, setDisplay] = useState(false);
@@ -43,9 +47,15 @@ const DashboardLayout = (props) => {
             </div>
             <div className={side.centercontainer1}>
               <p className={side.welcomemessage}>
-                Hello,
+                Hello, &nbsp;
                 <span className={side.welcomecolormessage}>
-                  {UserInfo?.firstname}
+                  {UserInfo.firstname || (
+                    <Skeleton
+                      baseColor="#ebab34"
+                      highlightColor="#f2cb07"
+                      width={100}
+                    />
+                  )}
                 </span>
               </p>
               <NavbarTab
@@ -94,8 +104,24 @@ const DashboardLayout = (props) => {
                     <Image src="/images/avatar.png" alt="avatar" />
                   </div>
                   <div className={side.textcontainer}>
-                    <p className={side.avatartitle}>{UserInfo?.firstname}</p>
-                    {/* <p className={side.avatarcontext}>{UserInfo?.email?.substring(0,10)}</p> */}
+                    <p className={side.avatartitle}>
+                      {UserInfo.firstname || (
+                        <Skeleton
+                          baseColor="#ebab34"
+                          highlightColor="#f2cb07"
+                          width={100}
+                        />
+                      )}
+                    </p>
+                    <p className={side.avatarcontext}>
+                      {UserInfo?.email?.substring?.(0, 17) || (
+                        <Skeleton
+                          baseColor="#ebab34"
+                          highlightColor="#f2cb07"
+                          width={100}
+                        />
+                      )}
+                    </p>
                   </div>
                 </div>
               </div>

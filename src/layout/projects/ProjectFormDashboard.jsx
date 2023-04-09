@@ -10,7 +10,7 @@ import {
   useAddProjectDetailsMutation,
   useGetDetailsQuery,
 } from "@/app/services/auth/authService";
-import { toast } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 const ProjectFormDashboard = () => {
   const [type, setType] = useState("");
@@ -19,7 +19,7 @@ const ProjectFormDashboard = () => {
   const { data: user } = useGetDetailsQuery();
   // toast.configure();
 
-  const { register, control, handleSubmit } = useForm();
+  const { register, control, reset, handleSubmit } = useForm();
 
   const submitForm = async (data) => {
     const useradditionaldetails = {
@@ -40,14 +40,18 @@ const ProjectFormDashboard = () => {
 
     console.log(completeform);
     try {
-      await addProjectDetailsMutation(completeform).unwrap();
-      toast.success("Project Registered Successfully");
+      await toast.promise(addProjectDetailsMutation(completeform).unwrap(), {
+        loading: "Saving Form",
+        success: "Project Form Created Successfully",
+        error: "Failed to create form",
+      });
+      reset();
+      // toast.success("Project Registered Successfully");
       navigate("/dashboard");
     } catch (error) {
       console.log("error", error);
     }
   };
-
 
   function MyBooleanInput({ control, name }) {
     return (
@@ -248,6 +252,31 @@ const ProjectFormDashboard = () => {
                 />
               </Form.Group>
             </div>
+            <Toaster
+              position="top-left"
+              gutter={8}
+              containerClassName=""
+              containerStyle={{}}
+              toastOptions={{
+                // Define default options
+                className: "",
+                duration: 5000,
+                style: {
+                  background: "#363636",
+                  color: "#fff",
+                  fontFamily: "Inter, sans-serif",
+                },
+
+                // Default options for specific types
+                success: {
+                  duration: 3000,
+                  theme: {
+                    primary: "green",
+                    secondary: "black",
+                  },
+                },
+              }}
+            />
             <div className={projectform.absoluterightendcontainer}>
               <div className={projectform.flexbuttoncontainer}>
                 <Button

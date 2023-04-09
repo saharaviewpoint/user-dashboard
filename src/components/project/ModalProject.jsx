@@ -54,7 +54,7 @@ const ModalProject = (props) => {
                 id="contained-modal-title-vcenter"
               >
                 <div className={modal.flexheader}>
-                  <StatusButton text={collect.status} />
+                  {/* <StatusButton text={collect.status} /> */}
                   <CalendarText
                     datetitle="Project created:"
                     date={new Date(collect.date).toLocaleDateString()}
