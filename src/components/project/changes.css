@@ -6,7 +6,7 @@
 .react-datepicker-wrapper,
 .react-datepicker__input-container,
 .react-datepicker__input-container input {
-  width: 115px;
+  /* width: 115px; */
   border-radius: 8px;
   font-family: "Inter", sans-serif;
   font-size: 1rem;

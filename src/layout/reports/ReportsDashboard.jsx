@@ -1,11 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, forwardRef } from "react";
 import { Container, Button, Image } from "react-bootstrap";
 import report from "./reports.module.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import Header from "../../components/reports/Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import TableHeaderNav from "../../components/project/TableHeaderNav";
 import FileInputContainer from "@/components/reports/FileInputContainer";
 
 import ReportModal from "@/components/reports/ReportModal";
@@ -115,7 +114,36 @@ const ReportsDashboard = () => {
                 onClick={() => setFilter("application/pdf")}
               />
             </div>
-            <TableHeaderNav />
+            <div className={report.datepickertitle}>
+              <p className={report.datepickertitlelabel}>Start Date</p>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                // width={300}
+              />
+            </div>
+            <div className={report.absolutecenter}>
+              <div className={report.dash}></div>
+            </div>
+            <div className={report.datepickertitle}>
+              <p className={report.datepickertitlelabel}>End Date</p>
+              <DatePicker
+                showIcon
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+              />
+            </div>
           </div>
           <div className={report.wrapcontainer}>
             {data.map((report, index) => {
@@ -153,7 +181,7 @@ const NavCategories = (props) => {
       }
       onClick={props.onClick}
     >
-      {/* <p className={project.tablenavtext}> */}
+      {/* <p className={report.tablenavtext}> */}
       {props.name}
       <span>{props.total}</span>
       <span className={report.disappear}>{props.filter}</span>
@@ -188,3 +216,16 @@ const FileContainer = (props) => {
     </div>
   );
 };
+
+const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+  <button className={report.datepickerbutton} onClick={onClick} ref={ref}>
+    <div className={report.center}>
+      <Image
+        src="/icons/calendar.svg"
+        alt="icon"
+        className={report.calendaricon}
+      />
+    </div>
+    <p className={report.datevalue}>{value}</p>
+  </button>
+));

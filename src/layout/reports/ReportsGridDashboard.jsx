@@ -1,14 +1,17 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import FileInputContainer from "@/components/reports/FileInputContainer";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, forwardRef } from "react";
 import Header from "../../components/reports/Header";
 import reportsgrid from "./reports.module.css";
 import { Container, Button, Image } from "react-bootstrap";
-import TableHeaderNav from "../../components/project/TableHeaderNav";
 import { reportgriddata } from "../../../data/reports";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ReportsGridDashboard = () => {
   const [filter, setFilter] = useState(null);
+  const [startDate, setStartDate] = useState(new Date("01/01/1998"));
+  const [endDate, setEndDate] = useState(new Date("01/01/2023"));
 
   const data = useMemo(() => {
     if (!filter) return reportgriddata;
@@ -59,7 +62,36 @@ const ReportsGridDashboard = () => {
                 onClick={() => setFilter("document")}
               />
             </div>
-            <TableHeaderNav />
+            <div className={reportsgrid.datepickertitle}>
+              <p className={reportsgrid.datepickertitlelabel}>Start Date</p>
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                // width={300}
+              />
+            </div>
+            <div className={reportsgrid.absolutecenter}>
+              <div className={reportsgrid.dash}></div>
+            </div>
+            <div className={reportsgrid.datepickertitle}>
+              <p className={reportsgrid.datepickertitlelabel}>End Date</p>
+              <DatePicker
+                showIcon
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                dateFormat="dd/MM/yyyy"
+                customInput={<ExampleCustomInput />}
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+              />
+            </div>
           </div>
           <div className={reportsgrid.flexwrapcontainer}>
             {data.map((report, index) => (
@@ -129,3 +161,16 @@ const CardGridContainer = (props) => {
     </div>
   );
 };
+
+const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+  <button className={reportsgrid.datepickerbutton} onClick={onClick} ref={ref}>
+    <div className={reportsgrid.center}>
+      <Image
+        src="/icons/calendar.svg"
+        alt="icon"
+        className={reportsgrid.calendaricon}
+      />
+    </div>
+    <p className={reportsgrid.datevalue}>{value}</p>
+  </button>
+));

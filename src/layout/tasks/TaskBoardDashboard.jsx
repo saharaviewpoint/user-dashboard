@@ -63,7 +63,7 @@ const TaskBoardDashboard = () => {
         <div className={taskboard.overallcontainer}>
           <TaskHeader name="My Tasks" />
           <div className={taskboard.rightboardcontainer}>
-            <div className={taskboard.datepickertitle2}>
+            <div className={taskboard.datepickertitle}>
               <p className={taskboard.datepickertitlelabel}>Start Date</p>
               <DatePicker
                 selected={startDate}
@@ -76,12 +76,10 @@ const TaskBoardDashboard = () => {
                 width={300}
               />
             </div>
-            <Image
-              src="/icons/dash.svg"
-              alt="dash"
-              style={{ marginTop: "18px" }}
-            />
-            <div className={taskboard.datepickertitle3}>
+            <div className={taskboard.absolutecenter}>
+              <div className={taskboard.dash}></div>
+            </div>
+            <div className={taskboard.datepickertitle}>
               <p className={taskboard.datepickertitlelabel}>End Date</p>
               <DatePicker
                 showIcon
@@ -278,6 +276,6 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         className={taskboard.calendaricon}
       />
     </div>
-    {value}
+    <p className={taskboard.datevalue}>{value}</p>
   </button>
 ));

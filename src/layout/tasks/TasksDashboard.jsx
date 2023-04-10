@@ -105,11 +105,9 @@ const TasksDashboard = () => {
                 width={300}
               />
             </div>
-            <Image
-              src="/icons/dash.svg"
-              alt="icon"
-              style={{ marginTop: "18px" }}
-            />
+            <div className={task.absolutecenter}>
+              <div className={task.dash}></div>
+            </div>
             <div className={task.datepickertitle}>
               <p className={task.datepickertitlelabel}>End Date</p>
               <DatePicker

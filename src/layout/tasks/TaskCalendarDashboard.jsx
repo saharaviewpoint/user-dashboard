@@ -27,7 +27,7 @@ const TaskCalendarDashboard = () => {
         <div className={taskcalendar.overallcontainer}>
           <TaskHeader name="My Tasks" />
           <div className={taskcalendar.rightboardcontainer}>
-            <div className={taskcalendar.datepickertitle3}>
+            <div className={taskcalendar.datepickertitle}>
               <p className={taskcalendar.datepickertitlelabel}>Start Date</p>
               <DatePicker
                 selected={startDate}
@@ -40,12 +40,10 @@ const TaskCalendarDashboard = () => {
                 width={300}
               />
             </div>
-            <Image
-              src="/icons/dash.svg"
-              alt="dash"
-              style={{ marginTop: "18px" }}
-            />
-            <div className={taskcalendar.datepickertitle4}>
+            <div className={taskcalendar.absolutecenter}>
+              <div className={taskcalendar.dash}></div>
+            </div>
+            <div className={taskcalendar.datepickertitle}>
               <p className={taskcalendar.datepickertitlelabel}>End Date</p>
               <DatePicker
                 showIcon

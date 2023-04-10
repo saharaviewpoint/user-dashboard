@@ -63,7 +63,7 @@ const ProjectBoardDashboard = () => {
           <ButtonProject />
           <Header name="My Projects" />
           <div className={grid.rightboardcontainer}>
-            <div className={grid.datepickertitle3}>
+            <div className={grid.datepickertitle}>
               <p className={grid.datepickertitlelabel}>Start Date</p>
               <DatePicker
                 selected={startDate}
@@ -76,12 +76,10 @@ const ProjectBoardDashboard = () => {
                 width={300}
               />
             </div>
-            <Image
-              src="/icons/dash.svg"
-              alt="dash"
-              style={{ marginTop: "18px" }}
-            />
-            <div className={grid.datepickertitle4}>
+            <div className={grid.absolutecenter}>
+              <div className={grid.dash}></div>
+            </div>
+            <div className={grid.datepickertitle}>
               <p className={grid.datepickertitlelabel}>End Date</p>
               <DatePicker
                 showIcon

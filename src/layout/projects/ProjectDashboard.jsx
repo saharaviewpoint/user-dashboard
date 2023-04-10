@@ -110,11 +110,9 @@ const ProjectDashboard = () => {
                 // width={300}
               />
             </div>
-            <Image
-              src="/icons/dash.svg"
-              alt="icon"
-              style={{ marginTop: "18px" }}
-            />
+            <div className={project.absolutecenter}>
+              <div className={project.dash}></div>
+            </div>
             <div className={project.datepickertitle}>
               <p className={project.datepickertitlelabel}>End Date</p>
               <DatePicker
