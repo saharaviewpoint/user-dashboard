@@ -16,9 +16,14 @@ const Register = () => {
   const {
     register,
     formState: { errors },
+    watch,
     handleSubmit,
-  } = useForm({});
+  } = useForm({
+    mode: "onTouched",
+  });
   const navigate = useNavigate();
+
+  const password = watch("password");
 
   useEffect(() => {
     if (success) navigate("/");
@@ -189,6 +194,28 @@ const Register = () => {
                     {errors.password && errors.password.type === "pattern" && (
                       <span className={registerform.error}>
                         Password is invalid
+                      </span>
+                    )}
+                  </div>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label className={registerform.formlabel}>
+                    Confirm password
+                  </Form.Label>
+                  <Form.Control
+                    name="password"
+                    type="password"
+                    placeholder=""
+                    {...register("confirmPassword", {
+                      required: "Confirm password is required",
+                      validate: (value) =>
+                        value === password || "The passwords do not match",
+                    })}
+                  />
+                  <div className={registerform.errorcontainer}>
+                    {errors.confirmPassword && (
+                      <span className={registerform.error}>
+                        {errors.confirmPassword.message}
                       </span>
                     )}
                   </div>

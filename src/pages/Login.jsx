@@ -18,7 +18,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: "onnTouched",
+    mode: "onTouched",
   });
 
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ const Login = () => {
                 )}
               </div>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            {/* <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Confirm password</Form.Label>
               <Form.Control
                 name="password"
@@ -113,7 +113,7 @@ const Login = () => {
                   </span>
                 )}
               </div>
-            </Form.Group>
+            </Form.Group> */}
             {/* {console.log(errors.confirmPassword.message)} */}
             {/* {console.log(errors.password_repeat.type === "validate"} */}
             {/* <Spinner /> */}
