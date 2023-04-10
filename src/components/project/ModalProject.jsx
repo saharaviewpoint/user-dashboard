@@ -212,6 +212,8 @@ const StatusButton = (props) => {
             ? modal.completebuttontext
             : props.text == "Upcoming"
             ? modal.upcomingtext
+            : props.text === "In Progress"
+            ? modal.inprogresstext
             : null
         }
       >

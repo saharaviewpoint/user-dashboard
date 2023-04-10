@@ -19,7 +19,7 @@ const ModalTask = (props) => {
     <Modal
       className={modal.modal}
       {...props}
-      size="md"
+      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
