@@ -123,7 +123,7 @@ const ProjectGridDashboard = () => {
             <SkeleteonBoard />
           ) : (
             <div className={project.wrap}>
-              {data.map((projectcollect, index) => (
+              {data.slice(0,6).map((projectcollect, index) => (
                 <ProjectGridContainer
                   key={index}
                   text={projectcollect.name}

@@ -100,7 +100,7 @@ const ProjectBoardDashboard = () => {
             ) : (
               <div className={grid.sizecontainer}>
                 <BoarderHeader text="Awaiting Approval" />
-                {inprogressdata.map((filtereddata, index) => (
+                {inprogressdata.slice(0,1 ).map((filtereddata, index) => (
                   <ContentContainer
                     key={index}
                     headertext={filtereddata.name}
