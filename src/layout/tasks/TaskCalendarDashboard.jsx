@@ -24,7 +24,7 @@ const TaskCalendarDashboard = () => {
   return (
     <Container className={taskcalendar.container}>
       <DashboardLayout name="Tasks">
-        <div className={taskcalendar.overallcontainer}>
+        <div className={taskcalendar.overallcontainer1}>
           <TaskHeader name="My Tasks" />
           <div className={taskcalendar.rightboardcontainer}>
             <div className={taskcalendar.datepickertitle}>

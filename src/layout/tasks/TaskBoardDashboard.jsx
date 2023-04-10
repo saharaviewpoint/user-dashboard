@@ -100,7 +100,7 @@ const TaskBoardDashboard = () => {
             ) : (
               <div className={taskboard.sizecontainer}>
                 <BoarderHeader text="In Progress" />
-                {inprogressdata.slice(0, 2).map((filtereddata, index) => (
+                {inprogressdata.slice(0, 1).map((filtereddata, index) => (
                   <ContentContainer
                     key={index}
                     name={filtereddata.name}

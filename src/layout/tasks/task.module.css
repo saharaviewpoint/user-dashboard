@@ -27,6 +27,13 @@
   height: 100vh;
 }
 
+.overallcontainer1 {
+  background-color: white;
+  margin: 0 auto;
+  /* padding-bottom: 2rem; */
+  width: 95%;
+}
+
 .leftcontainer {
   display: flex;
   gap: 1rem;
