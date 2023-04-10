@@ -82,7 +82,7 @@ const ModalProject = (props) => {
                       <div className={modal.absolutecenter}>
                         <p className={modal.textname}>
                           {" "}
-                          {collect.requested_by.firstname}
+                          {collect.requested_by.firstname} &nbsp;
                           <span>{collect.requested_by.lastname}</span>
                         </p>
                       </div>
