@@ -51,6 +51,7 @@
   padding: 0rem;
   cursor: pointer;
   white-space: nowrap;
+  height: 56px;
   padding: 1rem;
   font-family: "Inter", sans-serif;
   color: black;
@@ -70,6 +71,7 @@
   border: none;
   padding: 0rem;
   cursor: pointer;
+  height: 56px;
   white-space: nowrap;
   padding: 1rem;
   font-family: "Inter", sans-serif;

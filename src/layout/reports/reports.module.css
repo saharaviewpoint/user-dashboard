@@ -9,7 +9,7 @@
   margin: 0 auto;
   /* padding-bottom: 2rem; */
   width: 95%;
-  height: 100vh;
+  height: 105vh;
 }
 
 .leftcontainer {
@@ -34,6 +34,7 @@
   border-bottom-right-radius: 0px;
   border: none;
   padding: 0rem;
+  height: 56px;
   cursor: pointer;
   white-space: nowrap;
   padding: 1rem;
@@ -53,6 +54,7 @@
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   border: none;
+  height: 56px;
   padding: 0rem;
   cursor: pointer;
   white-space: nowrap;
