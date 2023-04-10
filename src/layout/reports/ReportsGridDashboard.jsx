@@ -94,7 +94,7 @@ const ReportsGridDashboard = () => {
             </div>
           </div>
           <div className={reportsgrid.flexwrapcontainer}>
-            {data.slice(0, 4).map((report, index) => (
+            {data.map((report, index) => (
               <CardGridContainer
                 imagesrc={report.src}
                 name={report.name}

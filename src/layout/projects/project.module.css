@@ -9,7 +9,16 @@
   margin: 0 auto;
   /* padding-bottom: 2rem; */
   width: 95%;
+  overflow-y: scroll;
+  height: 100vh;
+  /* .example::-webkit-scrollbar {
+  display: none;
+} */
   /* height: 100vh; */
+}
+
+.overallcontainer::-webkit-scrollbar {
+  display: none;
 }
 
 .overallcontainer1 {

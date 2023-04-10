@@ -203,8 +203,13 @@ a {
 .contentcontainer {
   width: 92%;
   margin: 0 auto;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
+.contentcontainer::-webkit-scrollbar {
+  display: none;
+}
 .buttondashboard {
   font-size: 1rem;
   border: none;

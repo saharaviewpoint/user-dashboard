@@ -59,7 +59,7 @@ const ProjectBoardDashboard = () => {
   return (
     <Container className={grid.container}>
       <DashboardLayout name="Projects">
-        <div className={grid.overallcontainer1}>
+        <div className={grid.overallcontainer}>
           <ButtonProject />
           <Header name="My Projects" />
           <div className={grid.rightboardcontainer}>
@@ -100,7 +100,7 @@ const ProjectBoardDashboard = () => {
             ) : (
               <div className={grid.sizecontainer}>
                 <BoarderHeader text="Awaiting Approval" />
-                {inprogressdata.slice(0,1 ).map((filtereddata, index) => (
+                {inprogressdata.map((filtereddata, index) => (
                   <ContentContainer
                     key={index}
                     headertext={filtereddata.name}
