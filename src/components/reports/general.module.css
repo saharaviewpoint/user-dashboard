@@ -65,6 +65,7 @@
 .linkcontaineractive {
   border-bottom: 2px solid;
   padding-bottom: 0.5rem;
+  /* height: 56px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,6 +111,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* height: 56px; */
 }
 
 .linkcontainer:hover {

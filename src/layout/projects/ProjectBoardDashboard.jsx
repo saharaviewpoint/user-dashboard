@@ -59,7 +59,7 @@ const ProjectBoardDashboard = () => {
   return (
     <Container className={grid.container}>
       <DashboardLayout name="Projects">
-        <div className={grid.overallcontainer}>
+        <div className={grid.overallcontainer1}>
           <ButtonProject />
           <Header name="My Projects" />
           <div className={grid.rightboardcontainer}>

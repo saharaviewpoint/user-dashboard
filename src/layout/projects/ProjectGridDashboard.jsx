@@ -51,7 +51,7 @@ const ProjectGridDashboard = () => {
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">
-        <div className={project.overallcontainer}>
+        <div className={project.overallcontainer1}>
           <ButtonProject />
           <Header name="My Projects" />
           {/* <div className={project.absolutecenter}> */}

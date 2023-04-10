@@ -1,6 +1,7 @@
 .container {
   max-width: 1440px !important;
   padding: 0rem !important;
+  height: 110vh;
   /* background-color: var(--dashboard-yellow); */
 }
 
