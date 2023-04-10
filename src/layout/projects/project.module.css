@@ -461,7 +461,7 @@
 
 .flexbuttoncontainer {
   display: flex;
-  gap: 1rem;
+  gap: 2em;
 }
 
 .cancelbutton {
