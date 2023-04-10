@@ -79,7 +79,7 @@ const ReportsDashboard = () => {
   return (
     <Container className={report.container}>
       <DashboardLayout name="Reports">
-        <FileInputContainer />
+        {/* <FileInputContainer /> */}
         <div className={report.overallcontainer}>
           <Header name="My Reports" />
           <div className={report.leftcontainer}>

@@ -29,7 +29,7 @@ const ReportsTableDashboard = () => {
   return (
     <Container className={reporttable.container}>
       <DashboardLayout name="Reports">
-        <FileInputContainer />
+        {/* <FileInputContainer /> */}
         <div className={reporttable.overallcontainer}>
           <Header name="My Reports" />
           <div className={reporttable.leftcontainer}>
