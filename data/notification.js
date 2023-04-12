@@ -31,3 +31,13 @@ export const week = [
     image: "/images/notification/admin.svg",
   },
 ];
+
+export const weekModal = [
+  {
+    name: "Anthony",
+    id: "1",
+    time: "2 days ago",
+    project: "Home Construction Project",
+    image: "/images/notification/boy.png",
+  },
+];

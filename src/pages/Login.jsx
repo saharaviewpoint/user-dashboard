@@ -72,11 +72,11 @@ const Login = () => {
               <Form.Control
                 {...register("password", {
                   required: "Password is required",
-                  pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
-                    message:
-                      "Password should be at least 8 characters, At least 1 uppercase character, 1 lowercase character and 1 number",
-                  },
+                  // pattern: {
+                  //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
+                  //   message:
+                  //     "Password should be at least 8 characters, At least 1 uppercase character, 1 lowercase character and 1 number",
+                  // },
                 })}
                 name="password"
                 type="password"
@@ -89,12 +89,12 @@ const Login = () => {
                 {errors.password && errors.password.type === "maxLength" && (
                   <span className={login.error}>Max length exceeded</span>
                 )}
-                {errors.password && errors.password.type === "pattern" && (
+                {/* {errors.password && errors.password.type === "pattern" && (
                   <span className={login.error}>
                     Password should be at least 8 characters, At least 1
                     uppercase character, 1 lowercase character and 1 number
                   </span>
-                )}
+                )} */}
               </div>
             </Form.Group>
             {/* <Form.Group className="mb-3" controlId="formBasicPassword">
