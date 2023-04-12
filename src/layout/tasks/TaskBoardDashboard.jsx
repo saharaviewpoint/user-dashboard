@@ -27,35 +27,58 @@ const TaskBoardDashboard = () => {
 
   const inprogressdata = useMemo(() => {
     const filteredData = TasksBoardCollection.filter(
-      (item) =>
-        item.status === "In Progress" &&
-        finalStartDate <= new Date(item.due).getTime() &&
-        new Date(item.due).getTime() <= finalEndDate
+      (item) => item.status === "In Progress"
     );
     return filteredData;
   }, [finalStartDate, finalEndDate, TasksBoardCollection]);
+
+  console.log(TasksBoardCollection);
 
   console.log(inprogressdata);
 
-  const upcomingdata = useMemo(() => {
-    const filteredData = TasksBoardCollection.filter(
+  const dataByDateinprogress = useMemo(() => {
+    const filtereddata = inprogressdata.filter(
       (item) =>
-        item.status === "upcoming" &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, inprogressdata]);
+
+  const upcomingdata = useMemo(() => {
+    const filteredData = TasksBoardCollection.filter(
+      (item) => item.status === "Upcoming"
+    );
     return filteredData;
   }, [finalStartDate, finalEndDate, TasksBoardCollection]);
+
+  const dataByDateupcoming = useMemo(() => {
+    const filtereddata = upcomingdata.filter(
+      (item) =>
+        finalStartDate <= new Date(item.due).getTime() &&
+        new Date(item.due).getTime() <= finalEndDate
+    );
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, upcomingdata]);
 
   const completedata = useMemo(() => {
     const filteredData = TasksBoardCollection.filter(
       (item) =>
-        item.status === "complete" &&
+        item.status === "Complete" &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
     return filteredData;
   }, [finalStartDate, finalEndDate, TasksBoardCollection]);
+
+  const dataByDatecomplete = useMemo(() => {
+    const filtereddata = completedata.filter(
+      (item) =>
+        finalStartDate <= new Date(item.due).getTime() &&
+        new Date(item.due).getTime() <= finalEndDate
+    );
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, upcomingdata]);
 
   return (
     <Container className={taskboard.container}>
@@ -71,6 +94,9 @@ const TaskBoardDashboard = () => {
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 width={300}
@@ -86,6 +112,9 @@ const TaskBoardDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}
@@ -100,19 +129,29 @@ const TaskBoardDashboard = () => {
             ) : (
               <div className={taskboard.sizecontainer}>
                 <BoarderHeader text="In Progress" />
-                {inprogressdata.map((filtereddata, index) => (
-                  <ContentContainer
-                    key={index}
-                    name={filtereddata.name}
-                    firstname={filtereddata.assigned_to?.firstname}
-                    lastname={filtereddata.assigned_to?.lastname}
-                    headertext={filtereddata.projectname}
-                    content={filtereddata.description}
-                    date={filtereddata.due}
-                    imagelink={filtereddata.imagelink}
-                    priority={filtereddata.priority}
-                  />
-                ))}
+                <>
+                  {dataByDateinprogress.length >= 1 ? (
+                    <>
+                      {dataByDateinprogress.map((filtereddata, index) => (
+                        <ContentContainer
+                          key={index}
+                          name={filtereddata.name}
+                          firstname={filtereddata.assigned_to?.firstname}
+                          lastname={filtereddata.assigned_to?.lastname}
+                          headertext={filtereddata.projectname}
+                          content={filtereddata.description}
+                          date={filtereddata.due}
+                          imagelink={filtereddata.imagelink}
+                          priority={filtereddata.priority}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div style={{ marginTop: "3rem" }}>
+                      <p className={taskboard.nothing}>There are no projects</p>
+                    </div>
+                  )}
+                </>
               </div>
             )}
 
@@ -120,20 +159,32 @@ const TaskBoardDashboard = () => {
               <SkeleteonGrid />
             ) : (
               <div className={taskboard.sizecontainer}>
-                <BoarderHeader text="Upcoming" />
-                {upcomingdata.map((filtereddata, index) => (
-                  <ContentContainer
-                    key={index}
-                    name={filtereddata.name}
-                    firstname={filtereddata.assigned_to?.firstname}
-                    lastname={filtereddata.assigned_to?.lastname}
-                    headertext={filtereddata.projectname}
-                    content={filtereddata.description}
-                    date={filtereddata.duedate}
-                    imagelink={filtereddata.imagelink}
-                    priority={filtereddata.priority}
-                  />
-                ))}
+                <BoarderHeader text="Awaiting Approval" />
+                <>
+                  {dataByDateupcoming.length >= 1 ? (
+                    <>
+                      {dataByDateupcoming.map((filtereddata, index) => (
+                        <ContentContainer
+                          key={index}
+                          name={filtereddata.name}
+                          firstname={filtereddata.assigned_to?.firstname}
+                          lastname={filtereddata.assigned_to?.lastname}
+                          headertext={filtereddata.projectname}
+                          content={filtereddata.description}
+                          date={filtereddata.duedate}
+                          imagelink={filtereddata.imagelink}
+                          priority={filtereddata.priority}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div style={{ marginTop: "2rem" }}>
+                      <p className={taskboard.nothing}>
+                        There are no upcoming tasks
+                      </p>
+                    </div>
+                  )}
+                </>
               </div>
             )}
             {isLoading ? (
@@ -141,20 +192,32 @@ const TaskBoardDashboard = () => {
             ) : (
               <div className={taskboard.sizecontainer}>
                 <BoarderHeader text="Completed" />
-                {completedata.map((filtereddata, index) => (
-                  <ContentContainer
-                    key={index}
-                    name={filtereddata.name}
-                    firstname={filtereddata.assigned_to?.firstname}
-                    lastname={filtereddata.assigned_to?.lastname}
-                    headertext={filtereddata.projectname}
-                    content={filtereddata.description}
-                    date={filtereddata.duedate}
-                    status={filtereddata.status}
-                    imagelink={filtereddata.imagelink}
-                    priority={filtereddata.priority}
-                  />
-                ))}
+                <>
+                  {dataByDatecomplete.length >= 1 ? (
+                    <>
+                      {dataByDatecomplete.map((filtereddata, index) => (
+                        <ContentContainer
+                          key={index}
+                          name={filtereddata.name}
+                          firstname={filtereddata.assigned_to?.firstname}
+                          lastname={filtereddata.assigned_to?.lastname}
+                          headertext={filtereddata.projectname}
+                          content={filtereddata.description}
+                          date={filtereddata.duedate}
+                          status={filtereddata.status}
+                          imagelink={filtereddata.imagelink}
+                          priority={filtereddata.priority}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div style={{ marginTop: "2rem" }}>
+                      <p className={taskboard.nothing}>
+                        There are no completed tasks
+                      </p>
+                    </div>
+                  )}
+                </>
               </div>
             )}
           </div>
@@ -172,7 +235,7 @@ const BoarderHeader = (props) => {
       className={
         props.text === "In Progress"
           ? taskboard.boarderheadercontainer
-          : props.text === "Upcoming"
+          : props.text === "Awaiting Approval"
           ? taskboard.boarderheadercontainerpurple
           : props.text === "Completed"
           ? taskboard.borderheadercontainerblue

@@ -179,7 +179,7 @@
   font-size: 14px;
   border-radius: 8px;
   margin-bottom: 0px;
-  width: 200px;
+  width: 100px;
   text-align: center;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -223,7 +223,7 @@
   flex-wrap: wrap;
   gap: 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -457,6 +457,7 @@
 .absoluterightendcontainer {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 3rem;
 }
 
 .flexbuttoncontainer {
@@ -580,8 +581,9 @@
 .datepickertitle {
   display: flex;
   flex-direction: column;
-  width: 100px;
+  /* width: 100px; */
   margin-right: 13px;
+  margin-left: 13px;
 }
 
 .datepickertitle1 {
@@ -612,6 +614,16 @@
   font-family: "Inter", sans-serif;
   font-size: 14px;
   padding-bottom: 5px;
+}
+
+.nothing {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: var(--dashboard-yellow);
+  text-align: center;
 }
 
 @media (min-width: 600px) and (max-width: 1280px) {

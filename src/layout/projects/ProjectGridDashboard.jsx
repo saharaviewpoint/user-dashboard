@@ -9,14 +9,17 @@ import ProjectGridContainer from "../../components/project/ProjectGridContainer"
 import { ButtonProject } from "../../components/dashboard/DashboardContents";
 import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
 import SkeleteonBoard from "@/components/dashboard/SkeletonBoard";
+import ModalProject from "../../components/project/ModalProject";
 
 const ProjectGridDashboard = () => {
   const { data: UserProjectGrid, isLoading } = useGetProjectDetailsQuery({
     refetchOnMountArgChange: true,
   });
+  const [modalShow, setModalShow] = React.useState(false);
+  const [setting, setSetting] = useState("");
   const ProjectGridCollection = UserProjectGrid || [];
   const [startDate, setStartDate] = useState(new Date("01/01/1998"));
-  const [endDate, setEndDate] = useState(new Date("01/01/2022"));
+  const [endDate, setEndDate] = useState(new Date("01/01/2025"));
 
   const convertedStartDate = new Date(startDate).toISOString();
   const convertedEndDate = new Date(endDate).toISOString();
@@ -29,13 +32,19 @@ const ProjectGridDashboard = () => {
   const data = useMemo(() => {
     if (!filter) return ProjectGridCollection;
     const filteredData = ProjectGridCollection.filter(
+      (item) => item.user_status === filter
+    );
+    return filteredData;
+  }, [filter, ProjectGridCollection]);
+
+  const dataByDate = useMemo(() => {
+    const filtereddata = data.filter(
       (item) =>
-        item.user_status === filter &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
-    return filteredData;
-  }, [filter, finalStartDate, finalEndDate, ProjectGridCollection]);
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, data]);
 
   const filteredInProgressData = ProjectGridCollection.filter(
     (item) => item.user_status === "In Progress"
@@ -93,6 +102,9 @@ const ProjectGridDashboard = () => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 startDate={startDate}
                 endDate={endDate}
                 dateFormat="dd/MM/yyyy"
@@ -110,6 +122,9 @@ const ProjectGridDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}
@@ -122,20 +137,40 @@ const ProjectGridDashboard = () => {
           {isLoading ? (
             <SkeleteonBoard />
           ) : (
-            <div className={project.wrap}>
-              {data.slice(0,6).map((projectcollect, index) => (
-                <ProjectGridContainer
-                  key={index}
-                  text={projectcollect.name}
-                  date={projectcollect.due}
-                  status={projectcollect.user_status}
-                  priority={projectcollect.priority}
-                ></ProjectGridContainer>
-              ))}
-            </div>
+            <>
+              {dataByDate.length >= 1 ? (
+                <div className={project.wrap}>
+                  {data.map((projectcollect, index) => (
+                    <div
+                      onClick={() => {
+                        setSetting(projectcollect._id);
+                        setModalShow(true);
+                      }}
+                    >
+                      <ProjectGridContainer
+                        key={index}
+                        text={projectcollect.name}
+                        date={projectcollect.due}
+                        status={projectcollect.user_status}
+                        priority={projectcollect.priority}
+                      ></ProjectGridContainer>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ marginTop: "2rem" }}>
+                  <p className={project.nothing}>There are no projects</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </DashboardLayout>
+      <ModalProject
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        id={setting}
+      />
     </Container>
   );
 };

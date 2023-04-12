@@ -56,6 +56,15 @@ const ReportsDashboard = () => {
 
   console.log(data);
 
+  const dataByDate = useMemo(() => {
+    const filtereddata = data.filter(
+      (item) =>
+        finalStartDate <= new Date(item.due).getTime() &&
+        new Date(item.due).getTime() <= finalEndDate
+    );
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, data]);
+  
   const filteredImage = ReportsCollection.map((reportcollection) =>
     reportcollection.attachments.filter((attachment) =>
       attachment.type.startsWith("image")
@@ -120,6 +129,9 @@ const ReportsDashboard = () => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 startDate={startDate}
                 endDate={endDate}
                 dateFormat="dd/MM/yyyy"
@@ -137,6 +149,9 @@ const ReportsDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}

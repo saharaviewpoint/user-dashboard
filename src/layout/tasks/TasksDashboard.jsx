@@ -35,24 +35,30 @@ const TasksDashboard = () => {
   const data = useMemo(() => {
     if (!filter) return TasksTableCollection;
     const filteredData = TasksTableCollection.filter(
-      (item) =>
-        item.user_status === filter &&
-        finalStartDate <= new Date(item.due).getTime() &&
-        new Date(item.due).getTime() <= finalEndDate
+      (item) => item.user_status === filter
     );
     return filteredData;
   }, [filter, finalStartDate, finalEndDate, TasksTableCollection]);
 
+  const dataByDate = useMemo(() => {
+    const filtereddata = data.filter(
+      (item) =>
+        finalStartDate <= new Date(item.due).getTime() &&
+        new Date(item.due).getTime() <= finalEndDate
+    );
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, data]);
+
   const filteredApprovedData = TasksTableCollection.filter(
-    (item) => item.status === "approved"
+    (item) => item.user_status === "Approved"
   );
 
   const filteredPendingData = TasksTableCollection.filter(
-    (item) => item.status === "pending"
+    (item) => item.user_status === "Pending"
   );
 
   const filteredDeclinedData = TasksTableCollection.filter(
-    (item) => item.status === "declined"
+    (item) => item.user_status === "Declined"
   );
 
   return (
@@ -63,7 +69,7 @@ const TasksDashboard = () => {
           <div className={task.leftcontainer}>
             <div className={task.flexwrap}>
               <NavCategories
-                name="All Projects"
+                name="All Tasks"
                 total={`(${TasksTableCollection.length})`}
                 filter={filter}
                 filter1={null}
@@ -98,6 +104,9 @@ const TasksDashboard = () => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 startDate={startDate}
                 endDate={endDate}
                 dateFormat="dd/MM/yyyy"
@@ -115,6 +124,9 @@ const TasksDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}
@@ -126,58 +138,66 @@ const TasksDashboard = () => {
           {isLoading ? (
             <SkeleteonLoaderTable />
           ) : (
-            <TaskTableDisplay>
-              {data.map((taskcollect, index) => (
-                <tr
-                  key={index}
-                  onClick={() => {
-                    setSetting(taskcollect._id);
-                    setModalShow(true);
-                  }}
-                >
-                  <td>
-                    <div className={task.flexcontent}>
-                      {taskcollect.star === "true" ? (
-                        <Icon imagelink="/icons/dashboard/task/starred.svg" />
-                      ) : (
-                        <Icon imagelink="/icons/dashboard/task/star.svg" />
-                      )}
-                      <div className={task.centertext}>
-                        <p className={task.tasktitle}>{taskcollect.task}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td>{taskcollect.name}</td>
-                  <td>
-                    <div className={task.absolutecenter}>
-                      <p className={task.avatar}>
+            <div>
+              {dataByDate.length >= 1 ? (
+                <TaskTableDisplay>
+                  {data.map((taskcollect, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => {
+                        setSetting(taskcollect._id);
+                        setModalShow(true);
+                      }}
+                    >
+                      <td>
+                        <div className={task.flexcontent}>
+                          {taskcollect.star === "true" ? (
+                            <Icon imagelink="/icons/dashboard/task/starred.svg" />
+                          ) : (
+                            <Icon imagelink="/icons/dashboard/task/star.svg" />
+                          )}
+                          <div className={task.centertext}>
+                            <p className={task.tasktitle}>{taskcollect.task}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td>{taskcollect.name}</td>
+                      <td>
+                        <div className={task.absolutecenter}>
+                          <p className={task.avatar}>
+                            {" "}
+                            {taskcollect.assigned_to?.firstname.charAt(0)}
+                            <span>
+                              {taskcollect.assigned_to?.lastname.charAt(0)}
+                            </span>
+                          </p>
+                        </div>
+                      </td>
+                      <td>
+                        <StatusButton text={taskcollect.status} />
+                      </td>
+                      <td className={task.centericon}>
                         {" "}
-                        {taskcollect.assigned_to?.firstname.charAt(0)}
-                        <span>
-                          {taskcollect.assigned_to?.lastname.charAt(0)}
-                        </span>
-                      </p>
-                    </div>
-                  </td>
-                  <td>
-                    <StatusButton text={taskcollect.status} />
-                  </td>
-                  <td className={task.centericon}>
-                    {" "}
-                    {new Date(taskcollect.date).toLocaleDateString()}
-                  </td>
-                  <td className={task.centericon}>
-                    {taskcollect.priority === "red" ? (
-                      <ImageIcon imagelink="/icons/table/redflag.svg" />
-                    ) : taskcollect.priority === "gray" ? (
-                      <ImageIcon imagelink="/icons/table/normalflag.svg" />
-                    ) : taskcollect.priority === "yellow" ? (
-                      <ImageIcon imagelink="/icons/table/warningflag.svg" />
-                    ) : null}
-                  </td>
-                </tr>
-              ))}
-            </TaskTableDisplay>
+                        {new Date(taskcollect.date).toLocaleDateString()}
+                      </td>
+                      <td className={task.centericon}>
+                        {taskcollect.priority === "red" ? (
+                          <ImageIcon imagelink="/icons/table/redflag.svg" />
+                        ) : taskcollect.priority === "gray" ? (
+                          <ImageIcon imagelink="/icons/table/normalflag.svg" />
+                        ) : taskcollect.priority === "yellow" ? (
+                          <ImageIcon imagelink="/icons/table/warningflag.svg" />
+                        ) : null}
+                      </td>
+                    </tr>
+                  ))}
+                </TaskTableDisplay>
+              ) : (
+                <div style={{ marginTop: "3rem" }}>
+                  <p className={task.nothing}>There are no tasks</p>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </DashboardLayout>

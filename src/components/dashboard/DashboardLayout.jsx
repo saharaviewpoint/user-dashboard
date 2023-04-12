@@ -9,9 +9,11 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useGetDetailsQuery } from "@/app/services/auth/authService";
 import { authApi } from "../../app/services/auth/authService";
+import ModalContainer from "./ModalContainer";
 
 const DashboardLayout = (props) => {
   const [display, setDisplay] = useState(false);
+  const [modalShow, setModalShow] = React.useState(false);
   // const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,6 +26,8 @@ const DashboardLayout = (props) => {
     dispatch(authApi.util.resetApiState());
     navigate("/");
   };
+
+  const handleClick = () => setModalShow(true);
   return (
     <Container className={side.container}>
       <Row className={side.rowcontainer}>
@@ -128,7 +132,12 @@ const DashboardLayout = (props) => {
               <div className={side.center1}>
                 <div className={side.button} onClick={LogOut}>
                   <p className={side.logouttext}>Log Out</p>
-                  <Image src="/icons/sidebar/log-out.svg" alt="log-out-icon" />
+                  <Image
+                    src="/icons/sidebar/log-out.svg"
+                    onClick={handleClick}
+                    className={side.alarm}
+                    alt="log-out-icon"
+                  />
                 </div>
               </div>
             </div>
@@ -152,12 +161,14 @@ const DashboardLayout = (props) => {
               <Image
                 src="/icons/dashboard/alarm-icon.svg"
                 className={side.alarm}
+                onClick={handleClick}
               />
             </div>
           </div>
           <div className={side.contentscontainer}>{props.children}</div>
         </Col>
       </Row>
+      <ModalContainer show={modalShow} onHide={() => setModalShow(false)} />
     </Container>
   );
 };

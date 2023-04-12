@@ -329,6 +329,13 @@
   color: var(--black400);
 }
 
+.name1 {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--black400);
+}
+
 .rightcontainer {
   display: flex;
   border-top: 1px solid;
@@ -381,8 +388,9 @@
 .datepickertitle {
   display: flex;
   flex-direction: column;
-  width: 100px;
+  /* width: 100px; */
   margin-right: 23px;
+  margin-left: 23px;
 }
 
 .datepickertitle1 {
@@ -420,4 +428,14 @@
   font-family: "Inter", sans-serif;
   font-size: 14px;
   padding-bottom: 5px;
+}
+
+.nothing {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: var(--dashboard-yellow);
+  text-align: center;
 }

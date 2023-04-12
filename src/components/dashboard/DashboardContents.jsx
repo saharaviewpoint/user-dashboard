@@ -38,27 +38,33 @@ const DashboardContents = () => {
 
       <ButtonProject />
       <div className={user.flexcontainer}>
-        <Cards
-          imagelink="/icons/dashboard/project-cards-icon.svg"
-          text={ProjectsCollection.length}
-          title="Projects"
-          description={ProjectsCollection.description}
-          verb="ongoing"
-        />
-        <Cards
-          imagelink="/icons/dashboard/tasks-cards-icon.svg"
-          text={TaskCollection.length}
-          title="Tasks"
-          description={ProjectsCollection.description}
-          verb="new"
-        />
-        <Cards
-          imagelink="/icons/dashboard/reports-cards-icon.svg"
-          text={ReportsCollection.length}
-          title="Reports"
-          description={ProjectsCollection.description}
-          verb="new"
-        />
+        <Link to="/project">
+          <Cards
+            imagelink="/icons/dashboard/project-cards-icon.svg"
+            text={ProjectsCollection.length}
+            title="Projects"
+            description={ProjectsCollection.description}
+            verb="ongoing"
+          />
+        </Link>
+        <Link to="/task">
+          <Cards
+            imagelink="/icons/dashboard/tasks-cards-icon.svg"
+            text={TaskCollection.length}
+            title="Tasks"
+            description={ProjectsCollection.description}
+            verb="new"
+          />
+        </Link>
+        <Link to="/reports">
+          <Cards
+            imagelink="/icons/dashboard/reports-cards-icon.svg"
+            text={ReportsCollection.length}
+            title="Reports"
+            description={ProjectsCollection.description}
+            verb="new"
+          />
+        </Link>
       </div>
       <div className={user.flexedcontainer1}>
         <Notification />

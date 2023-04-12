@@ -16,6 +16,8 @@ const ProjectBoardDashboard = () => {
   });
 
   const ProjectsBoardCollection = UserProjectsBoard || [];
+
+  console.log(ProjectsBoardCollection);
   const [startDate, setStartDate] = useState(new Date("01/01/1998"));
   const [endDate, setEndDate] = useState(new Date("01/01/2024"));
 
@@ -27,33 +29,51 @@ const ProjectBoardDashboard = () => {
 
   const inprogressdata = useMemo(() => {
     const filteredData = ProjectsBoardCollection.filter(
+      (item) => item.user_status === "In Progress"
+    );
+    return filteredData;
+  }, [ProjectsBoardCollection]);
+
+  const dataByDateinprogress = useMemo(() => {
+    const filtereddata = inprogressdata.filter(
       (item) =>
-        item.user_status === "Awaiting Approval" &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
-    return filteredData;
-  }, [finalStartDate, finalEndDate, ProjectsBoardCollection]);
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, inprogressdata]);
 
   const upcomingdata = useMemo(() => {
     const filteredData = ProjectsBoardCollection.filter(
+      (item) => item.user_status === "Awaiting Approval"
+    );
+    return filteredData;
+  }, [ProjectsBoardCollection]);
+
+  const dataByDateupcoming = useMemo(() => {
+    const filtereddata = upcomingdata.filter(
       (item) =>
-        item.status === "Upcoming" &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
-    return filteredData;
-  }, [finalStartDate, finalEndDate, ProjectsBoardCollection]);
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, upcomingdata]);
 
   const completedata = useMemo(() => {
     const filteredData = ProjectsBoardCollection.filter(
+      (item) => item.user_status === "Complete"
+    );
+    return filteredData;
+  }, [ProjectsBoardCollection]);
+
+  const dataByDatecomplete = useMemo(() => {
+    const filtereddata = completedata.filter(
       (item) =>
-        item.status === "Complete" &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
-    return filteredData;
-  }, [finalStartDate, finalEndDate, ProjectsBoardCollection]);
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, upcomingdata]);
 
   console.log(inprogressdata);
   return (
@@ -70,6 +90,9 @@ const ProjectBoardDashboard = () => {
                 onChange={(date) => setStartDate(date)}
                 selectsStart
                 startDate={startDate}
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 endDate={endDate}
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
@@ -86,6 +109,9 @@ const ProjectBoardDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}
@@ -99,45 +125,69 @@ const ProjectBoardDashboard = () => {
               <SkeleteonGrid />
             ) : (
               <div className={grid.sizecontainer}>
-                <BoarderHeader text="Awaiting Approval" />
-                {inprogressdata.map((filtereddata, index) => (
-                  <ContentContainer
-                    key={index}
-                    headertext={filtereddata.name}
-                    content={filtereddata.details}
-                    firstname={filtereddata.requested_by.firstname}
-                    lastname={filtereddata.requested_by.lastname}
-                    firstnamefirstletter={filtereddata.requested_by.firstname.charAt(
-                      0
-                    )}
-                    lastnamefirstletter={filtereddata.requested_by.lastname.charAt(
-                      0
-                    )}
-                    date={filtereddata.date}
-                    status={filtereddata.user_status}
-                    imagelink={filtereddata.imagelink}
-                    priority={filtereddata.priority}
-                  />
-                ))}
+                <BoarderHeader text="In Progress" />
+                <>
+                  {dataByDateinprogress.length >= 1 ? (
+                    <>
+                      {dataByDateinprogress.map((filtereddata, index) => (
+                        <ContentContainer
+                          key={index}
+                          headertext={filtereddata.name}
+                          content={filtereddata.details}
+                          firstname={filtereddata.requested_by.firstname}
+                          lastname={filtereddata.requested_by.lastname}
+                          firstnamefirstletter={filtereddata.requested_by.firstname.charAt(
+                            0
+                          )}
+                          lastnamefirstletter={filtereddata.requested_by.lastname.charAt(
+                            0
+                          )}
+                          date={filtereddata.due}
+                          status={filtereddata.user_status}
+                          imagelink={filtereddata.imagelink}
+                          priority={filtereddata.priority}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div style={{ marginTop: "3rem" }}>
+                      <p className={grid.nothing}>
+                        There are no projects in progress.
+                      </p>
+                    </div>
+                  )}
+                </>
               </div>
             )}
             {isLoading ? (
               <SkeleteonGrid />
             ) : (
               <div className={grid.sizecontainer}>
-                <BoarderHeader text="Upcoming" />
-                {upcomingdata.map((filtereddata, index) => (
-                  <ContentContainer
-                    key={index}
-                    headertext={filtereddata.name}
-                    content={filtereddata.details}
-                    name={filtereddata.firstname}
-                    date={filtereddata.duedate}
-                    status={filtereddata.user_status}
-                    imagelink={filtereddata.imagelink}
-                    priority={filtereddata.priority}
-                  />
-                ))}
+                <BoarderHeader text="Awaiting Approval" />
+                <>
+                  {dataByDateupcoming.length >= 1 ? (
+                    <>
+                      {dataByDateupcoming.map((filtereddata, index) => (
+                        <ContentContainer
+                          key={index}
+                          headertext={filtereddata.name}
+                          content={filtereddata.details}
+                          name={filtereddata.firstname}
+                          date={filtereddata.due}
+                          status={filtereddata.user_status}
+                          imagelink={filtereddata.imagelink}
+                          priority={filtereddata.priority}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div style={{ marginTop: "2rem" }}>
+                      <p className={grid.nothing}>
+                        There are no projects awaiting approval.
+                      </p>
+                    </div>
+                  )}
+                </>
               </div>
             )}
             {isLoading ? (
@@ -145,18 +195,30 @@ const ProjectBoardDashboard = () => {
             ) : (
               <div className={grid.sizecontainer}>
                 <BoarderHeader text="Completed" />
-                {completedata.map((filtereddata, index) => (
-                  <ContentContainer
-                    key={index}
-                    headertext={filtereddata.projectname}
-                    content={filtereddata.description}
-                    name={filtereddata.name}
-                    date={filtereddata.duedate}
-                    status={filtereddata.user_status}
-                    imagelink={filtereddata.imagelink}
-                    priority={filtereddata.priority}
-                  />
-                ))}
+                <>
+                  {dataByDatecomplete.length >= 1 ? (
+                    <>
+                      {dataByDatecomplete.map((filtereddata, index) => (
+                        <ContentContainer
+                          key={index}
+                          headertext={filtereddata.projectname}
+                          content={filtereddata.description}
+                          name={filtereddata.name}
+                          date={filtereddata.due}
+                          status={filtereddata.user_status}
+                          imagelink={filtereddata.imagelink}
+                          priority={filtereddata.priority}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div style={{ marginTop: "2rem" }}>
+                      <p className={grid.nothing}>
+                        There are no completed projects
+                      </p>
+                    </div>
+                  )}
+                </>
               </div>
             )}
           </div>
@@ -172,9 +234,9 @@ const BoarderHeader = (props) => {
   return (
     <div
       className={
-        props.text === "Awaiting Approval"
+        props.text === "In Progress"
           ? grid.boarderheadercontainer
-          : props.text === "Upcoming"
+          : props.text === "Awaiting Approval"
           ? grid.boarderheadercontainerpurple
           : props.text === "Completed"
           ? grid.borderheadercontainerblue
@@ -222,12 +284,12 @@ const ContentContainer = (props) => {
           <div className={grid.statusbutton}>
             <p
               className={
-                props.status === "Awaiting Approval"
-                  ? grid.statusbuttontext1
-                  : props.text === "Complete"
+                props.status === "In Progress"
+                  ? grid.incomingtext
+                  : props.status === "Complete"
                   ? grid.completebuttontext
-                  : props.text == "Upcoming"
-                  ? grid.upcomingtext
+                  : props.status == "Awaiting Approval"
+                  ? grid.statusbuttontext1
                   : null
               }
             >

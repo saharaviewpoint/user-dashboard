@@ -37,13 +37,19 @@ const ProjectDashboard = () => {
   const data = useMemo(() => {
     if (!filter) return ProjectsCollection;
     const filteredData = ProjectsCollection.filter(
+      (item) => item.user_status === filter
+    );
+    return filteredData;
+  }, [filter, ProjectsCollection]);
+
+  const dataByDate = useMemo(() => {
+    const filtereddata = data.filter(
       (item) =>
-        item.user_status === filter &&
         finalStartDate <= new Date(item.due).getTime() &&
         new Date(item.due).getTime() <= finalEndDate
     );
-    return filteredData;
-  }, [filter, finalStartDate, finalEndDate, ProjectsCollection]);
+    return filtereddata;
+  }, [finalStartDate, finalEndDate, data]);
 
   const filteredInProgressData = ProjectsCollection.filter(
     (item) => item.user_status === "In Progress"
@@ -104,6 +110,9 @@ const ProjectDashboard = () => {
                 onChange={(date) => setStartDate(date)}
                 selectsStart
                 startDate={startDate}
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 endDate={endDate}
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
@@ -120,6 +129,9 @@ const ProjectDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}
@@ -131,46 +143,56 @@ const ProjectDashboard = () => {
           {isLoading ? (
             <SkeleteonLoaderTable />
           ) : (
-            <TableDisplay>
-              {data.map((projectcollect, index) => (
-                <tr
-                  onClick={() => {
-                    setSetting(projectcollect._id);
-                    setModalShow(true);
-                  }}
-                  key={index}
-                  className={project.tablerow}
-                >
-                  <td className={project.align}>{projectcollect.name}</td>
-                  <td>
-                    <div className={project.absolutecenter}>
-                      <p className={project.avatar}>
-                        {" "}
-                        {projectcollect.requested_by.firstname.charAt(0)}
-                        <span>
-                          {projectcollect.requested_by.lastname.charAt(0)}
-                        </span>
-                      </p>
-                    </div>
-                  </td>
-                  <td style={{ verticalAlign: "middle", textAlign: "center" }}>
-                    <StatusButton text={projectcollect.user_status} />
-                  </td>
-                  <td className={project.centericon}>
-                    {new Date(projectcollect.date).toLocaleDateString()}
-                  </td>
-                  <td className={project.centericon}>
-                    {projectcollect.priority === "red" ? (
-                      <ImageIcon imagelink="/icons/table/redflag.svg" />
-                    ) : projectcollect.priority === "gray" ? (
-                      <ImageIcon imagelink="/icons/table/normalflag.svg" />
-                    ) : projectcollect.priority === "yellow" ? (
-                      <ImageIcon imagelink="/icons/table/warningflag.svg" />
-                    ) : null}
-                  </td>
-                </tr>
-              ))}
-            </TableDisplay>
+            <div>
+              {dataByDate.length >= 1 ? (
+                <TableDisplay>
+                  {dataByDate.map((projectcollect, index) => (
+                    <tr
+                      onClick={() => {
+                        setSetting(projectcollect._id);
+                        setModalShow(true);
+                      }}
+                      key={index}
+                      className={project.tablerow}
+                    >
+                      <td className={project.align}>{projectcollect.name}</td>
+                      <td>
+                        <div className={project.absolutecenter}>
+                          <p className={project.avatar}>
+                            {" "}
+                            {projectcollect.requested_by.firstname.charAt(0)}
+                            <span>
+                              {projectcollect.requested_by.lastname.charAt(0)}
+                            </span>
+                          </p>
+                        </div>
+                      </td>
+                      <td
+                        style={{ verticalAlign: "middle", textAlign: "center" }}
+                      >
+                        <StatusButton text={projectcollect.user_status} />
+                      </td>
+                      <td className={project.centericon}>
+                        {new Date(projectcollect.date).toLocaleDateString()}
+                      </td>
+                      <td className={project.centericon}>
+                        {projectcollect.priority === "red" ? (
+                          <ImageIcon imagelink="/icons/table/redflag.svg" />
+                        ) : projectcollect.priority === "gray" ? (
+                          <ImageIcon imagelink="/icons/table/normalflag.svg" />
+                        ) : projectcollect.priority === "yellow" ? (
+                          <ImageIcon imagelink="/icons/table/warningflag.svg" />
+                        ) : null}
+                      </td>
+                    </tr>
+                  ))}
+                </TableDisplay>
+              ) : (
+                <div style={{ marginTop: "3rem" }}>
+                  <p className={project.nothing}>There are no projects</p>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </DashboardLayout>

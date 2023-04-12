@@ -46,7 +46,6 @@ const ProjectFormDashboard = () => {
         error: "Failed to create form",
       });
       reset();
-      // toast.success("Project Registered Successfully");
       navigate("/dashboard");
     } catch (error) {
       console.log("error", error);

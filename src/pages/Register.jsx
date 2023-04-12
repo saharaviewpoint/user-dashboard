@@ -154,7 +154,7 @@ const Register = () => {
                       <span className={registerform.error}>
                         This field is required
                       </span>
-                    )}
+                  )}
                     {errors.email && errors.email.type === "maxLength" && (
                       <span className={registerform.error}>
                         Max length exceeded
@@ -193,7 +193,8 @@ const Register = () => {
                     )}
                     {errors.password && errors.password.type === "pattern" && (
                       <span className={registerform.error}>
-                        Password is invalid
+                        Password should be at least 8 characters, At least 1
+                        uppercase character, 1 lowercase character and 1 number
                       </span>
                     )}
                   </div>
