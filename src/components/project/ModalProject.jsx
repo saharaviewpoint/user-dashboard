@@ -155,91 +155,93 @@ const ModalProject = (props) => {
                         </div>
                       </div>
                     </>
-                    {collect.assigned_to ? (
-                      <>
-                        <p className={modal.assigned}>Assigned to:</p>
-                        <div className={modal.yellowbackground}>
-                          <Image
-                            src="/images/avatar.png"
-                            className={modal.imageavatar}
-                            alt="avatar"
-                          />
-                          <div className={modal.absolutecenter}>
-                            <p className={modal.textname}>
-                              {" "}
-                              {/* {collect.assigned_to.firstname} &nbsp; */}
-                              {/* <span>{collect.assigned_to.lastname}</span> */}
-                            </p>
-                          </div>
-                        </div>
-                        <p className={modal.taskname}>Tasks</p>
-                        <div className={modal.taskcontainer}>
-                          <div className={modal.taskheader}>
-                            <div className={modal.flexheader}>
-                              <Image
-                                src="/icons/sidebar/tasks-icon.svg"
-                                alt="task-icon"
-                              />
-                              <div className={modal.absolutecenter}>
-                                <p className={modal.headertext1}>All Tasks</p>
-                              </div>
-                            </div>
-                            <div className={modal.absolutecenter}>
-                              <p className={modal.headertext1}>5/10</p>
-                            </div>
-                          </div>
-                          <div className={modal.progressbar}>
-                            <div className={modal.progressyellow}></div>
-                          </div>
-                          <div className={modal.formcontainer}>
-                            <Form>
-                              <Form.Check
-                                defaultChecked
-                                type="checkbox"
-                                id="custom-switch"
-                                label="Site Clearing"
-                              />
-                              <Form.Check
-                                defaultChecked
-                                type="checkbox"
-                                label="Site Clearing"
-                                id="disabled-custom-switch"
-                              />
-                              <Form.Check
-                                type="checkbox"
-                                label="Site Clearing"
-                                id="disabled-custom-switch"
-                              />
-                            </Form>
-                            <div className={modal.flexheader2}>
-                              <div className={modal.absolutecenter}>
-                                <p className={modal.seetext}>See More</p>
-                              </div>
-                              <Image src="/icons/arrow-down.svg" />
-                            </div>
-                          </div>
-                        </div>
-
-                        <p className={modal.taskname}>Attachment</p>
-                        <div className={modal.attachmentflex}>
-                          {ImageAttachment.map((attachment, index) => (
-                            <Attachment
-                              key={index}
-                              imagelink={attachment.src}
-                              attachmentname={attachment.attachmentname}
-                              attachmentsize={attachment.attachmentsize}
+                    {/* <>
+                      {collect.assigned_to ? (
+                        <>
+                          <p className={modal.assigned}>Assigned to:</p>
+                          <div className={modal.yellowbackground}>
+                            <Image
+                              src="/images/avatar.png"
+                              className={modal.imageavatar}
+                              alt="avatar"
                             />
-                          ))}
-                        </div>
-                        <div className={modal.absolutebuttoncenter}>
-                          <div className={modal.buttonname}>
-                            <p className={modal.buttontext}>
-                              See All Attachments
-                            </p>
+                            <div className={modal.absolutecenter}>
+                              <p className={modal.textname}>
+                                {" "}
+                                {/* {collect.assigned_to.firstname} &nbsp; */}
+                                {/* <span>{collect.assigned_to.lastname}</span> */}
+                              {/* </p>
+                            </div>
                           </div>
-                        </div>
-                      </>
-                    ) : null}
+                          <p className={modal.taskname}>Tasks</p>
+                          <div className={modal.taskcontainer}>
+                            <div className={modal.taskheader}>
+                              <div className={modal.flexheader}>
+                                <Image
+                                  src="/icons/sidebar/tasks-icon.svg"
+                                  alt="task-icon"
+                                />
+                                <div className={modal.absolutecenter}>
+                                  <p className={modal.headertext1}>All Tasks</p>
+                                </div>
+                              </div>
+                              <div className={modal.absolutecenter}>
+                                <p className={modal.headertext1}>5/10</p>
+                              </div>
+                            </div>
+                            <div className={modal.progressbar}>
+                              <div className={modal.progressyellow}></div>
+                            </div>
+                            <div className={modal.formcontainer}>
+                              <Form>
+                                <Form.Check
+                                  defaultChecked
+                                  type="checkbox"
+                                  id="custom-switch"
+                                  label="Site Clearing"
+                                />
+                                <Form.Check
+                                  defaultChecked
+                                  type="checkbox"
+                                  label="Site Clearing"
+                                  id="disabled-custom-switch"
+                                />
+                                <Form.Check
+                                  type="checkbox"
+                                  label="Site Clearing"
+                                  id="disabled-custom-switch"
+                                />
+                              </Form>
+                              <div className={modal.flexheader2}>
+                                <div className={modal.absolutecenter}>
+                                  <p className={modal.seetext}>See More</p>
+                                </div>
+                                <Image src="/icons/arrow-down.svg" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <p className={modal.taskname}>Attachment</p>
+                          <div className={modal.attachmentflex}>
+                            {ImageAttachment.map((attachment, index) => (
+                              <Attachment
+                                key={index}
+                                imagelink={attachment.src}
+                                attachmentname={attachment.attachmentname}
+                                attachmentsize={attachment.attachmentsize}
+                              />
+                            ))}
+                          </div>
+                          <div className={modal.absolutebuttoncenter}>
+                            <div className={modal.buttonname}>
+                              <p className={modal.buttontext}>
+                                See All Attachments
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      ) : null} */}
+                    {/* </>  */}
                   </div>
                 </div>
                 <div className={modal.descriptionrightcontainer}>
