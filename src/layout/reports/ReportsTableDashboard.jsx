@@ -8,6 +8,7 @@ import Header from "@/components/reports/Header";
 import ReportsTableContents from "@/components/reports/ReportsTableContents";
 import { TablesData } from "../../../data/reports";
 import DatePicker from "react-datepicker";
+import { useGetReportsDetailsQuery } from "../../app/services/auth/authService";
 import "react-datepicker/dist/react-datepicker.css";
 
 const ReportsTableDashboard = () => {
@@ -15,28 +16,51 @@ const ReportsTableDashboard = () => {
   const [startDate, setStartDate] = useState(new Date("01/01/1998"));
   const [endDate, setEndDate] = useState(new Date("01/01/2023"));
 
-  const data = useMemo(() => {
-    if (!filter) return TablesData;
-    const filteredData = TablesData.filter((item) => item.file === filter);
-    return filteredData;
-  }, [filter]);
+  const { data: AdminReports } = useGetReportsDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
 
-  const filteredImage = TablesData.filter((item) => item.file === "image");
-  const filteredVideo = TablesData.filter((item) => item.file === "video");
-  const filteredDocument = TablesData.filter(
-    (item) => item.file === "document"
+  const ReportsCollection = AdminReports || [];
+
+  const data = useMemo(() => {
+    if (!filter) return ReportsCollection;
+    const filteredData = ReportsCollection.map((report) => ({
+      ...report,
+      attachments: report.attachments.filter((attachment) =>
+        attachment.type.startsWith(filter)
+      ),
+    }));
+    return filteredData;
+  }, [filter, ReportsCollection]);
+
+  const filteredImage = ReportsCollection.map((reportcollection) =>
+    reportcollection.attachments.filter((attachment) =>
+      attachment.type.startsWith("image")
+    )
+  );
+
+  const filteredVideo = ReportsCollection.map((reportcollection) =>
+    reportcollection.attachments.filter((attachment) =>
+      attachment.type.startsWith("video")
+    )
+  );
+
+  const filteredDocument = ReportsCollection.map((reportcollection) =>
+    reportcollection.attachments.filter((attachment) =>
+      attachment.type.startsWith("document")
+    )
   );
   return (
     <Container className={reporttable.container}>
       <DashboardLayout name="Reports">
-        {/* <FileInputContainer /> */}
+        <FileInputContainer />
         <div className={reporttable.overallcontainer}>
           <Header name="My Reports" />
           <div className={reporttable.leftcontainer}>
             <div className={reporttable.flexwrap}>
               <NavCategories
                 name="All Files"
-                total={`(${TablesData.length})`}
+                // total={`(${filteredImage.length})`}
                 filter={filter}
                 filter1={null}
                 onClick={() => setFilter(null)}
@@ -46,21 +70,21 @@ const ReportsTableDashboard = () => {
                 name="Pictures"
                 filter={filter}
                 filter1="image"
-                total={`(${filteredImage.length})`}
+                // total={`(${filteredImage.length})`}
                 onClick={() => setFilter("image")}
               />
               <NavCategories
                 name="Video"
                 filter={filter}
                 filter1="video"
-                total={`(${filteredVideo.length})`}
+                // total={`(${filteredVideo.length})`}
                 onClick={() => setFilter("video")}
               />
               <NavCategories
                 name="Documents"
                 filter={filter}
                 filter1="document"
-                total={`(${filteredDocument.length})`}
+                // total={`(${filteredDocument.length})`}
                 onClick={() => setFilter("document")}
               />
             </div>
@@ -70,6 +94,9 @@ const ReportsTableDashboard = () => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 startDate={startDate}
                 endDate={endDate}
                 dateFormat="dd/MM/yyyy"
@@ -87,6 +114,9 @@ const ReportsTableDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}
@@ -96,22 +126,35 @@ const ReportsTableDashboard = () => {
             </div>
           </div>
           <ReportsTableContents>
-            {data.map((tabledata, index) => (
-              <tr key={index}>
-                <td>
-                  <div className={reporttable.flextable}>
-                    <Image src={tabledata.src} />
-                    <div className={reporttable.absolutecenter}>
-                      <p className={reporttable.tablename}>{tabledata.name}</p>
-                    </div>
-                  </div>
-                </td>
-                <td>{tabledata.projectname}</td>
-                <td>{tabledata.sentfrom}</td>
-                <td>{tabledata.sentto}</td>
-                <td>{tabledata.datereceived}</td>
-              </tr>
-            ))}
+            {data.map((report, index) => {
+              const projectname = report.project.name;
+              return (
+                <>
+                  {report.attachments.map((tabledata, index) => (
+                    <tr key={index}>
+                      <td>
+                        <div style={{ display: "flex" }}>
+                          {tabledata.type === "image/jpeg" ? (
+                            <Image src="/icons/jpg.svg" alt="jpg" />
+                          ) : tabledata.type === "image/png" ? (
+                            <Image src="/icons/jpg.svg" alt="jpg" />
+                          ) : tabledata.type === "image/svg+xml" ? (
+                            <Image src="/icons/jpg.svg" alt="jpg" />
+                          ) : null}
+                          <div className={reporttable.absolutecenter}>
+                            {tabledata?.name?.substring(0, 10)}
+                          </div>
+                        </div>
+                      </td>
+                      <td>{projectname}</td>
+                      <td>{tabledata?.send_from}</td>
+                      <td>{tabledata?.sent_to}</td>
+                      <td>{new Date(tabledata?.date).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </>
+              );
+            })}
           </ReportsTableContents>
         </div>
       </DashboardLayout>

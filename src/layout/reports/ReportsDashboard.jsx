@@ -6,7 +6,6 @@ import Header from "../../components/reports/Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import FileInputContainer from "@/components/reports/FileInputContainer";
-
 import ReportModal from "@/components/reports/ReportModal";
 import { useGetReportsDetailsQuery } from "../../app/services/auth/authService";
 import { truncateString } from "../../../util/text";
@@ -88,7 +87,7 @@ const ReportsDashboard = () => {
   return (
     <Container className={report.container}>
       <DashboardLayout name="Reports">
-        {/* <FileInputContainer /> */}
+        <FileInputContainer />
         <div className={report.overallcontainer}>
           <Header name="My Reports" />
           <div className={report.leftcontainer}>
@@ -160,11 +159,17 @@ const ReportsDashboard = () => {
               />
             </div>
           </div>
-          <div className={report.wrapcontainer}>
+          <div>
             {data.map((report, index) => {
               const dateReport = report.date;
               return (
-                <div key={index} style={{ display: "grid", gap: "2rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "2rem",
+                  }}
+                >
                   {report.attachments.map((repo, index) => (
                     <FileContainer
                       key={index}
@@ -205,7 +210,6 @@ const NavCategories = (props) => {
     </Button>
   );
 };
-
 const FileContainer = (props) => {
   return (
     <div className={report.filecontainer} onClick={props.handleclick}>

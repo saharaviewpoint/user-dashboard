@@ -7,27 +7,52 @@ import { Container, Button, Image } from "react-bootstrap";
 import { reportgriddata } from "../../../data/reports";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useGetReportsDetailsQuery } from "@/app/services/auth/authService";
+
 
 const ReportsGridDashboard = () => {
   const [filter, setFilter] = useState(null);
   const [startDate, setStartDate] = useState(new Date("01/01/1998"));
   const [endDate, setEndDate] = useState(new Date("01/01/2023"));
 
-  const data = useMemo(() => {
-    if (!filter) return reportgriddata;
-    const filteredData = reportgriddata.filter((item) => item.file === filter);
-    return filteredData;
-  }, [filter]);
+  const { data: AdminReports } = useGetReportsDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
 
-  const filteredImage = reportgriddata.filter((item) => item.file === "image");
-  const filteredVideo = reportgriddata.filter((item) => item.file === "video");
-  const filteredDocument = reportgriddata.filter(
-    (item) => item.file === "document"
+  const ReportsCollection = AdminReports || [];
+
+  const data = useMemo(() => {
+    if (!filter) return ReportsCollection;
+    const filteredData = ReportsCollection.map((report) => ({
+      ...report,
+      attachments: report.attachments.filter((attachment) =>
+        attachment.type.startsWith(filter)
+      ),
+    }));
+    return filteredData;
+  }, [filter, ReportsCollection]);
+
+  const filteredImage = ReportsCollection.map((reportcollection) =>
+    reportcollection.attachments.filter((attachment) =>
+      attachment.type.startsWith("image")
+    )
+  );
+
+  const filteredVideo = ReportsCollection.map((reportcollection) =>
+    reportcollection.attachments.filter((attachment) =>
+      attachment.type.startsWith("video")
+    )
+  );
+
+  const filteredDocument = ReportsCollection.map((reportcollection) =>
+    reportcollection.attachments.filter((attachment) =>
+      attachment.type.startsWith("document")
+    )
   );
   return (
     <Container className={reportsgrid.container}>
       <DashboardLayout name="Reports">
-        {/* <FileInputContainer /> */}
+        <FileInputContainer />
         <div className={reportsgrid.overallcontainer}>
           <Header name="My Reports" />
           <div className={reportsgrid.leftcontainer}>
@@ -36,7 +61,7 @@ const ReportsGridDashboard = () => {
                 name="All Files"
                 filter={filter}
                 filter1={null}
-                total={`(${reportgriddata.length})`}
+                // total={`(${repor.length})`}
                 onClick={() => setFilter(null)}
               />
 
@@ -44,21 +69,21 @@ const ReportsGridDashboard = () => {
                 name="Pictures"
                 filter={filter}
                 filter1="image"
-                total={`(${filteredImage.length})`}
+                // total={`(${filteredImage.length})`}
                 onClick={() => setFilter("image")}
               />
               <NavCategories
                 name="Video"
                 filter={filter}
                 filter1="video"
-                total={`(${filteredVideo.length})`}
+                // total={`(${filteredVideo.length})`}
                 onClick={() => setFilter("video")}
               />
               <NavCategories
                 name="Documents"
                 filter={filter}
                 filter1="document"
-                total={`(${filteredDocument.length})`}
+                // total={`(${filteredDocument.length})`}
                 onClick={() => setFilter("document")}
               />
             </div>
@@ -68,6 +93,9 @@ const ReportsGridDashboard = () => {
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 startDate={startDate}
                 endDate={endDate}
                 dateFormat="dd/MM/yyyy"
@@ -85,6 +113,9 @@ const ReportsGridDashboard = () => {
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
+                showYearDropdown
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 startDate={startDate}
@@ -93,17 +124,35 @@ const ReportsGridDashboard = () => {
               />
             </div>
           </div>
-          <div className={reportsgrid.flexwrapcontainer}>
-            {data.map((report, index) => (
-              <CardGridContainer
-                imagesrc={report.src}
-                name={report.name}
-                mainimage={report.mainimage}
-                avatar={report.avatar}
-                avatarname={report.avatarname}
-                date={report.dateuploaded}
-              />
-            ))}
+          <div>
+            {data.map((report, index) => {
+              const dateReport = report.date;
+              return (
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    marginTop: "2rem",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {report.attachments.map((repo, index) => (
+                    <CardGridContainer
+                      key={index}
+                      url={repo.url}
+                      firstname={repo?.send_from || null}
+                      // lastname = {repo?.sent_to?.lastname}
+                      name={repo.name}
+                      imagelink={repo.type}
+                      // mainimage={report.mainimage}
+                      // avatar={report.avatar}
+                      // avatarname={report.avatarname}
+                      date={dateReport}
+                    />
+                  ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </DashboardLayout>
@@ -136,26 +185,49 @@ const NavCategories = (props) => {
 const CardGridContainer = (props) => {
   return (
     <div className={reportsgrid.cardcontainer}>
-      <div className={reportsgrid.flexcontainer}>
-        <Image src={`${props.imagesrc}`} alt="image-icon" />
+      <div className={reportsgrid.fleximageicon}>
+        <div className={reportsgrid.centergridicon}>
+          {props.imagelink === "image/jpeg" ? (
+            <Image src="/icons/jpg.svg" alt="jpg" />
+          ) : props.imagelink === "image/png" ? (
+            <Image src="/icons/jpg.svg" alt="jpg" />
+          ) : props.imagelink === "image/svg+xml" ? (
+            <Image src="/icons/jpg.svg" alt="jpg" />
+          ) : null}
+        </div>
         <div className={reportsgrid.absolutecenter}>
-          <p className={reportsgrid.filename}>{props.name}</p>
+          <p className={reportsgrid.filename}>{props.name?.substring(0, 12)}</p>
         </div>
       </div>
-      <Image
+      <div className={reportsgrid.flexcontainer}>
+        <Image
+          src={`${props.url}`}
+          className={reportsgrid.gridimage}
+          alt="image-icon"
+        />
+        <div className={reportsgrid.absolutecenter}>
+          {/* <p className={reportsgrid.filename}>{props.name?.substring(0, 7)}</p> */}
+          {/* <span>{truncateString(props.lastname, 1)}</span> */}
+        </div>
+      </div>
+      {/* <Image
         src={`${props.mainimage}`}
         alt="main-image"
         className={reportsgrid.mainimage}
-      />
+      /> */}
       <div className={reportsgrid.flexjust}>
         <div className={reportsgrid.flexcontainer}>
-          <Image src={`${props.avatar}`} />
+          {/* <Image src={`${props.avatar}`} /> */}
           <div className={reportsgrid.absolutecenter}>
-            <p className={reportsgrid.avatarname}>{props.avatarname}</p>
+            <p className={reportsgrid.avatarname}>{props.firstname}</p>
+            <p className={reportsgrid.avatarname}>{props.lastname}</p>
           </div>
         </div>
         <div className={reportsgrid.absolutecenter}>
-          <p className={reportsgrid.date}>{props.date}</p>
+          <p className={reportsgrid.date}>
+            {" "}
+            {new Date(props.date).toLocaleDateString()}
+          </p>
         </div>
       </div>
     </div>
