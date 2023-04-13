@@ -349,7 +349,7 @@ a {
 
 .centernotification {
   display: flex;
-    padding-left: 1.5rem;
+    /* padding-left: 1.5rem; */
   justify-content: center;
   align-items: center;
 }

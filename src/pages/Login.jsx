@@ -37,67 +37,85 @@ const Login = () => {
   const password = watch("password");
 
   return (
-    <div className={login.container2}>
-      <div className={login.logincenteredcontainer}>
-        <div className={login.absolutecenter}>
+    <Container className={login.container1}>
+      <div className={login.flexcontainer}>
+        <div className={login.figurecontainer}>
           <Image
-            src="/images/svp.png"
-            alt="main-icon"
-            className={login.logoicon}
+            src="/icons/login-illustration.svg"
+            className={login.registericon}
+            alt="icons"
           />
         </div>
-        <div className={login.formcontainer}>
-          <form onSubmit={handleSubmit(submitForm)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder=""
-                {...register("email", EMAIL_VALIDATION)}
-              />
-              <div className={login.errorcontainer}>
-                {errors.email && errors.email.type === "required" && (
-                  <span className={login.error}>This field is required</span>
-                )}
-                {errors.email && errors.email.type === "maxLength" && (
-                  <span className={login.error}>Max length exceeded</span>
-                )}
-                {errors.email && errors.email.type === "pattern" && (
-                  <span className={login.error}>Email is Invalid</span>
-                )}
+        <div className={login.rightcontainer}>
+          <div className={login.container2}>
+            <div className={login.logincenteredcontainer}>
+              <div className={login.absolutecenter}>
+                <Image
+                  src="/images/svp.png"
+                  alt="main-icon"
+                  className={login.logoicon}
+                />
               </div>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                {...register("password", {
-                  required: "Password is required",
-                  // pattern: {
-                  //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
-                  //   message:
-                  //     "Password should be at least 8 characters, At least 1 uppercase character, 1 lowercase character and 1 number",
-                  // },
-                })}
-                name="password"
-                type="password"
-                placeholder=""
-              />
-              <div className={login.errorcontainer}>
-                {errors.password && errors.password.type === "required" && (
-                  <span className={login.error}>This field is required</span>
-                )}
-                {errors.password && errors.password.type === "maxLength" && (
-                  <span className={login.error}>Max length exceeded</span>
-                )}
-                {/* {errors.password && errors.password.type === "pattern" && (
+              <div className={login.formcontainer}>
+                <form onSubmit={handleSubmit(submitForm)}>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      placeholder=""
+                      {...register("email", EMAIL_VALIDATION)}
+                    />
+                    <div className={login.errorcontainer}>
+                      {errors.email && errors.email.type === "required" && (
+                        <span className={login.error}>
+                          This field is required
+                        </span>
+                      )}
+                      {errors.email && errors.email.type === "maxLength" && (
+                        <span className={login.error}>Max length exceeded</span>
+                      )}
+                      {errors.email && errors.email.type === "pattern" && (
+                        <span className={login.error}>Email is Invalid</span>
+                      )}
+                    </div>
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      {...register("password", {
+                        required: "Password is required",
+                        // pattern: {
+                        //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
+                        //   message:
+                        //     "Password should be at least 8 characters, At least 1 uppercase character, 1 lowercase character and 1 number",
+                        // },
+                      })}
+                      name="password"
+                      type="password"
+                      placeholder=""
+                    />
+                    <div className={login.errorcontainer}>
+                      {errors.password &&
+                        errors.password.type === "required" && (
+                          <span className={login.error}>
+                            This field is required
+                          </span>
+                        )}
+                      {errors.password &&
+                        errors.password.type === "maxLength" && (
+                          <span className={login.error}>
+                            Max length exceeded
+                          </span>
+                        )}
+                      {/* {errors.password && errors.password.type === "pattern" && (
                   <span className={login.error}>
                     Password should be at least 8 characters, At least 1
                     uppercase character, 1 lowercase character and 1 number
                   </span>
                 )} */}
-              </div>
-            </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="formBasicPassword">
+                    </div>
+                  </Form.Group>
+                  {/* <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Confirm password</Form.Label>
               <Form.Control
                 name="password"
@@ -117,26 +135,29 @@ const Login = () => {
                 )}
               </div>
             </Form.Group> */}
-            {/* {console.log(errors.confirmPassword.message)} */}
-            {/* {console.log(errors.password_repeat.type === "validate"} */}
-            {/* <Spinner /> */}
-            <Button
-              type="submit"
-              disabled={loading}
-              className={login.submitbutton}
-            >
-              {loading ? <Spinner /> : "Login"}
-            </Button>
-          </form>
-          <p className={login.text}>
-            First time here?
-            <Link className={login.route} to="/register">
-              Sign Up
-            </Link>
-          </p>
+                  {/* {console.log(errors.confirmPassword.message)} */}
+                  {/* {console.log(errors.password_repeat.type === "validate"} */}
+                  {/* <Spinner /> */}
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className={login.submitbutton}
+                  >
+                    {loading ? <Spinner /> : "Login"}
+                  </Button>
+                </form>
+                <p className={login.text}>
+                  First time here?
+                  <Link className={login.route} to="/register">
+                    Sign Up
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

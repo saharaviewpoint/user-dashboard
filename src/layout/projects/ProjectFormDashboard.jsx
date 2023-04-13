@@ -19,6 +19,8 @@ const ProjectFormDashboard = () => {
   const { data: user } = useGetDetailsQuery();
   // toast.configure();
 
+  console.log(user);
+
   const { register, control, reset, handleSubmit } = useForm();
 
   const submitForm = async (data) => {
