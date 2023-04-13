@@ -76,8 +76,9 @@ const ModalTask = (props) => {
                       <div className={modal.absolutecenter}>
                         <p className={modal.textname}>
                           {" "}
-                          {collect.requested_by?.firstname || null} &nbsp;
-                          <span>{collect.requested_by?.lastname || null}</span>
+                          Project Manager
+                          {/* {collect.requested_by?.firstname || null} &nbsp;
+                          <span>{collect.requested_by?.lastname || null}</span> */}
                         </p>
                       </div>
                     </div>

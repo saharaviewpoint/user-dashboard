@@ -7,6 +7,14 @@
 .overallcontainer {
   background-color: white;
   margin: 0 auto;
+  height: 100vh;
+  overflow-y: scroll;
   /* padding-bottom: 2rem; */
   width: 90%;
+}
+
+.absolutecenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

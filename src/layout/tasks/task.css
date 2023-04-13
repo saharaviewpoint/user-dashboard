@@ -41,7 +41,7 @@ tr {
 .react-datepicker-wrapper,
 .react-datepicker__input-container,
 .react-datepicker__input-container input {
-  width: 115px;
+  width: 117px !important;
   border-radius: 8px;
   font-family: "Inter", sans-serif;
   font-size: 1rem;

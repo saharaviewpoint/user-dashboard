@@ -49,7 +49,7 @@ const Button = (props) => {
             : props.text === "Complete"
             ? grid.completebuttontext
             : props.text == "In Progress"
-            ? grid.inprogresstext
+            ? grid.inprogresstext1
             : null
         }
       >

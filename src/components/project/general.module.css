@@ -273,6 +273,21 @@
   font-weight: 600;
 }
 
+.inprogresstext1 {
+  background-color: var(--black400);
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  border-radius: 8px;
+  margin-bottom: 0px;
+  width: 150px;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+  font-weight: 600;
+}
+
 .statusbuttontext {
   font-family: "Inter", sans-serif;
   font-size: 14px;

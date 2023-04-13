@@ -104,7 +104,7 @@ const ReportsDashboard = () => {
                 name="Pictures"
                 filter={filter}
                 filter1="image"
-                total={`(${filteredImage.length})`}
+                // total={`(${filteredImage.length})`}
                 // onClick={() => setFilter("image/jpeg")}
               />
               <NavCategories

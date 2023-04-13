@@ -63,9 +63,9 @@ tr {
 }
 
 
-.modal-content {
+/* .modal-content {
   height: 832px;
-}
+} */
 @media (min-width: 992px) and (max-width: 1100px) {
   .col-lg-10 {
     width: 100%;

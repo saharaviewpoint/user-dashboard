@@ -285,7 +285,7 @@ const ContentContainer = (props) => {
             <p
               className={
                 props.status === "In Progress"
-                  ? grid.incomingtext
+                  ? grid.incomingtext1
                   : props.status === "Complete"
                   ? grid.completebuttontext
                   : props.status == "Awaiting Approval"
