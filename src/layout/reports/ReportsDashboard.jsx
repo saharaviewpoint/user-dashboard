@@ -94,10 +94,10 @@ const ReportsDashboard = () => {
             <div className={report.flexwrap}>
               <NavCategories
                 name="All Files"
-                total={`(${ReportsCollection.length})`}
+                // total={`(${ReportsCollection.length})`}
                 filter={filter}
                 filter1={null}
-                onClick={() => setFilter(null)}
+                // onClick={() => setFilter(null)}
               />
 
               <NavCategories
@@ -105,21 +105,21 @@ const ReportsDashboard = () => {
                 filter={filter}
                 filter1="image"
                 total={`(${filteredImage.length})`}
-                onClick={() => setFilter("image/jpeg")}
+                // onClick={() => setFilter("image/jpeg")}
               />
               <NavCategories
                 name="Video"
                 filter={filter}
                 filter1="video"
                 // total={`(${filteredVideo.length})`}
-                onClick={() => setFilter("video/mp4")}
+                // onClick={() => setFilter("video/mp4")}
               />
               <NavCategories
                 name="Documents"
                 filter={filter}
                 filter1="document"
-                total={`(${filteredDocument.length})`}
-                onClick={() => setFilter("application/pdf")}
+                // total={`(${filteredDocument.length})`}
+                // onClick={() => setFilter("application/pdf")}
               />
             </div>
             <div className={report.datepickertitle}>
