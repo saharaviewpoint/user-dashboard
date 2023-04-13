@@ -8,9 +8,12 @@ const MessageDashboard = () => {
     <Container className={message.container}>
       <DashboardLayout name="Messages">
         <div className={message.overallcontainer}>
-          <div className={message.absolutecenter}>
-            <Image src="/icons/construction.svg" alt="construction" />
-          </div>
+          <Image
+            style={{ margin: "0 auto" }}
+            src="/icons/frame.png"
+            // width="80%"
+            alt="construction"
+          />
         </div>
       </DashboardLayout>
     </Container>
