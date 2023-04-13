@@ -9,7 +9,7 @@ const MessageDashboard = () => {
       <DashboardLayout name="Messages">
         <div className={message.overallcontainer}>
           <Image
-            style={{ margin: "0 auto" }}
+            // style={{ margin: "0 auto" }}
             src="/icons/frame.png"
             // width="80%"
             // alt="construction"

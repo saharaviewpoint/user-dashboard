@@ -111,14 +111,14 @@ const ProjectFormDashboard = () => {
                       {...register("firstname")}
                       required
                       type="text"
-                      placeholder="FirstName"
+                      placeholder="First Name"
                     />
                     <Form.Control
                       {...register("lastname")}
                       className={projectform.form1}
                       required
                       type="text"
-                      placeholder="LastName"
+                      placeholder="Last Name"
                     />
                   </div>
                 </div>
