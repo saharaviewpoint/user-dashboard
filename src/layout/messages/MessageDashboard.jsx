@@ -12,7 +12,7 @@ const MessageDashboard = () => {
             style={{ margin: "0 auto" }}
             src="/icons/frame.png"
             // width="80%"
-            alt="construction"
+            // alt="construction"
           />
         </div>
       </DashboardLayout>
