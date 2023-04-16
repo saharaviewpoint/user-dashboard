@@ -63,9 +63,9 @@ const ModalTask = (props) => {
                       </div>
                       <div>
                         <div className={modal.buttonname}>
-                          <p className={modal.buttontext}>
+                          {/* <p className={modal.buttontext}>
                             Upload Attachments <MdOutlineCloudUpload />
-                          </p>
+                          </p> */}
                         </div>
                       </div>
                     </div>

@@ -31,11 +31,15 @@ const ModalProject = (props) => {
     refetchOnMountOrArgChange: true,
   });
 
+  const [more, setMore] = useState(false);
+
+  const ModalTasks = UserProjectTask || [];
+
   const ModalProjectsCollection = UserProjects || [];
 
-  const specificUserProjectTask = UserProjectTask || [];
+  // const specificUserProjectTask = UserProjectTask || [];
 
-  console.log(specificUserProjectTask);
+  // console.log(specificUserProjectTask);
 
   return (
     <Modal
@@ -72,7 +76,7 @@ const ModalProject = (props) => {
                   <div className={modal.paddingcontain}>
                     <p className={modal.nameproject}>{collect.name}</p>
                     <p className={modal.description}>{collect.details}</p>
-                    <>
+                    {/* <>
                       <p className={modal.assigned}>Assigned to:</p>
                       <div className={modal.yellowbackground}>
                         <Image
@@ -83,8 +87,6 @@ const ModalProject = (props) => {
                         <div className={modal.absolutecenter}>
                           <p className={modal.textname}>
                             Project Manager
-                            {/* {collect.assigned_to.firstname} &nbsp; */}
-                            {/* <span>{collect.assigned_to.lastname}</span> */}
                           </p>
                         </div>
                       </div>
@@ -154,8 +156,8 @@ const ModalProject = (props) => {
                           </p>
                         </div>
                       </div>
-                    </>
-                    {/* <>
+                    </> */}
+                    <>
                       {collect.assigned_to ? (
                         <>
                           <p className={modal.assigned}>Assigned to:</p>
@@ -168,9 +170,9 @@ const ModalProject = (props) => {
                             <div className={modal.absolutecenter}>
                               <p className={modal.textname}>
                                 {" "}
-                                {/* {collect.assigned_to.firstname} &nbsp; */}
-                                {/* <span>{collect.assigned_to.lastname}</span> */}
-                              {/* </p>
+                                {collect?.assigned_to?.firstname} &nbsp;
+                                <span>{collect?.assigned_to?.lastname}</span>
+                              </p>
                             </div>
                           </div>
                           <p className={modal.taskname}>Tasks</p>
@@ -185,100 +187,125 @@ const ModalProject = (props) => {
                                   <p className={modal.headertext1}>All Tasks</p>
                                 </div>
                               </div>
-                              <div className={modal.absolutecenter}>
+                              {/* <div className={modal.absolutecenter}>
                                 <p className={modal.headertext1}>5/10</p>
-                              </div>
+                              </div> */}
                             </div>
-                            <div className={modal.progressbar}>
+                            {/* <div className={modal.progressbar}>
                               <div className={modal.progressyellow}></div>
-                            </div>
+                            </div> */}
                             <div className={modal.formcontainer}>
                               <Form>
-                                <Form.Check
-                                  defaultChecked
-                                  type="checkbox"
-                                  id="custom-switch"
-                                  label="Site Clearing"
-                                />
-                                <Form.Check
-                                  defaultChecked
-                                  type="checkbox"
-                                  label="Site Clearing"
-                                  id="disabled-custom-switch"
-                                />
-                                <Form.Check
-                                  type="checkbox"
-                                  label="Site Clearing"
-                                  id="disabled-custom-switch"
-                                />
+                                {ModalTasks.length < 1 ? (
+                                  <p>No task available</p>
+                                ) : (
+                                  <div>
+                                    {more ? (
+                                      <div>
+                                        {ModalTasks?.map((task, index) =>
+                                          props.id === task.project.id ? (
+                                            <Form.Check
+                                              type="checkbox"
+                                              key={index}
+                                              id="custom-switch"
+                                              label={task?.name}
+                                            />
+                                          ) : (
+                                            <p className={modal.title1}>
+                                              No Task Available
+                                            </p>
+                                          )
+                                        )}
+                                      </div>
+                                    ) : (
+                                      <div>
+                                        {ModalTasks?.slice(0, 3).map(
+                                          (task, index) =>
+                                            props.id === task.project.id ? (
+                                              <div>
+                                                <Form.Check
+                                                  type="checkbox"
+                                                  key={index}
+                                                  id="custom-switch"
+                                                  label={task?.name}
+                                                />
+                                                <p
+                                                  className={modal.title1}
+                                                  onClick={() => setMore(!more)}
+                                                >
+                                                  See More
+                                                </p>
+                                              </div>
+                                            ) : (
+                                              <p className={modal.title1}>
+                                                No Task Available
+                                              </p>
+                                            )
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                               </Form>
-                              <div className={modal.flexheader2}>
-                                <div className={modal.absolutecenter}>
-                                  <p className={modal.seetext}>See More</p>
-                                </div>
-                                <Image src="/icons/arrow-down.svg" />
-                              </div>
                             </div>
                           </div>
 
                           <p className={modal.taskname}>Attachment</p>
                           <div className={modal.attachmentflex}>
-                            {ImageAttachment.map((attachment, index) => (
-                              <Attachment
-                                key={index}
-                                imagelink={attachment.src}
-                                attachmentname={attachment.attachmentname}
-                                attachmentsize={attachment.attachmentsize}
-                              />
-                            ))}
-                          </div>
-                          <div className={modal.absolutebuttoncenter}>
-                            <div className={modal.buttonname}>
-                              <p className={modal.buttontext}>
-                                See All Attachments
-                              </p>
-                            </div>
+                            {collect.attachments.length > 1 ? (
+                              collect.attachments
+                                .slice(0, 3)
+                                .map((attachment, index) => (
+                                  <Attachment
+                                    key={index}
+                                    imagelink={attachment.type}
+                                    attachmentname={attachment.name}
+                                    attachmentsize={attachment.size}
+                                  />
+                                ))
+                            ) : (
+                              <div className={modal.absolutebuttoncenter}>
+                                <div className={modal.buttonname}>
+                                  <p className={modal.buttontext}>
+                                    See All Attachments
+                                  </p>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </>
-                      ) : null} */}
-                    {/* </>  */}
+                      ) : null}
+                    </>
                   </div>
                 </div>
                 <div className={modal.descriptionrightcontainer}>
                   <div className={modal.activitycontainer1}>
                     <p className={modal.activitytext}>Recent Activity</p>
-                    <div className={modal.activityboardcontainer}>
-                      <Activitycontainer
-                        src="/icons/activity/activity.svg"
-                        description="Admin declined task:"
-                        name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/check.svg"
-                        description="Admin approved task:"
-                        name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/time.svg"
-                        description="John Doe requested task approval"
-                        // name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/add.svg"
-                        description="Admin assigned Tasks to John doe"
-                        // name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                      <Activitycontainer
-                        src="/icons/activity/user.svg"
-                        description="Admin assigned John Doe as new project manager"
-                        // name="Raise Center Pavement"
-                        date="Added at 02/02/2023 - 10 AM"
-                      />
-                    </div>
+                    {ModalProjectsCollection.map((collect, index) =>
+                      props.id === collect._id ? (
+                        <div
+                          className={modal.activityboardcontainer}
+                          key={index}
+                        >
+                          {/* {console.log(collect)} */}
+                          {collect?.activities?.map((activities, index) => {
+                            return (
+                              <div>
+                                {activities.action === "assigned" ? (
+                                  <AssignedActivitycontainer
+                                    src="/icons/activity/add.svg"
+                                    date={activities.date}
+                                    type={activities.action_type}
+                                    name={activities.initiator}
+                                    assignee={activities.ref.name}
+                                  />
+                                ) : null}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : null
+                    )}
                   </div>
                 </div>
               </div>
@@ -358,6 +385,27 @@ const Activitycontainer = (props) => {
           <span className={modal.spantext}>{props.name}</span>
         </p>
         <p className={modal.activitydate}>{props.date}</p>
+      </div>
+    </div>
+  );
+};
+
+const AssignedActivitycontainer = (props) => {
+  return (
+    <div className={modal.activitycontainer}>
+      <Image src={`${props.src}`} className={modal.imageactivity} />
+      <div className={modal.spacecontainer}>
+        <p className={modal.activitydescription}>
+          {props.name} assigned {props.type} to {props.assignee}
+          {/* <span className={modal.spantext}>{props.name}</span> */}
+        </p>
+        <p className={modal.activitydate}>
+          {" "}
+          Added at{" "}
+          {new Date(props.date).toLocaleDateString("en-GB", {
+            timeZone: "UTC",
+          })}
+        </p>
       </div>
     </div>
   );

@@ -8,12 +8,12 @@ const MessageDashboard = () => {
     <Container className={message.container}>
       <DashboardLayout name="Messages">
         <div className={message.overallcontainer}>
-          <Image
-            // style={{ margin: "0 auto" }}
-            src="/icons/frame.png"
-            // width="80%"
-            // alt="construction"
-          />
+          <div>
+            <p className={message.title}>Feature Unavailable</p>
+            <p className={message.warning}>
+              This feature is only available in the live demo
+            </p>
+          </div>
         </div>
       </DashboardLayout>
     </Container>
