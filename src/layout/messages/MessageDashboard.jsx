@@ -11,7 +11,7 @@ const MessageDashboard = () => {
           <div>
             <p className={message.title}>Feature Unavailable</p>
             <p className={message.warning}>
-              This feature is only available in the live demo
+              This feature is only available in the live demo.
             </p>
           </div>
         </div>
