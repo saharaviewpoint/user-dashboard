@@ -3,52 +3,109 @@ import FileInputContainer from "@/components/reports/FileInputContainer";
 import React, { useState, useMemo, forwardRef } from "react";
 import Header from "../../components/reports/Header";
 import reportsgrid from "./reports.module.css";
-import { Container, Button, Image } from "react-bootstrap";
+import { Container, Button, Image, Form } from "react-bootstrap";
 import { reportgriddata } from "../../../data/reports";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useGetReportsDetailsQuery } from "@/app/services/auth/authService";
-
+import {
+  useGetReportsDetailsQuery,
+  useGetProjectDetailsQuery,
+  useGetTaskDetailsQuery,
+} from "@/app/services/auth/authService";
 
 const ReportsGridDashboard = () => {
   const [filter, setFilter] = useState(null);
-  const [startDate, setStartDate] = useState(new Date("01/01/1998"));
-  const [endDate, setEndDate] = useState(new Date("01/01/2023"));
+  const [select, setSelect] = useState("");
+  const [task, setTask] = useState("");
+  const [display, setDisplay] = useState(false);
+  const [message, setMessage] = useState(false);
 
   const { data: AdminReports } = useGetReportsDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
 
+  const { data: projects } = useGetProjectDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const { data: tasks } = useGetTaskDetailsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const projectsCollection = projects || [];
+
+  const taskCollection = tasks || [];
+
   const ReportsCollection = AdminReports || [];
+
+  console.log("Batman");
+  console.log(ReportsCollection);
+
+  const [startDate, setStartDate] = useState(new Date("01/01/2022"));
+  const [endDate, setEndDate] = useState(new Date("01/01/2029"));
+
+  const convertedStartDate = new Date(startDate).toISOString();
+  const convertedEndDate = new Date(endDate).toISOString();
+
+  const finalStartDate = new Date(convertedStartDate).getTime();
+  const finalEndDate = new Date(convertedEndDate).getTime();
 
   const data = useMemo(() => {
     if (!filter) return ReportsCollection;
-    const filteredData = ReportsCollection.map((report) => ({
-      ...report,
-      attachments: report.attachments.filter((attachment) =>
-        attachment.type.startsWith(filter)
-      ),
-    }));
+    const filteredData = ReportsCollection.filter((item) =>
+      item.type.startsWith(filter)
+    );
     return filteredData;
   }, [filter, ReportsCollection]);
 
-  const filteredImage = ReportsCollection.map((reportcollection) =>
-    reportcollection.attachments.filter((attachment) =>
-      attachment.type.startsWith("image")
-    )
+  const filteredCollection = useMemo(() => {
+    if (!task) return data;
+    const filteredData = data.filter((item) => item.task_id === task);
+    console.log(filteredData);
+    return filteredData;
+  }, [task, data]);
+
+  // const dataByDate = useMemo(() => {
+  //   const filtereddata = data.filter(
+  //     (item) =>
+  //       finalStartDate <= new Date(item.date).getTime() &&
+  //       new Date(item.date).getTime() <= finalEndDate
+  //   );
+  //   return filtereddata;
+  // }, [finalStartDate, finalEndDate, data]);
+
+  // console.log(dataByDate);
+  const filteredDocument = ReportsCollection.filter((item) =>
+    item.type.startsWith("application")
   );
 
-  const filteredVideo = ReportsCollection.map((reportcollection) =>
-    reportcollection.attachments.filter((attachment) =>
-      attachment.type.startsWith("video")
-    )
+  const filteredImage = ReportsCollection.filter((item) =>
+    item.type.startsWith("image")
   );
 
-  const filteredDocument = ReportsCollection.map((reportcollection) =>
-    reportcollection.attachments.filter((attachment) =>
-      attachment.type.startsWith("document")
-    )
+  const filteredVideo = ReportsCollection.filter((item) =>
+    item.type.startsWith("video")
   );
+
+  const handleProject = (e) => {
+    setSelect(e.target.value);
+    console.log(select);
+    setDisplay(true);
+  };
+
+  const handleTask = (e) => {
+    setTask(e.target.value);
+    console.log(task);
+    setMessage("There are no reports for selected task");
+  };
+
+  const filteredtasks = useMemo(() => {
+    const filtereddata = taskCollection.filter(
+      (item) => item.project.id === select
+    );
+    return filtereddata;
+  }, [select, ReportsCollection]);
+
   return (
     <Container className={reportsgrid.container}>
       <DashboardLayout name="Reports">
@@ -61,43 +118,52 @@ const ReportsGridDashboard = () => {
                 name="All Files"
                 filter={filter}
                 filter1={null}
-                // total={`(${repor.length})`}
-                onClick={() => setFilter(null)}
+                total={`(${ReportsCollection.length})`}
+                onClick={() => {
+                  setFilter(null);
+                  setMessage("There are no reports");
+                }}
               />
 
               <NavCategories
                 name="Pictures"
                 filter={filter}
                 filter1="image"
-                // total={`(${filteredImage.length})`}
-                onClick={() => setFilter("image")}
+                total={`(${filteredImage.length})`}
+                onClick={() => {
+                  setFilter("image");
+                  setMessage("There are no images");
+                }}
               />
               <NavCategories
                 name="Video"
                 filter={filter}
                 filter1="video"
-                // total={`(${filteredVideo.length})`}
-                onClick={() => setFilter("video")}
+                total={`(${filteredVideo.length})`}
+                onClick={() => {
+                  setFilter("document");
+                  setMessage("There are no documents");
+                }}
               />
               <NavCategories
                 name="Documents"
                 filter={filter}
                 filter1="document"
-                // total={`(${filteredDocument.length})`}
+                total={`(${filteredDocument.length})`}
                 onClick={() => setFilter("document")}
               />
             </div>
-            <div className={reportsgrid.datepickertitle}>
+            {/* <div className={reportsgrid.datepickertitle}>
               <p className={reportsgrid.datepickertitlelabel}>Start Date</p>
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                startDate={startDate}
+                endDate={endDate}
                 showYearDropdown
                 yearDropdownItemNumber={15}
                 scrollableYearDropdown
-                startDate={startDate}
-                endDate={endDate}
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 // width={300}
@@ -122,21 +188,50 @@ const ReportsGridDashboard = () => {
                 endDate={endDate}
                 minDate={startDate}
               />
+            </div> */}
+            <div className={reportsgrid.absolutecenter}>
+              <Form.Select
+                onChange={handleProject}
+                // value={select}
+                aria-label="Default select example"
+              >
+                <option>Select A Project</option>
+                {projectsCollection.map((pcollect, index) => (
+                  <option key={index} value={pcollect._id}>
+                    {pcollect.name}
+                  </option>
+                ))}
+              </Form.Select>
+            </div>
+            <div className={reportsgrid.absolutecenter}>
+              {display ? (
+                <Form.Select
+                  onChange={handleTask}
+                  aria-label="Default select example"
+                >
+                  <option>Select A Task</option>
+                  {filteredtasks.map((task, index) => (
+                    <option key={index} value={task._id}>
+                      {task.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              ) : null}
             </div>
           </div>
           <div>
-            {data.map((report, index) => {
-              const dateReport = report.date;
-              return (
-                <div
-                  key={index}
-                  style={{
-                    display: "flex",
-                    marginTop: "2rem",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  {report.attachments.map((repo, index) => (
+            {filteredCollection.length >= 1 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  gap: "3rem",
+                  marginTop: "2rem",
+                  flexWrap: "wrap",
+                }}
+              >
+                {filteredCollection.map((repo, index) => {
+                  return (
                     <CardGridContainer
                       key={index}
                       url={repo.url}
@@ -147,12 +242,18 @@ const ReportsGridDashboard = () => {
                       // mainimage={report.mainimage}
                       // avatar={report.avatar}
                       // avatarname={report.avatarname}
-                      date={dateReport}
+                      date={repo.date}
                     />
-                  ))}
-                </div>
-              );
-            })}
+                  );
+                })}
+              </div>
+            ) : (
+              <div style={{ marginTop: "3rem" }}>
+                <p className={reportsgrid.nothing}>
+                  {message || "There are no reports"}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </DashboardLayout>

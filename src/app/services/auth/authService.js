@@ -47,8 +47,15 @@ export const authApi = createApi({
     }),
     getReportsDetails: build.query({
       query: () => ({
-        url: "/user/reports",
+        url: "/user/reports/attachments/all",
         method: "GET",
+      }),
+    }),
+    addReportDetails: build.mutation({
+      query: (data) => ({
+        url: "/user/reports",
+        method: "POST",
+        body: data,
       }),
     }),
   }),

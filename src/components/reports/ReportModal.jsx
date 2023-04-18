@@ -4,19 +4,6 @@ import modal from "./general.module.css";
 import "./modal.css";
 import Form from "react-bootstrap/Form";
 
-const ImageAttachment = [
-  {
-    src: "/icons/pdf.svg",
-    attachmentname: "Site Clearing.pdf",
-    attachmentsize: "2 MB",
-  },
-  {
-    src: "/icons/jpg.svg",
-    attachmentname: "Site Clearing.jpg",
-    attachmentsize: "2 MB",
-  },
-];
-
 const ReportModal = (props) => {
   return (
     <Modal
@@ -126,10 +113,7 @@ const ReportModal = (props) => {
         </Form.Group>
         <div className={modal.absoluterightendcontainer}>
           <div className={modal.flexbuttoncontainer}>
-            <Button
-              className={modal.cancelbutton}
-              onClick={() => navigate(-1)}
-            >
+            <Button className={modal.cancelbutton} onClick={() => navigate(-1)}>
               Cancel
             </Button>
             <Button className={modal.sharebutton}>Submit Form</Button>
