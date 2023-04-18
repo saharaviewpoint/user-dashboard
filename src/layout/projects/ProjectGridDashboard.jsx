@@ -18,7 +18,7 @@ const ProjectGridDashboard = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [setting, setSetting] = useState("");
   const ProjectGridCollection = UserProjectGrid || [];
-  const [startDate, setStartDate] = useState(new Date("01/01/1998"));
+  const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date("01/01/2025"));
 
   const convertedStartDate = new Date(startDate).toISOString();
