@@ -1,5 +1,5 @@
 import React, { useMemo, useState, forwardRef } from "react";
-import { Container, Button, Image } from "react-bootstrap";
+import { Container, Button, Image, Form } from "react-bootstrap";
 import task from "./task.module.css";
 import "./task.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
@@ -8,7 +8,10 @@ import TaskHeader from "../../components/tasks/TaskHeader";
 import ModalTask from "@/components/tasks/ModalTask";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useGetTaskDetailsQuery } from "../../app/services/auth/authService";
+import {
+  useGetProjectDetailsQuery,
+  useGetTaskDetailsQuery,
+} from "../../app/services/auth/authService";
 import SkeleteonLoaderTable from "../../components/dashboard/SkeleteonLoaderTable";
 
 const TasksDashboard = () => {
@@ -16,10 +19,21 @@ const TasksDashboard = () => {
     refetchOnMountArgChange: true,
   });
 
+  const { data: projectsCollection } = useGetProjectDetailsQuery({
+    refetchOnMountArgChange: true,
+  });
+
   const TasksTableCollection = TaskCollection || [];
+
+  const projects = projectsCollection || [];
+
+  const [select, setSelect] = useState("");
+  const [tasked, setTasked] = useState("");
+  const [display, setDisplay] = useState(false);
 
   console.log(TasksTableCollection);
   const [filter, setFilter] = useState(null);
+
   const [setting, setSetting] = useState("");
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -38,28 +52,58 @@ const TasksDashboard = () => {
       (item) => item.user_status === filter
     );
     return filteredData;
-  }, [filter, finalStartDate, finalEndDate, TasksTableCollection]);
+  }, [filter, TasksTableCollection]);
 
-  const dataByDate = useMemo(() => {
-    const filtereddata = data.filter(
-      (item) =>
-        finalStartDate <= new Date(item.due).getTime() &&
-        new Date(item.due).getTime() <= finalEndDate
-    );
-    return filtereddata;
-  }, [finalStartDate, finalEndDate, data]);
+  // const dataByDate = useMemo(() => {
+  //   const filtereddata = data.filter(
+  //     (item) =>
+  //       finalStartDate <= new Date(item.due).getTime() &&
+  //       new Date(item.due).getTime() <= finalEndDate
+  //   );
+  //   return filtereddata;
+  // }, [finalStartDate, finalEndDate, data]);
+  console.log(data);
+  console.log(tasked);
+  const filteredCollection = useMemo(() => {
+    if (!tasked) return data;
+    const filteredData = data.filter((item) => item._id === tasked);
+    console.log(filteredData);
+    return filteredData;
+  }, [tasked, data]);
 
+  console.log(data);
+  console.log(filteredCollection);
+  // console.log(filteredCollection);
   const filteredApprovedData = TasksTableCollection.filter(
     (item) => item.user_status === "Approved"
   );
 
   const filteredPendingData = TasksTableCollection.filter(
-    (item) => item.user_status === "Pending"
+    (item) => item.user_status === "Awaiting Approval"
   );
 
   const filteredDeclinedData = TasksTableCollection.filter(
     (item) => item.user_status === "Declined"
   );
+
+  const handleProject = (e) => {
+    setSelect(e.target.value);
+    console.log(select);
+    setDisplay(true);
+  };
+
+  const handleTask = (e) => {
+    setTasked(e.target.value);
+    console.log(tasked);
+    // setMessage("There are no reports for selected task");
+  };
+
+  const filteredtasks = useMemo(() => {
+    const filtereddata = TasksTableCollection.filter(
+      (item) => item.project.id === select
+    );
+    return filtereddata;
+  }, [select, TasksTableCollection]);
 
   return (
     <Container className={task.container}>
@@ -84,11 +128,11 @@ const TasksDashboard = () => {
                 onClick={() => setFilter("Approved")}
               />
               <NavCategories
-                name="Pending"
+                name="Awaiting Approval"
                 total={`(${filteredPendingData.length})`}
-                filter1="Pending"
+                filter1="Awaiting Approval"
                 filter={filter}
-                onClick={() => setFilter("Pending")}
+                onClick={() => setFilter("Awaiting Approval")}
               />
               <NavCategories
                 name="Declined"
@@ -98,50 +142,43 @@ const TasksDashboard = () => {
                 onClick={() => setFilter("Declined")}
               />
             </div>
-            <div className={task.datepickertitle}>
-              <p className={task.datepickertitlelabel}>Start Date</p>
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                selectsStart
-                showYearDropdown
-                yearDropdownItemNumber={15}
-                scrollableYearDropdown
-                startDate={startDate}
-                endDate={endDate}
-                dateFormat="dd/MM/yyyy"
-                customInput={<ExampleCustomInput />}
-                width={300}
-              />
+            <div className={task.absolutecenter}>
+              <Form.Select
+                onChange={handleProject}
+                value={select}
+                aria-label="Default select example"
+              >
+                <option>Select A Project</option>
+                {projects.map((pcollect, index) => (
+                  <option key={index} value={pcollect._id}>
+                    {pcollect.name}
+                  </option>
+                ))}
+              </Form.Select>
             </div>
             <div className={task.absolutecenter}>
-              <div className={task.dash}></div>
-            </div>
-            <div className={task.datepickertitle}>
-              <p className={task.datepickertitlelabel}>End Date</p>
-              <DatePicker
-                showIcon
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                selectsEnd
-                showYearDropdown
-                yearDropdownItemNumber={15}
-                scrollableYearDropdown
-                dateFormat="dd/MM/yyyy"
-                customInput={<ExampleCustomInput />}
-                startDate={startDate}
-                endDate={endDate}
-                minDate={startDate}
-              />
+              {display ? (
+                <Form.Select
+                  onChange={handleTask}
+                  aria-label="Default select example"
+                >
+                  <option>Select A Task</option>
+                  {filteredtasks.map((task, index) => (
+                    <option key={index} value={task._id}>
+                      {task.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              ) : null}
             </div>
           </div>
           {isLoading ? (
             <SkeleteonLoaderTable />
           ) : (
             <div>
-              {dataByDate.length >= 1 ? (
+              {filteredCollection.length >= 1 ? (
                 <TaskTableDisplay>
-                  {data.map((taskcollect, index) => (
+                  {filteredCollection.map((taskcollect, index) => (
                     <tr
                       key={index}
                       onClick={() => {
@@ -157,11 +194,11 @@ const TasksDashboard = () => {
                             <Icon imagelink="/icons/dashboard/task/star.svg" />
                           )}
                           <div className={task.centertext}>
-                            <p className={task.tasktitle}>{taskcollect.task}</p>
+                            <p className={task.tasktitle}>{taskcollect.name}</p>
                           </div>
                         </div>
                       </td>
-                      <td>{taskcollect.name}</td>
+                      <td>{taskcollect.project.name}</td>
                       <td>
                         <div className={task.absolutecenter}>
                           <p className={task.avatar}>
@@ -240,7 +277,7 @@ const StatusButton = (props) => {
           ? task.declinedbutton
           : props.text == "Approved"
           ? task.approvedbutton
-          : props.text == "Pending"
+          : props.text == "Awaiting Approval"
           ? task.pendingbutton
           : null
       }

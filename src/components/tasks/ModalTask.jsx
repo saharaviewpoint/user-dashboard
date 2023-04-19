@@ -112,7 +112,7 @@ const ModalTask = (props) => {
                           );
                         })
                       ) : (
-                        <p>No attachments</p>
+                        <p className={modal.attachment}>No attachments</p>
                       )}
                     </div>
                     <div className={modal.absolutebuttoncenter}>
@@ -143,7 +143,7 @@ const StatusButton = (props) => {
           ? modal.declinedbutton
           : props.text == "Approved"
           ? modal.approvedbutton
-          : props.text == "Pending"
+          : props.text == "Awaiting Approval"
           ? modal.pendingbutton
           : null
       }

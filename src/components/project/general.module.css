@@ -698,6 +698,11 @@
   /* padding-left: 1rem; */
 }
 
+.notask {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
 .searchiconcontainer {
   position: relative;
 }

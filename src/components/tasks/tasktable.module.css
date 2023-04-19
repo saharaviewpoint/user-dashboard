@@ -213,8 +213,9 @@
 
 .yellowbackground {
   border-radius: 25px;
-  background-color: var(--dashboardyellow);
+  background-color: var(--black100);
   display: flex;
+  width: 13rem;
   gap: 0.5rem;
   margin-top: 1rem;
   padding-top: 0.5rem;
@@ -353,6 +354,10 @@
   white-space: nowrap;
 }
 
+.attachment {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
 .calendartextcontainer {
   border-left: 1px solid;
   border-color: var(--black200);

@@ -278,7 +278,7 @@ const ContentContainer = (props) => {
               className={
                 props.status === "Approved"
                   ? taskboard.approvedbutton
-                  : props.status === "Pending"
+                  : props.status === "Awaiting Approval"
                   ? taskboard.pendingbutton
                   : props.status === "Declined"
                   ? taskboard.declinedbutton
