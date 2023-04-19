@@ -63,13 +63,14 @@ const TasksDashboard = () => {
   //   return filtereddata;
   // }, [finalStartDate, finalEndDate, data]);
   console.log(data);
+  console.log(select);
   console.log(tasked);
   const filteredCollection = useMemo(() => {
-    if (!tasked) return data;
-    const filteredData = data.filter((item) => item._id === tasked);
-    console.log(filteredData);
+    if (!select) return data;
+    const filteredData = data.filter((item) => item.project.id === select);
+    // console.log(filteredData);
     return filteredData;
-  }, [tasked, data]);
+  }, [select, data]);
 
   console.log(data);
   console.log(filteredCollection);
@@ -90,20 +91,15 @@ const TasksDashboard = () => {
     setSelect(e.target.value);
     console.log(select);
     setDisplay(true);
-  };
-
-  const handleTask = (e) => {
-    setTasked(e.target.value);
-    console.log(tasked);
     // setMessage("There are no reports for selected task");
   };
 
-  const filteredtasks = useMemo(() => {
-    const filtereddata = TasksTableCollection.filter(
-      (item) => item.project.id === select
-    );
-    return filtereddata;
-  }, [select, TasksTableCollection]);
+  // const filteredtasks = useMemo(() => {
+  //   const filtereddata = TasksTableCollection.filter(
+  //     (item) => item.project.id === select
+  //   );
+  //   return filtereddata;
+  // }, [select, TasksTableCollection]);
 
   return (
     <Container className={task.container}>
@@ -155,21 +151,6 @@ const TasksDashboard = () => {
                   </option>
                 ))}
               </Form.Select>
-            </div>
-            <div className={task.absolutecenter}>
-              {display ? (
-                <Form.Select
-                  onChange={handleTask}
-                  aria-label="Default select example"
-                >
-                  <option>Select A Task</option>
-                  {filteredtasks.map((task, index) => (
-                    <option key={index} value={task._id}>
-                      {task.name}
-                    </option>
-                  ))}
-                </Form.Select>
-              ) : null}
             </div>
           </div>
           {isLoading ? (

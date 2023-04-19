@@ -57,8 +57,8 @@ tr {
 }
 
 .form-select {
-  height: 4vh;
-  width: 12rem;
+  height: 6vh;
+  width: 13rem;
   /* border-radius: 24px; */
   font-family: "Inter", sans-serif;
 }
