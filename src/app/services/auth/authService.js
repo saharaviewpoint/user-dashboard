@@ -58,6 +58,25 @@ export const authApi = createApi({
         body: data,
       }),
     }),
+    getAllMessages: build.query({
+      query: () => ({
+        url: "/user/messages",
+        method: "GET",
+      }),
+    }),
+    AddMessages: build.mutation({
+      query: ({ id, data }) => ({
+        url: `/user/messages/${id}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getAllChats: build.query({
+      query: (id) => ({
+        url: `/user/messages/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -65,6 +84,9 @@ export const authApi = createApi({
 export const {
   useGetDetailsQuery,
   useGetProjectDetailsQuery,
+  useGetAllMessagesQuery,
+  useAddMessagesMutation,
+  useGetAllChatsQuery,
   useAddProjectDetailsMutation,
   useGetReportsDetailsQuery,
   useGetTaskDetailsQuery,
