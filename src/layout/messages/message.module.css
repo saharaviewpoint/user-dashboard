@@ -16,9 +16,29 @@
   /* padding-bottom: 2rem; */
   width: 95%;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-y: scroll;
 }
 
+.title {
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.content {
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.content {
+  font-family: "Inter", sans-serif;
+}
 .overallcontainer::-webkit-scrollbar {
   display: none;
 }
