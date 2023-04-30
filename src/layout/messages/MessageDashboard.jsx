@@ -9,9 +9,9 @@ const MessageDashboard = () => {
       <DashboardLayout name="Messages">
         <div className={message.overallcontainer}>
           <div>
-            <p className={message.title}>Feature Unavailable</p>
+            <p className={message.title}>Feature unavailable</p>
             <p className={message.content}>
-              This Feature is only available in the demo
+              This feature is only available on the supervised demo
             </p>
           </div>
         </div>
