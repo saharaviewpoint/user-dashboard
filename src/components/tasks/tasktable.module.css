@@ -218,8 +218,8 @@
   width: 13rem;
   gap: 0.5rem;
   margin-top: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
   padding-left: 0.7rem;
   padding-right: 0.7rem;
 }
@@ -233,6 +233,7 @@
 .textname {
   font-family: "Inter", sans-serif;
   font-weight: 600;
+  margin-bottom: 0px;
   font-size: 0.9rem;
   /* margin-left: 0.3rem; */
 }

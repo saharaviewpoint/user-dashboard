@@ -39,12 +39,6 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
-    getProjectSpecificTask: build.query({
-      query: (id) => ({
-        url: `/user/tasks/project/${id}`,
-        method: "GET",
-      }),
-    }),
     getReportsDetails: build.query({
       query: () => ({
         url: "/user/reports/attachments/all",
@@ -77,6 +71,18 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    getAllNotifications: build.query({
+      query: () => ({
+        url: `/user/notifications`,
+        method: "GET",
+      }),
+    }),
+    getProjectSpecificTask: build.query({
+      query: (id) => ({
+        url: `/user/tasks/project/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -86,9 +92,10 @@ export const {
   useGetProjectDetailsQuery,
   useGetAllMessagesQuery,
   useAddMessagesMutation,
+  useGetProjectSpecificTaskQuery,
   useGetAllChatsQuery,
+  useGetAllNotificationsQuery,
   useAddProjectDetailsMutation,
   useGetReportsDetailsQuery,
   useGetTaskDetailsQuery,
-  useGetProjectSpecificTaskQuery,
 } = authApi;

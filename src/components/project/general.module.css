@@ -265,12 +265,22 @@
   font-size: 14px;
   border-radius: 8px;
   margin-bottom: 0px;
-  width: 200px;
+  width: 10rem;
   text-align: center;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   color: var(--white);
   font-weight: 600;
+}
+
+.nothing {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: var(--dashboard-yellow);
+  text-align: center;
 }
 
 .inprogresstext1 {

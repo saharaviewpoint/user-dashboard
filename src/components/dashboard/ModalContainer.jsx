@@ -1,20 +1,73 @@
 import { Today, week, weekModal } from "../../../data/notification";
 import notification from "./User.module.css";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import "./Modal.css";
-import {
-  Modal,
-  ModalBody,
-  Button,
-  Image,
-  Tabs,
-  Nav,
-  Tab,
-  ModalHeader,
-  ModalTitle,
-} from "react-bootstrap";
+import { Modal, ModalBody, Button, Image, Nav, Tab } from "react-bootstrap";
+import moment from "moment";
+import { useGetAllNotificationsQuery } from "../../app/services/auth/authService";
+import { ProjectsCollection } from "../../../data/projects";
+import { Link } from "react-router-dom";
 
 const ModalContainer = (props) => {
+  const [filter, setFilter] = useState(null);
+  const [active, setActive] = useState();
+  const { data: allNotifications } = useGetAllNotificationsQuery();
+
+  const allnotifications = allNotifications || [];
+
+  const data = useMemo(() => {
+    if (!filter) return allnotifications;
+    const filteredData = allnotifications.filter(
+      (item) => item.type === filter
+    );
+    return filteredData;
+  }, [filter, allnotifications]);
+
+  console.log(data);
+
+  const initialvalue = moment()
+    .startOf("day")
+    .format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+
+  const endOfDay = moment().endOf("day").format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+  console.log(endOfDay);
+
+  const startOfWeek = moment()
+    .startOf("week")
+    .format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+
+  const endOfWeek = moment()
+    .endOf("week")
+    .format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+
+  const todayISO = new Date(initialvalue).getTime();
+  const endOfTodayISO = new Date(endOfDay).getTime();
+  const startOfWeekISO = new Date(startOfWeek).getTime();
+  const endOfWeekISO = new Date(endOfWeek).getTime();
+
+  // filter for today
+  const filteredToday = useMemo(() => {
+    const filtereddata = data.filter(
+      (item) =>
+        todayISO <= new Date(item.date).getTime() &&
+        new Date(item.date).getTime() <= endOfTodayISO
+    );
+    return filtereddata;
+  }, [todayISO, endOfTodayISO, data]);
+
+  // filter for week but without the current day
+  const filteredDataToday = useMemo(() => {
+    const filtereddata = data.filter(
+      (item) =>
+        startOfWeekISO <= new Date(item.date).getTime() &&
+        new Date(item.date).getTime() <= endOfWeekISO &&
+        new Date(item.date).getTime() !== todayISO
+    );
+    return filtereddata;
+  }, [startOfWeekISO, endOfWeekISO, todayISO, data]);
+
+  console.log(filteredDataToday);
+
   return (
     <Modal
       className={notification.modal}
@@ -36,13 +89,19 @@ const ModalContainer = (props) => {
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Nav variant="pills" className={notification.nav}>
             <Nav.Item>
-              <Nav.Link eventKey="first">All Notifications</Nav.Link>
+              <Nav.Link eventKey="first" onClick={() => setFilter(null)}>
+                All Notifications
+              </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="second">Messages</Nav.Link>
+              <Nav.Link onClick={() => setFilter("message")} eventKey="second">
+                Messages
+              </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="third">Reports</Nav.Link>
+              <Nav.Link eventKey="third" onClick={() => setFilter("Report")}>
+                Reports
+              </Nav.Link>
             </Nav.Item>
           </Nav>
           <Tab.Content>
@@ -52,47 +111,101 @@ const ModalContainer = (props) => {
                   <p className={notification.firsttext1}>Today</p>
                 </div>
                 <div className={notification.notificationcontent1}>
-                  {Today.map((data, index) => (
-                    <NotificationContent
-                      image={data.image}
-                      name={data.name}
-                      time={data.time}
-                      id={data.id}
-                      key={index}
-                    />
-                  ))}
+                  {filteredToday.length >= 1 ? (
+                    <>
+                      {filteredToday.map((data, index) => (
+                        <NotificationContent
+                          name={data.from_user.firstname}
+                          type={data.type}
+                          image={data.from_user.avatar}
+                          time={data.date}
+                          key={index}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <p className={notification.nothing}>
+                        There are no new notifications
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <div className={notification.firstext1container1}>
                   <p className={notification.firsttext1}>THIS WEEK</p>
                 </div>
                 <div className={notification.notificationcontent1}>
-                  {weekModal.map((notify, index) => (
-                    <NotificationContent
-                      image={notify.image}
-                      name={notify.name}
-                      time={notify.time}
-                      id={notify.id}
-                      key={index}
-                    />
-                  ))}
+                  {filteredDataToday.length >= 1 ? (
+                    <>
+                      {filteredDataToday.map((data, index) => (
+                        <NotificationContent
+                          name={data.from_user.firstname}
+                          type={data.type}
+                          image={data.from_user.avatar}
+                          time={data.date}
+                          key={index}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <p className={notification.nothing}>
+                        There are no new notifications
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </Tab.Pane>
             <Tab.Pane eventKey="second">
               <div className={notification.notificationcontainer1}>
                 <div className={notification.firstext1container1}>
+                  <p className={notification.firsttext1}>Today</p>
+                </div>
+                <div className={notification.notificationcontent1}>
+                  {filteredToday.length >= 1 ? (
+                    <>
+                      {filteredToday.map((data, index) => (
+                        <NotificationContent
+                          name={data.from_user.firstname}
+                          type={data.type}
+                          image={data.from_user.avatar}
+                          time={data.date}
+                          key={index}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <p className={notification.nothing}>
+                        There are no new notifications
+                      </p>
+                    </div>
+                  )}
+                </div>
+                <div className={notification.firstext1container1}>
                   <p className={notification.firsttext1}>THIS WEEK</p>
                 </div>
                 <div className={notification.notificationcontent1}>
-                  {weekModal.map((notify, index) => (
-                    <NotificationContent
-                      image={notify.image}
-                      name={notify.name}
-                      time={notify.time}
-                      id={notify.id}
-                      key={index}
-                    />
-                  ))}
+                  {filteredDataToday.length >= 1 ? (
+                    <>
+                      {filteredDataToday.map((data, index) => (
+                        <NotificationContent
+                          name={data.from_user.firstname}
+                          type={data.type}
+                          image={data.from_user.avatar}
+                          time={data.date}
+                          key={index}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <p className={notification.nothing}>
+                        There are no new notifications
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </Tab.Pane>
@@ -102,15 +215,49 @@ const ModalContainer = (props) => {
                   <p className={notification.firsttext1}>Today</p>
                 </div>
                 <div className={notification.notificationcontent1}>
-                  {Today.map((data, index) => (
-                    <NotificationContent
-                      image={data.image}
-                      name={data.name}
-                      time={data.time}
-                      id={data.id}
-                      key={index}
-                    />
-                  ))}
+                  {filteredToday.length >= 1 ? (
+                    <>
+                      {filteredToday.map((data, index) => (
+                        <NotificationContent
+                          name={data.from_user.firstname}
+                          type={data.type}
+                          image={data.from_user.avatar}
+                          time={data.date}
+                          key={index}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <p className={notification.nothing}>
+                        There are no new notifications
+                      </p>
+                    </div>
+                  )}
+                </div>
+                <div className={notification.firstext1container1}>
+                  <p className={notification.firsttext1}>THIS WEEK</p>
+                </div>
+                <div className={notification.notificationcontent1}>
+                  {filteredDataToday.length >= 1 ? (
+                    <>
+                      {filteredDataToday.map((data, index) => (
+                        <NotificationContent
+                          name={data.from_user.firstname}
+                          type={data.type}
+                          image={data.from_user.avatar}
+                          time={data.date}
+                          key={index}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <p className={notification.nothing}>
+                        There are no new notifications
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </Tab.Pane>
@@ -125,25 +272,44 @@ const ModalContainer = (props) => {
 export default ModalContainer;
 
 const NotificationContent = (props) => {
+  const momenttime = moment(props.time);
+  const accuratetime = momenttime.fromNow();
   return (
     <div className={notification.flexingcontainer}>
       <div className={notification.flexcontainercontents}>
         <div className={notification.flexedcontainer}>
           <div className={notification.centernotification}>
-            <Image src={`${props.image}`} />
+            <Image
+              style={{ width: "48px", height: "48px" }}
+              src={`${props.image}`}
+            />
           </div>
           <div>
             <p className={notification.notificationcontenttext}>
-              New <span className={notification.color}>Message</span> from{" "}
+              New <span className={notification.color}>{props.type}</span> from{" "}
               <span className={notification.color}>{`${props.name}`}</span>
             </p>
             <p className={notification.notificationcontentdescription}>
-              {props.time}
+              {accuratetime}
             </p>
           </div>
         </div>
         <div>
-          <Button className={notification.view}>View</Button>
+          <Link
+            to={
+              props.type === "Project Request"
+                ? "/project"
+                : props.type === "Project Approval"
+                ? "/project"
+                : props.type === "Report"
+                ? "/report"
+                : props.type === "message"
+                ? "/message"
+                : null
+            }
+          >
+            <Button className={notification.view}>View</Button>
+          </Link>
         </div>
       </div>
       {props.id === "1" ? <hr className={notification.horizontalline} /> : null}
