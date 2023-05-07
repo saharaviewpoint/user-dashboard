@@ -11,54 +11,75 @@
   align-items: center;
 }
 
-.overallcontainer {
-  margin: 0 auto;
-  /* padding-bottom: 2rem; */
-  width: 95%;
-  height: 100vh;
+.avataractive {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 14px;
+  margin-bottom: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: scroll;
+  color: var(--SVP-main);
+  background-color: white;
+  font-family: "Inter", sans-serif;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 14px;
+  margin-bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: var(--SVP-main);
+  font-family: "Inter", sans-serif;
 }
 
 .title {
-  font-family: "Inter", sans-serif;
-  text-align: center;
-  font-size: 3.2rem;
-  font-weight: 700;
+  /* flex: 15%; */
+  display: flex;
+  align-items: center;
+}
+.overallcontainer {
+  margin: 0 auto;
+  /* padding-bottom: 2rem; */
+  width: 100%;
+  /* background-color: bisque; */
+  /* height: 100vh; */
+  display: flex;
+  justify-content: flex-end;
+  overflow-y: auto;
 }
 
-.content {
-  font-family: "Inter", sans-serif;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-
-.content {
-  font-family: "Inter", sans-serif;
-}
 .overallcontainer::-webkit-scrollbar {
   display: none;
 }
 
 .messagecontentcontainer {
-  width: 95%;
-  margin: 0 auto;
+  width: 98%;
+  /* background-color: aquamarine; */
+  /* margin: 0 auto; */
   display: flex;
-  height: 90vh;
+  /* height: 100vh; */
+  margin-bottom: 1rem;
   margin-top: 3rem;
-  border-radius: 8px;
+  border-top-left-radius: 12px;
   border: 1px solid var(--black200);
 }
 
+.messagecontainer ::-webkit-scrollbar {
+  display: none;
+}
 .usercontainer {
-  width: 25%;
+  width: 400px;
 }
 
 .messagesviewcontainer {
-  width: 75%;
+  width: 756px;
   border-left: 1px solid var(--black200);
 }
 
@@ -71,6 +92,7 @@
 
 .searchiconcontainer {
   position: relative;
+  width: 100%;
 }
 
 .searchicon {
@@ -80,9 +102,10 @@
 }
 
 .search {
-  border-radius: 25px;
-  width: 80px;
-  border-color: var(--black200);
+  border-radius: 8px;
+  width: 100%;
+  border: none;
+  border: 1px solid var(--black200);
   font-family: "Inter", sans-serif;
   font-size: 12px;
   text-indent: 30px;
@@ -116,12 +139,15 @@
   display: flex;
   cursor: pointer;
   padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--black50);
+  border-top: 1px solid var(--black50);
   justify-content: space-between;
 }
 
 .userviewcontaineractive {
   display: flex;
   cursor: pointer;
+  /* border: 5px solid var(--black200); */
   padding: 0.6rem 1rem;
   justify-content: space-between;
   background-color: var(--SVP-main);
@@ -135,26 +161,36 @@
 .username {
   font-family: "Inter", sans-serif;
   font-size: 16px;
-  padding-top: 0.3rem;
-  margin-bottom: 10px;
-  font-weight: 600;
+  white-space: nowrap;
+  /* padding-top: 0.3rem; */
+  margin-bottom: 0px;
 }
 
 .usernameactive {
   font-family: "Inter", sans-serif;
   font-size: 16px;
+  white-space: nowrap;
   color: white;
-  padding-top: 0.3rem;
-  margin-bottom: 10px;
-  font-weight: 600;
+  /* padding-top: 0.3rem; */
+  margin-bottom: 0px;
 }
 
 .time {
   font-family: "Inter", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
+  color: var(--black200);
+  white-space: nowrap;
+  /* padding-top: 0.3rem; */
   margin-bottom: 0px;
-  /* color: var(--black50); */
-  /* font-weight: 600; */
+}
+
+.activetime {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  /* padding-top: 0.3rem; */
+  color: white;
+  margin-bottom: 0px;
+  white-space: nowrap;
 }
 
 .userflex {
@@ -162,14 +198,10 @@
   gap: 0.5rem;
 }
 
-.messageheadercontainer {
-  padding-left: 0.5rem;
-}
-
 .flexmessageheadercontainer {
   display: flex;
   gap: 1rem;
-  padding: 0.5rem 0rem;
+  padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--black200);
 }
 .headertitle {
@@ -177,87 +209,160 @@
   font-size: 16px;
   font-family: "Inter", sans-serif;
   color: #3f3f3f;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .listpeople {
   font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 1rem;
   font-family: "Inter", sans-serif;
   color: #3f3f3f;
 }
 
 .detailsmessagecontainer {
-  padding: 1rem 0rem;
+  padding: 16px 16px;
   position: absolute;
   background-color: white;
   z-index: 30;
+  top: 0px;
   border-bottom: 1px solid var(--black200);
 }
 
 .close {
   position: absolute;
-  right: 0px;
-  top: 2px;
+  right: 20px;
+  top: 15px;
   cursor: pointer;
+  width: 14px;
+  height: 14px;
 }
 .messagedetailscontainer {
   display: flex;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   padding-bottom: 1rem;
-  gap: 4rem;
+  gap: 1rem;
 }
 
 .messagetitle {
   font-weight: 600;
   font-size: 16px;
-  flex: 15%;
+  /* flex: 150px; */
+  white-space: nowrap;
+  margin-bottom: 0px;
+  font-family: "Inter", sans-serif;
+}
+.initialtitle {
+  font-weight: 600;
+  font-size: 16px;
   margin-bottom: 0px;
   font-family: "Inter", sans-serif;
 }
 
+.messagetitlecontainer {
+  flex: 170px;
+}
+
 .messagedescription {
+  flex: 500px;
+  display: flex;
+}
+
+.messagedescriptiontext {
   font-size: 16px;
-  flex: 85%;
+  color: #3f3f3f;
+  display: flex;
+  font-weight: 600;
   font-family: "Inter", sans-serif;
   margin-bottom: 0px;
 }
 
 .messagedescription1 {
+  font-size: 16px;
+  /* flex: 85%; */
+  color: var(--SVP-main);
   font-weight: 600;
-  flex: 85%;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 0px;
+}
+
+.messagedescriptioncontent {
   font-size: 16px;
   font-family: "Inter", sans-serif;
-  color: var(--SVP-main);
+  color: var(--textblack);
+  flex: 500px;
+  line-height: 16.9px;
   margin-bottom: 0px;
 }
 
 .chatcontainer {
   background-color: #f0f0f0;
   position: relative;
+  height: 80vh;
+  /* height: 85vh; */
+  width: 98%;
+  display: flex;
+  /* width: 95%; */
+  /* width: 100%; */
+  overflow-y: auto;
+  z-index: 5;
+  /* height: calc(100vh - 110px); */
+}
+
+.chatcontainer::-webkit-scrollbar {
+  display: none;
+}
+
+.chatempty {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+}
+
+.chatcontainerempty {
+  /* background-color: #f0f0f0; */
   height: 72vh;
   display: flex;
-  /* width: 100%; */
+  justify-content: center;
+  align-items: center;
+  /* width: 95%; */
   overflow-y: scroll;
   z-index: 5;
   /* height: calc(100vh - 110px); */
 }
+
+.chatcontainerempty::-webkit-scrollbar {
+  display: none;
+}
+
 .chatcontainer::-webkit-scrollbar {
   display: none;
 }
 
 .inputcontainer {
   display: flex;
-  gap: 1rem;
-  padding: 0.5rem 0rem;
+  gap: 0.5rem;
+  width: 98%;
+  /* width: 95%; */
+  padding: 0.5rem 0.5rem;
 }
 
 .textarea {
   height: 35px;
-  width: 650px;
+  /* width: 650px; */
+  font-family: "Inter", sans-serif;
   border-radius: 24px;
   background-color: #f0f0f0;
+}
+
+.textarea:focus {
+  background-color: #f0f0f0;
+  border: 1px solid #f0f0f0;
+}
+
+.textarea::-webkit-scrollbar {
+  display: none;
 }
 
 .attachmentsend {
@@ -265,10 +370,11 @@
 }
 
 .incoming {
-  padding: 1rem;
-  border-radius: 16px 16px 16px 4px;
+  padding: 16px;
+  border-radius: 16px 16px 4px 16px;
   background-color: white;
-  margin-left: 1rem;
+  font-family: "Inter", sans-serif;
+  margin-left: 16px;
   margin-bottom: 0px;
   font-family: "Inter", sans-serif;
 }
@@ -276,23 +382,24 @@
 .incomingcontainer {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .sendingcontainer {
   display: flex;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
   justify-content: flex-end;
 }
 .sending {
-  padding: 1rem;
+  padding: 16px;
   font-family: "Inter", sans-serif;
-  margin-right: 1rem;
+  margin-right: 16px;
   color: white;
   margin-bottom: 0px;
   background-color: var(--SVP-main);
-  border-radius: 16px 16px 16px 4px;
+  border-radius: 16px 16px 4px 16px;
 }
 
 .bottomcontainer {
@@ -301,4 +408,42 @@
 
 .sendbutton {
   border: none;
+  background-color: transparent;
+}
+
+.projectname {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: var(--textblack);
+  margin-top: 8px;
+  margin-bottom: 0px;
+  white-space: nowrap;
+}
+.projectnameactive {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: white;
+  margin-bottom: 0px;
+  white-space: nowrap;
+  padding-top: 8px;
+}
+
+.statusbutton {
+  background-color: var(--black400);
+  border-radius: 8px;
+  width: 106px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.statusbuttontext {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 0px;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+  font-weight: 600;
 }

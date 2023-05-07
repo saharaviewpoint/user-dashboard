@@ -3,12 +3,17 @@
   background-color: var(--dashboard-yellow);
   display: flex;
   max-width: 1440px;
+  /* height: 100vh; */
   /* width: 100%; */
+  /* height: 100vh; */
   padding: 0rem !important;
   margin: 0 auto;
   justify-content: center;
 }
 
+.pointer {
+  cursor: pointer;
+}
 .navbar {
   margin-top: 5rem;
   width: 100%;
@@ -22,6 +27,12 @@
 
 .rowcontainer {
   width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.rowcontainer::-webkit-scrollbar {
+  display: none;
 }
 
 .navbarTabContainer {
@@ -167,9 +178,9 @@ a {
   display: flex;
   /* justify-content: flex-end; */
   width: 100%;
+  z-index: 100;
   position: sticky;
   top: 0;
-  z-index: 100;
   padding: 1.5rem 0;
   background-color: var(--dashboard-yellow);
   margin: 0 auto;
@@ -349,7 +360,7 @@ a {
 
 .centernotification {
   display: flex;
-    /* padding-left: 1.5rem; */
+  /* padding-left: 1.5rem; */
   justify-content: center;
   align-items: center;
 }
