@@ -210,6 +210,7 @@ const ReportsDashboard = () => {
             <div className={report.absolutecenter}>
               <Form.Select
                 onChange={handleProject}
+                style={{ cursor: "pointer" }}
                 // value={select}
                 aria-label="Default select example"
               >

@@ -457,7 +457,7 @@ a {
   display: flex;
   justify-content: flex-end;
   width: 95%;
-  margin: 0.5rem auto;
+  margin: 1rem auto;
 }
 
 .rightbuttoncontainer1 {
@@ -617,6 +617,7 @@ td {
   border: 1px solid;
   border-color: var(--black200);
   padding: 5px 10px;
+  display: flex;
   cursor: pointer;
   border-radius: 0.8rem;
 }
@@ -626,6 +627,7 @@ td {
   border-color: var(--SVP-main);
   padding: 5px 10px;
   cursor: pointer;
+  display: flex;
   border-radius: 0.8rem;
 }
 

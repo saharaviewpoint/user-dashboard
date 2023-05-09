@@ -142,6 +142,7 @@ const TasksDashboard = () => {
               <Form.Select
                 onChange={handleProject}
                 value={select}
+                style={{ cursor: "pointer" }}
                 aria-label="Default select example"
               >
                 <option>Select A Project</option>
