@@ -55,7 +55,7 @@ const ReportModal = (props) => {
 
   const [files, setFiles] = useState([]);
   const handleFileChange = (e) => {
-    setFiles([...files, ...e.target.files]);
+    setFiles([...files, e.target.files[0]]);
   };
 
   const removeImage = (index) => {
@@ -70,7 +70,9 @@ const ReportModal = (props) => {
     const conversion = { ...data };
     const stringid = conversion.send_to.toString();
     const formData = new FormData();
-    formData.append("attachments", files);
+    files.map((file) => {
+      return formData.append("attachments", file);
+    });
     formData.append("send_to", stringid);
     formData.append("project", conversion.project);
     formData.append("task", conversion.task);
