@@ -111,8 +111,8 @@ const ReportsGridDashboard = () => {
   return (
     <Container className={reportsgrid.container}>
       <DashboardLayout name="Reports">
-        <FileInputContainer />
         <div className={reportsgrid.overallcontainer}>
+          <FileInputContainer />
           <Header name="My Reports" />
           <div className={reportsgrid.leftcontainer}>
             <div className={reportsgrid.flexwrap}>
