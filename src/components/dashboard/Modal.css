@@ -8,7 +8,8 @@
   font-family: "Inter", sans-serif;
   color: var(--textblack);
   position: relative;
-  top: 5px;
+  top: 8px;
+  margin-left: 3px;
   font-size: 16px;
   font-weight: 400;
   /* text-align: center; */

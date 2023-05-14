@@ -49,7 +49,7 @@ const TasksDashboard = () => {
   const data = useMemo(() => {
     if (!filter) return TasksTableCollection;
     const filteredData = TasksTableCollection.filter(
-      (item) => item.user_status === filter
+      (item) => item.status === filter
     );
     return filteredData;
   }, [filter, TasksTableCollection]);
@@ -62,29 +62,32 @@ const TasksDashboard = () => {
   //   );
   //   return filtereddata;
   // }, [finalStartDate, finalEndDate, data]);
-  console.log(data);
-  console.log(select);
-  console.log(tasked);
   const filteredCollection = useMemo(() => {
-    if (!select) return data;
+    if (select === "Select A Project" || !select) return data;
     const filteredData = data.filter((item) => item.project.id === select);
     // console.log(filteredData);
     return filteredData;
   }, [select, data]);
 
+  console.log(select);
+
   console.log(data);
   console.log(filteredCollection);
   // console.log(filteredCollection);
   const filteredApprovedData = TasksTableCollection.filter(
-    (item) => item.user_status === "Approved"
+    (item) => item.status === "Approved"
   );
 
   const filteredPendingData = TasksTableCollection.filter(
-    (item) => item.user_status === "Awaiting Approval"
+    (item) => item.status === "Awaiting Approval"
   );
 
   const filteredDeclinedData = TasksTableCollection.filter(
-    (item) => item.user_status === "Declined"
+    (item) => item.status === "Declined"
+  );
+
+  const filteredInProgressData = TasksTableCollection.filter(
+    (item) => item.status === "In Progress"
   );
 
   const handleProject = (e) => {
@@ -113,7 +116,10 @@ const TasksDashboard = () => {
                 total={`(${TasksTableCollection.length})`}
                 filter={filter}
                 filter1={null}
-                onClick={() => setFilter(null)}
+                onClick={() => {
+                  setFilter(null);
+                  setSelect("Select A Project");
+                }}
               />
 
               <NavCategories
@@ -121,21 +127,40 @@ const TasksDashboard = () => {
                 total={`(${filteredApprovedData.length})`}
                 filter={filter}
                 filter1="Approved"
-                onClick={() => setFilter("Approved")}
+                onClick={() => {
+                  setFilter("Approved");
+                  setSelect("Select A Project");
+                }}
               />
               <NavCategories
                 name="Awaiting Approval"
                 total={`(${filteredPendingData.length})`}
                 filter1="Awaiting Approval"
                 filter={filter}
-                onClick={() => setFilter("Awaiting Approval")}
+                onClick={() => {
+                  setFilter("Awaiting Approval");
+                  setSelect("Select A Project");
+                }}
+              />
+              <NavCategories
+                name="In Progress"
+                total={`(${filteredInProgressData.length})`}
+                filter1="In Progress"
+                filter={filter}
+                onClick={() => {
+                  setFilter("In Progress");
+                  setSelect("Select A Project");
+                }}
               />
               <NavCategories
                 name="Declined"
                 total={`(${filteredDeclinedData.length})`}
                 filter={filter}
                 filter1="Declined"
-                onClick={() => setFilter("Declined")}
+                onClick={() => {
+                  setFilter("Declined");
+                  setSelect("Select A Project");
+                }}
               />
             </div>
             <div className={task.absolutecenter}>

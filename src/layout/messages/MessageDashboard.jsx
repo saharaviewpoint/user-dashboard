@@ -155,17 +155,13 @@ const MessageDashboard = () => {
                             {active ? (
                               <div className={message.absolutecenter}>
                                 <p className={message.avataractive}>
-                                  {getInitials(
-                                    messageDetail?.user?.name || ""
-                                  )}
+                                  {getInitials(messageDetail?.user?.name || "")}
                                 </p>
                               </div>
                             ) : (
                               <div className={message.absolutecenter}>
                                 <p className={message.avatar}>
-                                  {getInitials(
-                                    messageDetail?.user?.name || ""
-                                  )}
+                                  {getInitials(messageDetail?.user?.name || "")}
                                 </p>
                               </div>
                             )}
@@ -180,7 +176,7 @@ const MessageDashboard = () => {
                                   : message.username
                               }
                             >
-                              {messageDetail.admin.name}
+                              {messageDetail.user.name}
                             </p>
                             {messageDetail?.project?.name ? (
                               <p
@@ -222,7 +218,7 @@ const MessageDashboard = () => {
                           <div>
                             <p className={message.headertitle}>{dat?.title}</p>
                             <p className={message.listpeople}>
-                              {dat?.admin?.participants}
+                              {dat?.user?.participants}
                             </p>
                           </div>
                         </div>
@@ -242,11 +238,14 @@ const MessageDashboard = () => {
                           <div
                             key={index}
                             style={{
-                              alignSelf: "flex-end",
                               width: "100%",
+                              flexDirection: "column",
+                              display: "flex",
+                              height: "80vh",
+                              justifyContent: "flex-end",
                             }}
                           >
-                            {project?.project ? (
+                            {project?.type === "project" ? (
                               <>
                                 {open ? (
                                   <div
@@ -379,7 +378,7 @@ const MessageDashboard = () => {
                                   </div>
                                 ) : null}
 
-                                <div>
+                                <div className={message.scrollchat}>
                                   {chats.map((chat, index) => {
                                     console.log(chat);
                                     return (
@@ -413,13 +412,7 @@ const MessageDashboard = () => {
                                 </div>
                               </>
                             ) : (
-                              <div
-                              // style={{
-                              // alignSelf: "flex-end",
-                              // width: "100%",
-                              // height: "30vh",
-                              // }}
-                              >
+                              <div className={message.scrollchat}>
                                 {chats.map((chat, index) => {
                                   return (
                                     <div>

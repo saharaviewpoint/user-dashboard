@@ -12,6 +12,8 @@ import {
   useGetProjectDetailsQuery,
   useGetTaskDetailsQuery,
 } from "@/app/services/auth/authService";
+import Skeleton from "react-loading-skeleton";
+
 
 const ReportsGridDashboard = () => {
   const [filter, setFilter] = useState(null);
@@ -24,7 +26,7 @@ const ReportsGridDashboard = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  const { data: projects } = useGetProjectDetailsQuery({
+  const { data: projects, isLoading } = useGetProjectDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
 
@@ -121,6 +123,7 @@ const ReportsGridDashboard = () => {
                 total={`(${ReportsCollection.length})`}
                 onClick={() => {
                   setFilter(null);
+                  setTask(null);
                   setMessage("There are no reports");
                 }}
               />
@@ -132,6 +135,7 @@ const ReportsGridDashboard = () => {
                 total={`(${filteredImage.length})`}
                 onClick={() => {
                   setFilter("image");
+                  setTask(null);
                   setMessage("There are no images");
                 }}
               />
@@ -141,8 +145,9 @@ const ReportsGridDashboard = () => {
                 filter1="video"
                 total={`(${filteredVideo.length})`}
                 onClick={() => {
-                  setFilter("document");
-                  setMessage("There are no documents");
+                  setFilter("videos");
+                  setTask(null);
+                  setMessage("There are no videos");
                 }}
               />
               <NavCategories
@@ -150,7 +155,11 @@ const ReportsGridDashboard = () => {
                 filter={filter}
                 filter1="document"
                 total={`(${filteredDocument.length})`}
-                onClick={() => setFilter("document")}
+                onClick={() => {
+                  setFilter("document");
+                  setTask(null);
+                  setMessage("There are no documents");
+                }}
               />
             </div>
             {/* <div className={reportsgrid.datepickertitle}>
@@ -221,39 +230,49 @@ const ReportsGridDashboard = () => {
             </div>
           </div>
           <div>
-            {filteredCollection.length >= 1 ? (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  gap: "3rem",
-                  marginTop: "2rem",
-                  flexWrap: "wrap",
-                }}
-              >
-                {filteredCollection.map((repo, index) => {
-                  return (
-                    <CardGridContainer
-                      key={index}
-                      url={repo.url}
-                      firstname={repo?.send_from || null}
-                      // lastname = {repo?.sent_to?.lastname}
-                      name={repo.name}
-                      imagelink={repo.type}
-                      // mainimage={report.mainimage}
-                      // avatar={report.avatar}
-                      // avatarname={report.avatarname}
-                      date={repo.date}
-                    />
-                  );
-                })}
-              </div>
+            {isLoading ? (
+              <Skeleton
+                baseColor="#ebab34"
+                highlightColor="#f2cb07"
+                width={300}
+              />
             ) : (
-              <div style={{ marginTop: "3rem" }}>
-                <p className={reportsgrid.nothing}>
-                  {message || "There are no reports"}
-                </p>
-              </div>
+              <>
+                {filteredCollection.length >= 1 ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      gap: "3rem",
+                      marginTop: "2rem",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {filteredCollection.map((repo, index) => {
+                      return (
+                        <CardGridContainer
+                          key={index}
+                          url={repo.url}
+                          firstname={repo?.send_from || null}
+                          // lastname = {repo?.sent_to?.lastname}
+                          name={repo.name}
+                          imagelink={repo.type}
+                          // mainimage={report.mainimage}
+                          // avatar={report.avatar}
+                          // avatarname={report.avatarname}
+                          date={repo.date}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div style={{ marginTop: "3rem" }}>
+                    <p className={reportsgrid.nothing}>
+                      {message || "There are no reports"}
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -289,12 +308,12 @@ const CardGridContainer = (props) => {
     <div className={reportsgrid.cardcontainer}>
       <div className={reportsgrid.fleximageicon}>
         <div className={reportsgrid.centergridicon}>
-          {props.imagelink === "image/jpeg" ? (
+          {props.imagelink.startsWith("image") ? (
             <Image src="/icons/jpg.svg" alt="jpg" />
-          ) : props.imagelink === "image/png" ? (
-            <Image src="/icons/jpg.svg" alt="jpg" />
-          ) : props.imagelink === "image/svg+xml" ? (
-            <Image src="/icons/jpg.svg" alt="jpg" />
+          ) : props.imagelink.startsWith("application") ? (
+            <Image src="/icons/pdf.svg" alt="jpg" />
+          ) : props.imagelink.startsWith("video") ? (
+            <Image src="/icons/reports/pdf.svg" alt="jpg" />
           ) : null}
         </div>
         <div className={reportsgrid.absolutecenter}>

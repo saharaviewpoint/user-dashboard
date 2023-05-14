@@ -8,12 +8,13 @@ import {
   useGetProjectDetailsQuery,
   useGetProjectSpecificTaskQuery,
 } from "@/app/services/auth/authService";
+import Skeleton from "react-loading-skeleton";
 
 const ModalProject = (props) => {
   const { data: UserProjects } = useGetProjectDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
-  const { data: task } = useGetProjectSpecificTaskQuery(props.id);
+  const { data: task, isFetching } = useGetProjectSpecificTaskQuery(props.id);
 
   const specifictask = task || [];
 
@@ -73,14 +74,24 @@ const ModalProject = (props) => {
                           className={modal.imageavatar}
                           alt="avatar"
                         />
-                        <div className={modal.absolutecenter}>
-                          <p className={modal.textname}>
-                            {" "}
-                            {collect?.assigned_to?.firstname} &nbsp;
-                            <span>{collect?.assigned_to?.lastname}</span>
-                          </p>
-                        </div>
+                        {collect?.assigned_to?.firstname &&
+                        collect?.assigned_to?.lastname ? (
+                          <>
+                            <div className={modal.absolutecenter}>
+                              <p className={modal.textname}>
+                                {" "}
+                                {collect?.assigned_to?.firstname} &nbsp;
+                                <span>{collect?.assigned_to?.lastname}</span>
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          <div className={modal.absolutecenter}>
+                            <p className={modal.title1}>Unassigned</p>
+                          </div>
+                        )}
                       </div>
+
                       <p className={modal.taskname}>Tasks</p>
                       <div className={modal.taskcontainer}>
                         <div className={modal.taskheader}>
@@ -93,110 +104,141 @@ const ModalProject = (props) => {
                               <p className={modal.headertext1}>All Tasks</p>
                             </div>
                           </div>
-                          {/* <div className={modal.absolutecenter}>
-                                <p className={modal.headertext1}>5/10</p>
-                              </div> */}
+                          <div className={modal.absolutecenter}>
+                            <p className={modal.headertext1}>
+                              0/ {specifictask.length}
+                            </p>
+                          </div>
                         </div>
-                        {/* <div className={modal.progressbar}>
-                              <div className={modal.progressyellow}></div>
-                            </div> */}
+                        <div className={modal.progressbar}>
+                          <div className={modal.progressyellow}></div>
+                        </div>
                         <div className={modal.formcontainer}>
                           <Form>
-                            {specifictask.length < 3 ? (
-                              <div>
-                                {specifictask?.map((task, index) => (
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "space-between",
-                                      marginTop: "16px",
-                                    }}
-                                  >
-                                    <div className={modal.absolutecenter}>
-                                      <Form.Check
-                                        type="checkbox"
-                                        key={index}
-                                        // checked={isActive}
-                                        // onChange={changeHandler}
-                                        id="custom-switch"
-                                        label={task?.name}
-                                      />
-                                    </div>
-                                    <StatusButton text={task.status} />
-                                  </div>
-                                ))}
-                              </div>
+                            {isFetching ? (
+                              <Skeleton
+                                width={300}
+                                baseColor="#ebab34"
+                                highlightColor="#f2cb07"
+                              />
                             ) : (
-                              <div>
-                                {more ? (
-                                  <>
-                                    <div>
-                                      {specifictask?.map((task, index) => (
-                                        <div
-                                          style={{
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            marginTop: "16px",
-                                          }}
-                                        >
-                                          <div className={modal.absolutecenter}>
-                                            <Form.Check
-                                              type="checkbox"
-                                              key={index}
-                                              // checked={isActive}
-                                              // onChange={changeHandler}
-                                              id="custom-switch"
-                                              label={task?.name}
-                                            />
-                                          </div>
-                                          <StatusButton text={task.status} />
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </>
-                                ) : (
-                                  <>
-                                    {specifictask
-                                      ?.slice(0, 3)
-                                      .map((task, index) => (
-                                        <div
-                                          style={{
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            marginTop: "16px",
-                                          }}
-                                        >
-                                          <div className={modal.absolutecenter}>
-                                            <Form.Check
-                                              type="checkbox"
-                                              key={index}
-                                              // checked={isActive}
-                                              // onChange={changeHandler}
-                                              id="custom-switch"
-                                              label={task?.name}
-                                            />
-                                          </div>
-                                          <StatusButton text={task.status} />
-                                        </div>
-                                      ))}
-                                  </>
-                                )}
-                                {more ? (
-                                  <p
-                                    className={modal.title1}
-                                    onClick={() => setMore(!more)}
-                                  >
-                                    See Less
+                              <>
+                                {specifictask.length < 1 ? (
+                                  <p className={modal.title1}>
+                                    No Task Available
                                   </p>
                                 ) : (
-                                  <p
-                                    className={modal.title1}
-                                    onClick={() => setMore(!more)}
-                                  >
-                                    See More
-                                  </p>
+                                  <>
+                                    {specifictask.length < 3 ? (
+                                      <div>
+                                        {specifictask?.map((task, index) => (
+                                          <div
+                                            style={{
+                                              display: "flex",
+                                              justifyContent: "space-between",
+                                              marginTop: "5px",
+                                            }}
+                                          >
+                                            <div
+                                              className={modal.absolutecenter}
+                                            >
+                                              <Form.Check
+                                                type="checkbox"
+                                                key={index}
+                                                // checked={isActive}
+                                                // onChange={changeHandler}
+                                                id="custom-switch"
+                                                label={task?.name}
+                                              />
+                                            </div>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    ) : (
+                                      <div>
+                                        {more ? (
+                                          <>
+                                            <div>
+                                              {specifictask?.map(
+                                                (task, index) => (
+                                                  <div
+                                                    style={{
+                                                      display: "flex",
+                                                      justifyContent:
+                                                        "space-between",
+                                                      marginTop: "5px",
+                                                    }}
+                                                  >
+                                                    <div
+                                                      className={
+                                                        modal.absolutecenter
+                                                      }
+                                                    >
+                                                      <Form.Check
+                                                        type="checkbox"
+                                                        key={index}
+                                                        // checked={isActive}
+                                                        // onChange={changeHandler}
+                                                        id="custom-switch"
+                                                        label={task?.name}
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                )
+                                              )}
+                                            </div>
+                                          </>
+                                        ) : (
+                                          <>
+                                            {specifictask
+                                              ?.slice(0, 3)
+                                              .map((task, index) => (
+                                                <div
+                                                  style={{
+                                                    display: "flex",
+                                                    justifyContent:
+                                                      "space-between",
+                                                    marginTop: "5px",
+                                                  }}
+                                                >
+                                                  <div
+                                                    className={
+                                                      modal.absolutecenter
+                                                    }
+                                                  >
+                                                    <Form.Check
+                                                      type="checkbox"
+                                                      key={index}
+                                                      // checked={isActive}
+                                                      // onChange={changeHandler}
+                                                      id="custom-switch"
+                                                      label={task?.name}
+                                                    />
+                                                  </div>
+                                                </div>
+                                              ))}
+                                          </>
+                                        )}
+                                        {more ? (
+                                          <p
+                                            className={modal.title1}
+                                            onClick={() => setMore(!more)}
+                                          >
+                                            See Less
+                                          </p>
+                                        ) : (
+                                          <p
+                                            className={modal.title1}
+                                            onClick={() => setMore(!more)}
+                                          >
+                                            See More
+                                          </p>
+                                        )}
+                                      </div>
+                                    )}
+                                  </>
                                 )}
-                              </div>
+                              </>
                             )}
                           </Form>
                         </div>
@@ -335,10 +377,12 @@ const Attachment = (props) => {
   return (
     <div className={modal.attachmentcontainer}>
       <div className={modal.absolutecenter}>
-        {props.imagelink === "image/jpeg" ? (
+        {props.imagelink.startsWith("image") ? (
           <Image src="/icons/jpg.svg" alt="jpg" />
-        ) : props.imagelink === "image/png" ? (
-          <Image src="/icons/jpg.svg" alt="jpg" />
+        ) : props.imagelink.startsWith("application") ? (
+          <Image src="/icons/pdf.svg" alt="jpg" />
+        ) : props.imagelink.startsWith("video") ? (
+          <Image src="/icons/reports/pdf.svg" alt="jpg" />
         ) : null}
       </div>
       <div>

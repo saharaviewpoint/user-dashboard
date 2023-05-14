@@ -127,7 +127,12 @@
   justify-content: center;
   align-items: center;
 }
-
+.unassigned {
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 0px;
+  color: var(--textblack);
+}
 .centericon {
   text-align: center;
 }
@@ -202,8 +207,6 @@
   font-weight: 600;
 }
 
-
-
 .awaitbuttontext {
   font-family: "Inter", sans-serif;
   font-size: 14px;
@@ -277,6 +280,34 @@
   box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+
+.radioinput{
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  outline: none;
+  border: 3px solid gray;
+}
+
+.radioinput:before {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 60%;
+  margin: 20% auto;
+  border-radius: 50%;
+}
+
+.radioinput:checked:before {
+  background: var(--SVP-main);
+}
+
+.radioinput:checked {
+  border-color: var(--SVP-main);
+} 
+
+
 .sizecontainer {
   width: 312px;
   display: flex;
@@ -296,6 +327,7 @@
 
 .contentcontainer {
   margin-top: 2rem;
+  cursor: pointer;
   height: 360px;
   display: flex;
   /* background-color: aqua; */
@@ -334,6 +366,7 @@
   font-family: "Inter", sans-serif;
   font-size: 0.8rem;
   margin-right: 1rem;
+  margin-bottom: 0px;
 }
 
 .assigned1 {

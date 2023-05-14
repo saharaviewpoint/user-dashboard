@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
 import { ButtonProject } from "../../components/dashboard/DashboardContents";
 import SkeleteonGrid from "@/components/dashboard/SkeletonGrid";
+import ModalProject from "./../../components/project/ModalProject";
 
 const ProjectBoardDashboard = () => {
   const { data: UserProjectsBoard, isLoading } = useGetProjectDetailsQuery({
@@ -17,9 +18,10 @@ const ProjectBoardDashboard = () => {
 
   const ProjectsBoardCollection = UserProjectsBoard || [];
 
-  console.log(ProjectsBoardCollection);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date("01/01/2026"));
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [modalShow, setModalShow] = React.useState(false);
+  const [setting, setSetting] = useState("");
 
   const convertedStartDate = new Date(startDate).toISOString();
   const convertedEndDate = new Date(endDate).toISOString();
@@ -35,6 +37,7 @@ const ProjectBoardDashboard = () => {
   }, [ProjectsBoardCollection]);
 
   const dataByDateinprogress = useMemo(() => {
+    if (!startDate || !endDate) return inprogressdata;
     const filtereddata = inprogressdata.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -51,6 +54,7 @@ const ProjectBoardDashboard = () => {
   }, [ProjectsBoardCollection]);
 
   const dataByDateupcoming = useMemo(() => {
+    if (!startDate || !endDate) return upcomingdata;
     const filtereddata = upcomingdata.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -67,6 +71,7 @@ const ProjectBoardDashboard = () => {
   }, [ProjectsBoardCollection]);
 
   const dataByDatecomplete = useMemo(() => {
+    if (!startDate || !endDate) return completedata;
     const filtereddata = completedata.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -86,17 +91,16 @@ const ProjectBoardDashboard = () => {
             <div className={grid.datepickertitle}>
               <p className={grid.datepickertitlelabel}>Start Date</p>
               <DatePicker
-                selected={startDate}
+                selected={startDate ?? new Date("01/01/2023")}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
                 startDate={startDate}
                 showYearDropdown
                 yearDropdownItemNumber={15}
                 scrollableYearDropdown
-                endDate={endDate}
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
-                width={300}
+                // width={300}
               />
             </div>
             <div className={grid.absolutecenter}>
@@ -106,7 +110,7 @@ const ProjectBoardDashboard = () => {
               <p className={grid.datepickertitlelabel}>End Date</p>
               <DatePicker
                 showIcon
-                selected={endDate}
+                selected={endDate ?? new Date("10/10/2023")}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
                 showYearDropdown
@@ -114,9 +118,7 @@ const ProjectBoardDashboard = () => {
                 scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
-                startDate={startDate}
                 endDate={endDate}
-                minDate={startDate}
               />
             </div>
           </div>
@@ -142,6 +144,10 @@ const ProjectBoardDashboard = () => {
                           lastnamefirstletter={filtereddata.requested_by.lastname.charAt(
                             0
                           )}
+                          onClick={() => {
+                            setSetting(filtereddata._id);
+                            setModalShow(true);
+                          }}
                           date={filtereddata.due}
                           status={filtereddata.user_status}
                           imagelink={filtereddata.imagelink}
@@ -174,6 +180,10 @@ const ProjectBoardDashboard = () => {
                           content={filtereddata.details}
                           name={filtereddata.firstname}
                           date={filtereddata.due}
+                          onClick={() => {
+                            setSetting(filtereddata._id);
+                            setModalShow(true);
+                          }}
                           status={filtereddata.user_status}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
@@ -205,6 +215,10 @@ const ProjectBoardDashboard = () => {
                           content={filtereddata.description}
                           name={filtereddata.name}
                           date={filtereddata.due}
+                          onClick={() => {
+                            setSetting(filtereddata._id);
+                            setModalShow(true);
+                          }}
                           status={filtereddata.user_status}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
@@ -221,6 +235,11 @@ const ProjectBoardDashboard = () => {
                 </>
               </div>
             )}
+            <ModalProject
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              id={setting}
+            />
           </div>
         </div>
       </DashboardLayout>
@@ -250,7 +269,7 @@ const BoarderHeader = (props) => {
 
 const ContentContainer = (props) => {
   return (
-    <div className={grid.contentcontainer}>
+    <div className={grid.contentcontainer} onClick={props.onClick}>
       <div className={grid.innercontainer}>
         <p className={grid.contenttext}>{props.headertext}</p>
         <p className={grid.content}>{props.content}</p>
@@ -259,16 +278,20 @@ const ContentContainer = (props) => {
             <p className={grid.assigned}>Assigned to</p>
           </div>
           <div className={grid.yellowbackground}>
-            <p className={grid.avatar}>
-              {props.firstnamefirstletter}
-              <span>{props.lastnamefirstletter}</span>
-            </p>
-            <div className={grid.absolutecenter}>
-              <p className={grid.textname}>{props.firstname}</p>
-              <p className={grid.textname}>
-                {props?.lastname?.substring(0, 5)}
+            {props.firstnamefirstletter && props.lastnamefirstletter ? (
+              <p className={grid.avatar}>
+                {props.firstnamefirstletter}
+                <span>{props.lastnamefirstletter}</span>
               </p>
-            </div>
+            ) : (
+              <p className={grid.unassigned}>Unassigned</p>
+            )}
+            {props.firstnamefirstletter && props.lastnamefirstletter ? (
+              <div className={grid.absolutecenter}>
+                <p className={grid.textname}>{props.firstname}</p>
+                <p className={grid.textname}>{props.lastname}</p>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className={grid.flextext}>

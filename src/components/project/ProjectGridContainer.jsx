@@ -19,12 +19,12 @@ const ProjectGridContainer = (props) => {
           </div>
         </div>
         <p className={grid.textdate}>
-          <span className={grid.titledate}>Due:</span>{" "}
+          <p className={grid.titledate}>Due:</p>{" "}
           {new Date(props.date).toLocaleDateString()}
         </p>
         <div className={grid.space}>
           <div className={grid.absolutecenter}>
-            <span className={grid.titledate}>Status:</span>{" "}
+            <p className={grid.titledate}>Status:</p>{" "}
           </div>
           <Button text={props.status} />
         </div>

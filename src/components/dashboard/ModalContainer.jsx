@@ -302,7 +302,7 @@ const NotificationContent = (props) => {
                 : props.type === "Project Approval"
                 ? "/project"
                 : props.type === "Report"
-                ? "/report"
+                ? "/reports"
                 : props.type === "message"
                 ? "/message"
                 : null

@@ -3,13 +3,13 @@
   background-color: var(--dashboard-yellow);
   display: flex;
   max-width: 1440px;
-  /* height: 100vh; */
   /* width: 100%; */
   /* height: 100vh; */
   padding: 0rem !important;
   margin: 0 auto;
   justify-content: center;
 }
+
 
 .pointer {
   cursor: pointer;
@@ -27,8 +27,7 @@
 
 .rowcontainer {
   width: 100%;
-  height: 100vh;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .rowcontainer::-webkit-scrollbar {
@@ -127,7 +126,7 @@ a {
 }
 
 .logOutContainer {
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 
 .avatartitle {
@@ -812,10 +811,10 @@ td {
 .nothing {
   font-family: "Inter", sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  /* font-weight: 600; */
   padding-top: 1rem;
   padding-bottom: 1rem;
-  background-color: var(--dashboard-yellow);
+  /* background-color: var(--dashboard-yellow); */
   /* text-align: center; */
 }
 

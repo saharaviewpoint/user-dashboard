@@ -25,8 +25,8 @@ const ProjectDashboard = () => {
 
   console.log(ProjectsCollection);
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date("01/01/2026"));
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const convertedStartDate = new Date(startDate).toISOString();
   const convertedEndDate = new Date(endDate).toISOString();
@@ -43,6 +43,7 @@ const ProjectDashboard = () => {
   }, [filter, ProjectsCollection]);
 
   const dataByDate = useMemo(() => {
+    if (!startDate || !endDate) return data;
     const filtereddata = data.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -77,22 +78,34 @@ const ProjectDashboard = () => {
                 total={`(${ProjectsCollection.length})`}
                 filter={filter}
                 filter1={null}
-                onClick={() => setFilter(null)}
+                onClick={() => {
+                  setFilter(null);
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
 
               <NavCategories
                 name="Awaiting Approval"
                 filter={filter}
-                filter1="Upcoming"
+                filter1="Awaiting Approval"
                 total={`(${filteredUpcomingData.length})`}
-                onClick={() => setFilter("Awaiting Approval")}
+                onClick={() => {
+                  setFilter("Awaiting Approval");
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
               <NavCategories
                 name="In Progress"
                 filter1="inprogress"
                 filter={filter}
                 total={`(${filteredInProgressData.length})`}
-                onClick={() => setFilter("In Progress")}
+                onClick={() => {
+                  setFilter("In Progress");
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
 
               <NavCategories
@@ -100,20 +113,23 @@ const ProjectDashboard = () => {
                 total={`(${filteredCompleteData.length})`}
                 filter={filter}
                 filter1="Complete"
-                onClick={() => setFilter("Complete")}
+                onClick={() => {
+                  setFilter("Complete");
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
             </div>
             <div className={project.datepickertitle}>
               <p className={project.datepickertitlelabel}>Start Date</p>
               <DatePicker
-                selected={startDate}
+                selected={startDate ?? new Date("01/01/2023")}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
                 startDate={startDate}
                 showYearDropdown
                 yearDropdownItemNumber={15}
                 scrollableYearDropdown
-                endDate={endDate}
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
                 // width={300}
@@ -126,7 +142,7 @@ const ProjectDashboard = () => {
               <p className={project.datepickertitlelabel}>End Date</p>
               <DatePicker
                 showIcon
-                selected={endDate}
+                selected={endDate ?? new Date("10/10/2023")}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
                 showYearDropdown
@@ -134,9 +150,8 @@ const ProjectDashboard = () => {
                 scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
-                startDate={startDate}
                 endDate={endDate}
-                minDate={startDate}
+                // minDate={endDate ?? new Date("01/01/2023")}
               />
             </div>
           </div>
@@ -157,15 +172,24 @@ const ProjectDashboard = () => {
                     >
                       <td className={project.align}>{projectcollect.name}</td>
                       <td>
-                        <div className={project.absolutecenter}>
-                          <p className={project.avatar}>
-                            {" "}
-                            {projectcollect.requested_by.firstname.charAt(0)}
-                            <span>
-                              {projectcollect.requested_by.lastname.charAt(0)}
-                            </span>
-                          </p>
-                        </div>
+                        {projectcollect?.assigned_to?.firstname &&
+                        projectcollect?.assigned_to?.lastname ? (
+                          <div className={project.absolutecenter}>
+                            <p className={project.avatar}>
+                              {" "}
+                              {projectcollect?.assigned_to?.firstname.charAt(0)}
+                              <span>
+                                {projectcollect?.assigned_to?.lastname.charAt(
+                                  0
+                                )}
+                              </span>
+                            </p>
+                          </div>
+                        ) : (
+                          <div className={project.absolutecenter}>
+                            <p className={project.unassigned}>Unassigned</p>
+                          </div>
+                        )}
                       </td>
                       <td
                         style={{ verticalAlign: "middle", textAlign: "center" }}

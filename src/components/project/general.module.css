@@ -192,7 +192,7 @@
   border: 1px solid;
   border-color: var(--black200);
   border-radius: 24px;
-  width: 21rem;
+  width: 19rem;
   margin-bottom: 2rem;
 }
 
@@ -227,6 +227,7 @@
 .textdate {
   font-family: "Inter", sans-serif;
   font-weight: 500;
+  display: flex;
   color: var(--textblack);
   /* font-size: 12px; */
 }
@@ -234,6 +235,9 @@
 .titledate {
   font-family: "Inter", sans-serif;
   font-weight: 500;
+  width: 55px;
+  margin-bottom: 0px;
+  /* margin-right: 25px; */
   font-size: 14px;
   color: var(--black400);
 }
@@ -509,6 +513,23 @@
   margin-top: 1rem;
 }
 
+.title {
+  color: #9b9b9b;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.title1 {
+  color: var(--textblack);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .taskcontainer {
   border: 1px solid;
   color: var(--black200);
@@ -550,10 +571,8 @@
 }
 
 .progressyellow {
-  width: 50%;
   height: 8px;
   border-radius: 8px;
-  background-color: var(--SVP-main);
 }
 
 .formcontainer {

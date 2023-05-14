@@ -18,10 +18,10 @@
   color: var(--black400);
 }
 
-.form-check-input:checked {
+/* .form-check-input:checked {
   background-color: var(--SVP-main);
   border-color: var(--SVP-main);
-}
+} */
 
 .btn-primary:hover {
   background-color: none !important;

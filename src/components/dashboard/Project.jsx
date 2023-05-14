@@ -66,7 +66,7 @@ const Project = () => {
                 <thead className={project.tableheader}>
                   <tr>
                     <th>PROJECT NAME</th>
-                    <th className={project.centericon}>REQUESTED BY</th>
+                    <th className={project.centericon}>ASSIGNED TO</th>
                     <th className={project.centericon}>DUE DATE</th>
                   </tr>
                 </thead>
@@ -85,12 +85,17 @@ const Project = () => {
                       </td>
                       <td className={project.centericon}>
                         <div className={project.absolutecenter}>
-                          <p className={project.avatar}>
-                            {projectdata?.requested_by?.firstname?.charAt(0)}
-                            <span className={project.label}>
-                              {projectdata?.requested_by?.lastname?.charAt(0)}
-                            </span>
-                          </p>
+                          {project?.requested_by?.firstname?.charAt(0) &&
+                          projectdata?.requested_by?.lastname?.charAt(0) ? (
+                            <p className={project.avatar}>
+                              {projectdata?.requested_by?.firstname?.charAt(0)}
+                              <span className={project.label}>
+                                {projectdata?.requested_by?.lastname?.charAt(0)}
+                              </span>
+                            </p>
+                          ) : (
+                            <p style={{ marginBottom: "0px" }}>Unassigned</p>
+                          )}
                         </div>
                       </td>
                       <td className={project.centericon}>

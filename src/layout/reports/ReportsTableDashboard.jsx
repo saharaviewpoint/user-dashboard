@@ -14,6 +14,7 @@ import {
   useGetTaskDetailsQuery,
 } from "../../app/services/auth/authService";
 import "react-datepicker/dist/react-datepicker.css";
+import Skeleton from "react-loading-skeleton";
 
 const ReportsTableDashboard = () => {
   const [filter, setFilter] = useState(null);
@@ -22,7 +23,7 @@ const ReportsTableDashboard = () => {
   const [display, setDisplay] = useState(false);
   const [message, setMessage] = useState(false);
 
-  const { data: AdminReports } = useGetReportsDetailsQuery({
+  const { data: AdminReports, isLoading } = useGetReportsDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
 
@@ -124,6 +125,7 @@ const ReportsTableDashboard = () => {
                 filter1={null}
                 onClick={() => {
                   setFilter(null);
+                  setTask(null);
                   setMessage("There are no reports");
                 }}
               />
@@ -135,6 +137,7 @@ const ReportsTableDashboard = () => {
                 total={`(${filteredImage.length})`}
                 onClick={() => {
                   setFilter("image");
+                  setTask(null);
                   setMessage("There are no images");
                 }}
               />
@@ -145,6 +148,7 @@ const ReportsTableDashboard = () => {
                 total={`(${filteredVideo.length})`}
                 onClick={() => {
                   setFilter("video");
+                  setTask(null);
                   setMessage("There are no videos");
                 }}
               />
@@ -155,6 +159,7 @@ const ReportsTableDashboard = () => {
                 total={`(${filteredDocument.length})`}
                 onClick={() => {
                   setFilter("document");
+                  setTask(null);
                   setMessage("There are no documents");
                 }}
               />
@@ -227,39 +232,51 @@ const ReportsTableDashboard = () => {
             </div>
           </div>
           <div>
-            {filteredCollection.length >= 1 ? (
-              <ReportsTableContents>
-                {filteredCollection.map((tabledata, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <div style={{ display: "flex" }}>
-                          {tabledata.type === "image/jpeg" ? (
-                            <Image src="/icons/jpg.svg" alt="jpg" />
-                          ) : tabledata.type === "image/png" ? (
-                            <Image src="/icons/jpg.svg" alt="jpg" />
-                          ) : tabledata.type === "image/svg+xml" ? (
-                            <Image src="/icons/jpg.svg" alt="jpg" />
-                          ) : null}
-                          <div className={reporttable.absolutecenter}>
-                            {tabledata?.name?.substring(0, 10)}
-                          </div>
-                        </div>
-                      </td>
-                      <td>{tabledata?.project_name}</td>
-                      <td>{tabledata?.send_from}</td>
-                      <td>{tabledata?.sent_to}</td>
-                      <td>{new Date(tabledata?.date).toLocaleDateString()}</td>
-                    </tr>
-                  );
-                })}
-              </ReportsTableContents>
+            {isLoading ? (
+              <Skeleton
+                baseColor="#ebab34"
+                highlightColor="#f2cb07"
+                width={300}
+              />
             ) : (
-              <div style={{ marginTop: "3rem" }}>
-                <p className={reporttable.nothing}>
-                  {message || "there are no reports"}
-                </p>
-              </div>
+              <>
+                {filteredCollection.length >= 1 ? (
+                  <ReportsTableContents>
+                    {filteredCollection.map((tabledata, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <div style={{ display: "flex" }}>
+                              {props.imagelink.startsWith("image") ? (
+                                <Image src="/icons/jpg.svg" alt="jpg" />
+                              ) : props.imagelink.startsWith("application") ? (
+                                <Image src="/icons/pdf.svg" alt="jpg" />
+                              ) : props.imagelink.startsWith("video") ? (
+                                <Image src="/icons/reports/pdf.svg" alt="jpg" />
+                              ) : null}
+                              <div className={reporttable.absolutecenter}>
+                                {tabledata?.name?.substring(0, 10)}
+                              </div>
+                            </div>
+                          </td>
+                          <td>{tabledata?.project_name}</td>
+                          <td>{tabledata?.send_from}</td>
+                          <td>{tabledata?.sent_to}</td>
+                          <td>
+                            {new Date(tabledata?.date).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </ReportsTableContents>
+                ) : (
+                  <div style={{ marginTop: "3rem" }}>
+                    <p className={reporttable.nothing}>
+                      {message || "there are no reports"}
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

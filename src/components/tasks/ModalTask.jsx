@@ -4,8 +4,10 @@ import { Modal, Image } from "react-bootstrap";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import "../project/Modal.css";
 import { useGetTaskDetailsQuery } from "../../app/services/auth/authService";
+import ReportModal from "../reports/ReportModal";
 
 const ModalTask = (props) => {
+  const [modalShow, setModalShow] = React.useState(false);
   const { data: UserTasks } = useGetTaskDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
@@ -61,11 +63,17 @@ const ModalTask = (props) => {
                           <Image src="/icons/table/warningflag.svg" />
                         ) : null}
                       </div>
+
                       <div>
-                        <div className={modal.buttonname}>
-                          {/* <p className={modal.buttontext}>
+                        <div
+                          className={modal.buttonname}
+                          onClick={() => {
+                            setModalShow(true);
+                          }}
+                        >
+                          <p className={modal.buttontext}>
                             Upload Attachments <MdOutlineCloudUpload />
-                          </p> */}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -83,7 +91,7 @@ const ModalTask = (props) => {
                       </div>
                     </div>
                     <p className={modal.instructionheading}>Instruction</p>
-                    <p className={modal.instruction}>{collect.instruction}</p>
+                    <p className={modal.instruction}>{collect.comments}</p>
 
                     <p className={modal.taskname}>Attachment</p>
                     <div className={modal.attachmentflex}>
@@ -94,32 +102,38 @@ const ModalTask = (props) => {
                               key={index}
                               style={{ display: "flex", gap: "2rem" }}
                             >
-                              {console.log(attachments)}
-                              {attachments
-                                .slice(0, 2)
-                                .map((attachment, index) => (
-                                  <div>
-                                    {console.log(attachment)}
-                                    <Attachment
-                                      key={index}
-                                      name={attachment.name}
-                                      imagelink={attachment.type}
-                                      size={attachment.size}
-                                    />
-                                  </div>
-                                ))}
+                              <>
+                                {attachments
+                                  .slice(0, 2)
+                                  .map((attachment, index) => (
+                                    <div>
+                                      <Attachment
+                                        key={index}
+                                        name={attachment.name}
+                                        imagelink={attachment.type}
+                                        size={attachment.size}
+                                      />
+                                    </div>
+                                  ))}
+                              </>
                             </div>
                           );
                         })
                       ) : (
-                        <p className={modal.attachment}>No attachments</p>
+                        <p className={modal.attachmentempty}>No attachments</p>
                       )}
                     </div>
-                    <div className={modal.absolutebuttoncenter}>
-                      <div className={modal.buttonname}>
-                        <p className={modal.buttontext}>See All Attachments</p>
-                      </div>
-                    </div>
+                    {collect.attachments.length > 2 ? (
+                      <Link to="/reports">
+                        <div className={modal.absolutebuttoncenter}>
+                          <div className={modal.buttonname}>
+                            <p className={modal.buttontext}>
+                              See All Attachments
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -127,6 +141,7 @@ const ModalTask = (props) => {
           </div>
         ) : null
       )}
+      <ReportModal show={modalShow} onHide={() => setModalShow(false)} />
     </Modal>
   );
 };
@@ -173,10 +188,12 @@ const Attachment = (props) => {
   return (
     <div className={modal.attachmentcontainer}>
       {/* <div className={modal.absolutecenter}> */}
-      {props.imagelink === "image/jpeg" ? (
+      {props.imagelink.startsWith("image") ? (
         <Image src="/icons/jpg.svg" alt="jpg" />
-      ) : props.imagelink === "image/png" ? (
-        <Image src="/icons/jpg.svg" alt="jpg" />
+      ) : props.imagelink.startsWith("application") ? (
+        <Image src="/icons/pdf.svg" alt="jpg" />
+      ) : props.imagelink.startsWith("video") ? (
+        <Image src="/icons/reports/pdf.svg" alt="jpg" />
       ) : null}
       {/* </div> */}
       <div>

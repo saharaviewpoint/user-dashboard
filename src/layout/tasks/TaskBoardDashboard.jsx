@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGetTaskDetailsQuery } from "../../app/services/auth/authService";
 import SkeleteonGrid from "@/components/dashboard/SkeletonGrid";
+import ModalTask from "@/components/tasks/ModalTask";
 
 const TaskBoardDashboard = () => {
   const { data: TaskCollection, isLoading } = useGetTaskDetailsQuery({
@@ -16,8 +17,10 @@ const TaskBoardDashboard = () => {
   const TasksBoardCollection = TaskCollection || [];
 
   console.log(TasksBoardCollection);
-  const [startDate, setStartDate] = useState(new Date("01/01/1998"));
-  const [endDate, setEndDate] = useState(new Date("01/01/2025"));
+  const [startDate, setStartDate] = useState(null);
+  const [modalShow, setModalShow] = React.useState(false);
+  const [setting, setSetting] = useState("");
+  const [endDate, setEndDate] = useState(null);
 
   const convertedStartDate = new Date(startDate).toISOString();
   const convertedEndDate = new Date(endDate).toISOString();
@@ -37,6 +40,7 @@ const TaskBoardDashboard = () => {
   console.log(inprogressdata);
 
   const dataByDateinprogress = useMemo(() => {
+    if (!startDate || !endDate) return inprogressdata;
     const filtereddata = inprogressdata.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -47,12 +51,13 @@ const TaskBoardDashboard = () => {
 
   const upcomingdata = useMemo(() => {
     const filteredData = TasksBoardCollection.filter(
-      (item) => item.status === "Upcoming"
+      (item) => item.status === "Awaiting Approval"
     );
     return filteredData;
   }, [finalStartDate, finalEndDate, TasksBoardCollection]);
 
   const dataByDateupcoming = useMemo(() => {
+    if (!startDate || !endDate) return upcomingdata;
     const filtereddata = upcomingdata.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -72,6 +77,7 @@ const TaskBoardDashboard = () => {
   }, [finalStartDate, finalEndDate, TasksBoardCollection]);
 
   const dataByDatecomplete = useMemo(() => {
+    if (!startDate || !endDate) return completedata;
     const filtereddata = completedata.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -89,17 +95,16 @@ const TaskBoardDashboard = () => {
             <div className={taskboard.datepickertitle}>
               <p className={taskboard.datepickertitlelabel}>Start Date</p>
               <DatePicker
-                selected={startDate}
+                selected={startDate ?? new Date("01/01/2023")}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
                 startDate={startDate}
-                endDate={endDate}
                 showYearDropdown
                 yearDropdownItemNumber={15}
                 scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
-                width={300}
+                // width={300}
               />
             </div>
             <div className={taskboard.absolutecenter}>
@@ -109,7 +114,7 @@ const TaskBoardDashboard = () => {
               <p className={taskboard.datepickertitlelabel}>End Date</p>
               <DatePicker
                 showIcon
-                selected={endDate}
+                selected={endDate ?? new Date("10/10/2023")}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
                 showYearDropdown
@@ -117,9 +122,7 @@ const TaskBoardDashboard = () => {
                 scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
-                startDate={startDate}
                 endDate={endDate}
-                minDate={startDate}
               />
             </div>
           </div>
@@ -139,7 +142,11 @@ const TaskBoardDashboard = () => {
                           firstname={filtereddata.assigned_to?.firstname}
                           lastname={filtereddata.assigned_to?.lastname}
                           headertext={filtereddata.projectname}
-                          content={filtereddata.description}
+                          content={filtereddata.comments}
+                          onClick={() => {
+                            setSetting(filtereddata._id);
+                            setModalShow(true);
+                          }}
                           date={filtereddata.due}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
@@ -170,8 +177,12 @@ const TaskBoardDashboard = () => {
                           firstname={filtereddata.assigned_to?.firstname}
                           lastname={filtereddata.assigned_to?.lastname}
                           headertext={filtereddata.projectname}
-                          content={filtereddata.description}
-                          date={filtereddata.duedate}
+                          content={filtereddata.comments}
+                          onClick={() => {
+                            setSetting(filtereddata._id);
+                            setModalShow(true);
+                          }}
+                          date={filtereddata.due}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
                         />
@@ -202,9 +213,13 @@ const TaskBoardDashboard = () => {
                           firstname={filtereddata.assigned_to?.firstname}
                           lastname={filtereddata.assigned_to?.lastname}
                           headertext={filtereddata.projectname}
-                          content={filtereddata.description}
+                          content={filtereddata.comments}
                           date={filtereddata.duedate}
                           status={filtereddata.status}
+                          onClick={() => {
+                            setSetting(filtereddata._id);
+                            setModalShow(true);
+                          }}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
                         />
@@ -223,6 +238,11 @@ const TaskBoardDashboard = () => {
           </div>
         </div>
       </DashboardLayout>
+      <ModalTask
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        id={setting}
+      />
     </Container>
   );
 };
@@ -255,7 +275,12 @@ const ContentContainer = (props) => {
           <div className={taskboard.absolutecenter}>
             <p className={taskboard.name}>{props.name}</p>
           </div>
-          <Image src="/icons/dots.svg" alt="dots" />
+          <Image
+            src="/icons/dots.svg"
+            style={{ cursor: "pointer" }}
+            alt="dots"
+            onClick={props.onClick}
+          />
         </div>
         <p className={taskboard.name1}>
           {props.firstname} <span>{props.lastname}</span>

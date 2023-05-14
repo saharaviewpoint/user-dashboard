@@ -10,7 +10,13 @@ const Header = (props) => {
         <div className={head.textcontainer}>
           <p className={head.titlenavigation}>{props.name}</p>
         </div>
-        <div className={head.flexlinkcontainer}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <NavBoxes
             pathlink="/reports"
             title="List"
@@ -30,7 +36,7 @@ const Header = (props) => {
             imagelinkactive="/icons/header/active-table.svg"
           />
         </div>
-        <div className={head.absolutecenter3}>
+        <div className={head.absolutecentersearch}>
           <div className={head.searchiconcontainer}>
             <input
               type="text"

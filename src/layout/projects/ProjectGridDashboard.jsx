@@ -18,8 +18,8 @@ const ProjectGridDashboard = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [setting, setSetting] = useState("");
   const ProjectGridCollection = UserProjectGrid || [];
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date("01/01/2025"));
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const convertedStartDate = new Date(startDate).toISOString();
   const convertedEndDate = new Date(endDate).toISOString();
@@ -38,6 +38,7 @@ const ProjectGridDashboard = () => {
   }, [filter, ProjectGridCollection]);
 
   const dataByDate = useMemo(() => {
+    if (!startDate && !endDate) return data;
     const filtereddata = data.filter(
       (item) =>
         finalStartDate <= new Date(item.due).getTime() &&
@@ -71,45 +72,60 @@ const ProjectGridDashboard = () => {
                 filter={filter}
                 filter1={null}
                 total={`(${ProjectGridCollection.length})`}
-                onClick={() => setFilter(null)}
+                onClick={() => {
+                  setFilter(null);
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
 
               <NavCategories
                 name="Awaiting Approval"
                 filter={filter}
-                filter1="Upcoming"
+                filter1="Awaiting Approval"
                 total={`(${filteredUpcomingData.length})`}
-                onClick={() => setFilter("Awaiting Approval")}
+                onClick={() => {
+                  setFilter("Awaiting Approval");
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
               <NavCategories
                 name="In Progress"
-                filter1="inprogress"
+                filter1="In Progress"
                 filter={filter}
                 total={`(${filteredInProgressData.length})`}
-                onClick={() => setFilter("In Progress")}
+                onClick={() => {
+                  setFilter("In Progress");
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
               <NavCategories
                 name="Completed"
                 filter={filter}
                 filter1="Complete"
                 total={`(${filteredCompleteData.length})`}
-                onClick={() => setFilter("Complete")}
+                onClick={() => {
+                  setFilter("Complete");
+                  setStartDate(null);
+                  setEndDate(null);
+                }}
               />
             </div>
             <div className={project.datepickertitle}>
               <p className={project.datepickertitlelabel}>Start Date</p>
               <DatePicker
-                selected={startDate}
+                selected={startDate ?? new Date("01/01/2023")}
                 onChange={(date) => setStartDate(date)}
                 selectsStart
+                startDate={startDate}
                 showYearDropdown
                 yearDropdownItemNumber={15}
                 scrollableYearDropdown
-                startDate={startDate}
-                endDate={endDate}
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
-                width={300}
+                // width={300}
               />
             </div>
             <div className={project.absolutecenter}>
@@ -119,7 +135,7 @@ const ProjectGridDashboard = () => {
               <p className={project.datepickertitlelabel}>End Date</p>
               <DatePicker
                 showIcon
-                selected={endDate}
+                selected={endDate ?? new Date("10/10/2023")}
                 onChange={(date) => setEndDate(date)}
                 selectsEnd
                 showYearDropdown
@@ -127,9 +143,7 @@ const ProjectGridDashboard = () => {
                 scrollableYearDropdown
                 dateFormat="dd/MM/yyyy"
                 customInput={<ExampleCustomInput />}
-                startDate={startDate}
                 endDate={endDate}
-                minDate={startDate}
               />
             </div>
           </div>

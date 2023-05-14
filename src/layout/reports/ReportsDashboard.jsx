@@ -14,9 +14,10 @@ import {
   useGetTaskDetailsQuery,
 } from "../../app/services/auth/authService";
 import { truncateString } from "../../../util/text";
+import Skeleton from "react-loading-skeleton";
 
 const ReportsDashboard = () => {
-  const { data: userReports } = useGetReportsDetailsQuery({
+  const { data: userReports, isLoading } = useGetReportsDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
 
@@ -63,10 +64,6 @@ const ReportsDashboard = () => {
     return filteredData;
   }, [filter, reportsCollection]);
 
-  console.log(data);
-
-  console.log(task);
-
   const filteredCollection = useMemo(() => {
     if (!task) return data;
     const filteredData = data.filter((item) => item.task_id === task);
@@ -84,8 +81,6 @@ const ReportsDashboard = () => {
   //     );
   //   return filtereddata;
   // }, [finalStartDate, finalEndDate, data]);
-
-  console.log(projectsCollection);
 
   const filteredDocument = reportsCollection.filter((item) =>
     item.type.startsWith("application")
@@ -111,8 +106,6 @@ const ReportsDashboard = () => {
     setMessage("There are no reports for selected task");
   };
 
-  console.log(taskCollection);
-
   const filteredtasks = useMemo(() => {
     const filtereddata = taskCollection.filter(
       (item) => item.project.id === select
@@ -136,6 +129,7 @@ const ReportsDashboard = () => {
                 filter1={null}
                 onClick={() => {
                   setFilter(null);
+                  setTask(null);
                   setMessage("There are no reports");
                 }}
               />
@@ -147,6 +141,7 @@ const ReportsDashboard = () => {
                 total={`(${filteredImage.length})`}
                 onClick={() => {
                   setFilter("image");
+                  setTask(null);
                   setMessage("There are no images");
                 }}
               />
@@ -157,6 +152,7 @@ const ReportsDashboard = () => {
                 total={`(${filteredVideo.length})`}
                 onClick={() => {
                   setFilter("video");
+                  setTask(null);
                   setMessage("There are no videos");
                 }}
               />
@@ -167,6 +163,7 @@ const ReportsDashboard = () => {
                 total={`(${filteredDocument.length})`}
                 onClick={() => {
                   setFilter("document");
+                  setTask(null);
                   setMessage("There are no documents");
                 }}
               />
@@ -241,26 +238,36 @@ const ReportsDashboard = () => {
             {/* )} */}
           </div>
           <div>
-            {filteredCollection.length >= 1 ? (
-              <div className={report.filecontainergrid}>
-                {filteredCollection.map((repo, index) => {
-                  return (
-                    <FileContainer
-                      key={index}
-                      name={repo.name}
-                      size={repo.size}
-                      date={repo.date}
-                      imagelink={repo.type}
-                    />
-                  );
-                })}
-              </div>
+            {isLoading ? (
+              <Skeleton
+                baseColor="#ebab34"
+                highlightColor="#f2cb07"
+                width={300}
+              />
             ) : (
-              <div style={{ marginTop: "3rem" }}>
-                <p className={report.nothing}>
-                  {message || "There are no reports"}
-                </p>
-              </div>
+              <>
+                {filteredCollection.length >= 1 ? (
+                  <div className={report.filecontainergrid}>
+                    {filteredCollection.map((repo, index) => {
+                      return (
+                        <FileContainer
+                          key={index}
+                          name={repo.name}
+                          size={repo.size}
+                          date={repo.date}
+                          imagelink={repo.type}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div style={{ marginTop: "3rem" }}>
+                    <p className={report.nothing}>
+                      {message || "There are no reports"}
+                    </p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -294,12 +301,12 @@ const FileContainer = (props) => {
   return (
     <div className={report.filecontainer} onClick={props.handleclick}>
       <div className={report.centericon}>
-        {props.imagelink === "image/jpeg" ? (
+        {props.imagelink.startsWith("image") ? (
           <Image src="/icons/jpg.svg" alt="jpg" />
-        ) : props.imagelink === "image/png" ? (
-          <Image src="/icons/jpg.svg" alt="jpg" />
-        ) : props.imagelink === "image/svg+xml" ? (
-          <Image src="/icons/jpg.svg" alt="jpg" />
+        ) : props.imagelink.startsWith("application") ? (
+          <Image src="/icons/pdf.svg" alt="jpg" />
+        ) : props.imagelink.startsWith("video") ? (
+          <Image src="/icons/reports/pdf.svg" alt="jpg" />
         ) : null}
       </div>
       <div className={report.filerightcontainer}>

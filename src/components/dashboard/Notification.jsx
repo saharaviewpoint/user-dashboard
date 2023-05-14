@@ -17,6 +17,8 @@ const Notification = () => {
 
   const allnotifications = allNotifications || [];
 
+  console.log(allnotifications);
+
   const initialvalue = moment()
     .startOf("day")
     .format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
@@ -140,7 +142,7 @@ const NotificationContent = (props) => {
                 : props.type === "Project Approval"
                 ? "/project"
                 : props.type === "Report"
-                ? "/report"
+                ? "/reports"
                 : props.type === "message"
                 ? "/message"
                 : null
