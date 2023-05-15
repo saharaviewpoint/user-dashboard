@@ -83,12 +83,12 @@ const Project = () => {
                       </td>
                       <td className={project.centericon}>
                         <div className={project.absolutecenter}>
-                          {project?.requested_by?.firstname?.charAt(0) &&
-                          projectdata?.requested_by?.lastname?.charAt(0) ? (
+                          {projectdata?.assigned_to?.firstname?.charAt(0) &&
+                          projectdata?.assigned_to?.lastname?.charAt(0) ? (
                             <p className={project.avatar}>
-                              {projectdata?.requested_by?.firstname?.charAt(0)}
+                              {projectdata?.assigned_to?.firstname?.charAt(0)}
                               <span className={project.label}>
-                                {projectdata?.requested_by?.lastname?.charAt(0)}
+                                {projectdata?.assigned_to?.lastname?.charAt(0)}
                               </span>
                             </p>
                           ) : (
