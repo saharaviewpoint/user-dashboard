@@ -73,13 +73,6 @@ const MessageDashboard = () => {
   const { error, sendMessage } = useSendMessage();
 
   // useEffect to refresh every 1seconds to check for new mwssages
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     refetch();
-  //   }, 5000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
 
   const [defaultState, setDefaultState] = useState(true);
 
@@ -414,12 +407,23 @@ const MessageDashboard = () => {
                                             ) : (
                                               <div
                                                 className={
-                                                  message.incomingcontainer
+                                                  message.incomingcontainergroup
                                                 }
                                               >
-                                                <p className={message.incoming}>
-                                                  {chat.message.message}
-                                                </p>
+                                                <div>
+                                                  <p
+                                                    className={
+                                                      message.projectgroup
+                                                    }
+                                                  >
+                                                    {chat.sender_name}
+                                                  </p>
+                                                  <p
+                                                    className={message.incoming}
+                                                  >
+                                                    {chat.message.message}
+                                                  </p>
+                                                </div>
                                               </div>
                                             )}
                                           </div>
