@@ -62,18 +62,16 @@ const ReportModal = (props) => {
     const newArray = [...files];
     newArray.splice(index, 1);
     setFiles(newArray);
-    console.log("batman");
   };
 
   const submitForm = async (data) => {
     if (!files.length) return toast.error("Select a file");
     const conversion = { ...data };
-    const stringid = conversion.send_to.toString();
+    // const stringid = conversion.send_to.toString();
     const formData = new FormData();
     files.map((file) => {
       return formData.append("attachments", file);
     });
-    formData.append("send_to", stringid);
     formData.append("project", conversion.project);
     formData.append("task", conversion.task);
     formData.append("note", conversion.note);
@@ -188,7 +186,6 @@ const ReportModal = (props) => {
                     <Form.Check
                       type="radio"
                       key={index}
-                      onChange={() => console.log("be batman")}
                       name="task"
                       {...register("task")}
                       value={task._id}

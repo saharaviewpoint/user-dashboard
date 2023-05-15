@@ -14,7 +14,6 @@ import {
 } from "@/app/services/auth/authService";
 import Skeleton from "react-loading-skeleton";
 
-
 const ReportsGridDashboard = () => {
   const [filter, setFilter] = useState(null);
   const [select, setSelect] = useState("");
@@ -63,7 +62,6 @@ const ReportsGridDashboard = () => {
   const filteredCollection = useMemo(() => {
     if (!task) return data;
     const filteredData = data.filter((item) => item.task_id === task);
-    console.log(filteredData);
     return filteredData;
   }, [task, data]);
 
@@ -91,13 +89,11 @@ const ReportsGridDashboard = () => {
 
   const handleProject = (e) => {
     setSelect(e.target.value);
-    console.log(select);
     setDisplay(true);
   };
 
   const handleTask = (e) => {
     setTask(e.target.value);
-    console.log(task);
     setMessage("There are no reports for selected task");
   };
 

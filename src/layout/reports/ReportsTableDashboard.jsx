@@ -62,7 +62,6 @@ const ReportsTableDashboard = () => {
   const filteredCollection = useMemo(() => {
     if (!task) return data;
     const filteredData = data.filter((item) => item.task_id === task);
-    console.log(filteredData);
     return filteredData;
   }, [task, data]);
 
@@ -87,17 +86,13 @@ const ReportsTableDashboard = () => {
     item.type.startsWith("video")
   );
 
-  console.log(ReportsCollection);
-
   const handleProject = (e) => {
     setSelect(e.target.value);
-    console.log(select);
     setDisplay(true);
   };
 
   const handleTask = (e) => {
     setTask(e.target.value);
-    console.log(task);
     setMessage("There are no reports for selected task");
   };
 

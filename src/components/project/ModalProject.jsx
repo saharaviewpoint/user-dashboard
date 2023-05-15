@@ -18,8 +18,6 @@ const ModalProject = (props) => {
 
   const specifictask = task || [];
 
-  console.log(specifictask);
-
   const [more, setMore] = useState(false);
 
   const ModalProjectsCollection = UserProjects || [];

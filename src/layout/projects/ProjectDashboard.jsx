@@ -23,8 +23,6 @@ const ProjectDashboard = () => {
 
   const ProjectsCollection = UserTableProjects || [];
 
-  console.log(ProjectsCollection);
-
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -64,7 +62,6 @@ const ProjectDashboard = () => {
     (item) => item.user_status === "Complete"
   );
 
-  console.log(ProjectsCollection);
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">

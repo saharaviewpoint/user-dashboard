@@ -14,8 +14,6 @@ const ModalTask = (props) => {
 
   const ModalTaskCollection = UserTasks || [];
 
-  console.log(ModalTaskCollection);
-
   // console.log(ModalTaskCollection[4].attachments);
   return (
     <Modal

@@ -10,18 +10,22 @@ import {
 import { useForm } from "react-hook-form";
 import { getInitials } from "../../../util/text";
 import moment from "moment";
+import useSendMessage from "./../../../hooks/useSendMessage";
+import { useCollection } from "./../../../hooks/useCollection";
 
 const MessageDashboard = () => {
   // const [id, setId] = useState("");
   // fetching users and details about them
-  const { data: allMessagesDetails } = useGetAllMessagesQuery();
+  const {
+    data: allMessagesDetails,
+    isFetching,
+    refetch,
+  } = useGetAllMessagesQuery();
   // sending messages
   const [updateMsg] = useAddMessagesMutation();
 
   // preventing code break. displays empty array till the messages loas
   const messageDetails = allMessagesDetails || [];
-
-  console.log(messageDetails);
 
   // getting the first object in the array of objects and copying it into a variable
   var first = [...messageDetails].shift();
@@ -44,7 +48,7 @@ const MessageDashboard = () => {
   }, [filter, messageDetails]);
 
   // fetching messages. filter contains the id. line 112, when you click it saves the id in a filter
-  const { data: allChats, refetch } = useGetAllChatsQuery(filter);
+  const { data: allChats } = useGetAllChatsQuery(filter);
 
   // prevents code breaks
   const chats = allChats || [];
@@ -59,22 +63,36 @@ const MessageDashboard = () => {
 
   // form hook submission of messages
   const submitForm = async (msg) => {
+    const time = new Date().getTime();
     reset();
-    updateMsg({ data: msg, id: filter }).unwrap();
+    await sendMessage(filter, msg, time).then(() => {
+      reset();
+    });
   };
+
+  const { error, sendMessage } = useSendMessage();
 
   // useEffect to refresh every 1seconds to check for new mwssages
   // useEffect(() => {
   //   const interval = setInterval(() => {
   //     refetch();
-  //   }, 1000);
+  //   }, 5000);
 
   //   return () => clearInterval(interval);
   // }, []);
 
   const [defaultState, setDefaultState] = useState(true);
 
-  console.log(messageDetails);
+  const { documents: messages, loading } = useCollection(
+    `messages/${filter}/messages`
+  );
+
+  const allMessages =
+    messages.sort((a, b) => a.time_stamp - b.time_stamp) || [];
+
+  console.log(allMessages);
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <Container className={message.container}>
@@ -98,9 +116,7 @@ const MessageDashboard = () => {
               <div className={message.userslistcontainer}>
                 {messageDetails.map((messageDetail, index) => {
                   const active = filter === messageDetail._id;
-                  {
-                    console.log(messageDetail);
-                  }
+
                   return (
                     <div
                       className={
@@ -379,67 +395,76 @@ const MessageDashboard = () => {
                                 ) : null}
 
                                 <div className={message.scrollchat}>
-                                  {chats.map((chat, index) => {
-                                    console.log(chat);
-                                    return (
-                                      <div>
-                                        <div key={index}>
-                                          {chat.fromSelf ? (
-                                            <div
-                                              className={
-                                                message.sendingcontainer
-                                              }
-                                            >
-                                              <p className={message.sending}>
-                                                {chat.message}
-                                              </p>
-                                            </div>
-                                          ) : (
-                                            <div
-                                              className={
-                                                message.incomingcontainer
-                                              }
-                                            >
-                                              <p className={message.incoming}>
-                                                {chat.message}
-                                              </p>
-                                            </div>
-                                          )}
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
+                                  {isFetching ? null : (
+                                    <>
+                                      {allMessages.map((chat, index) => {
+                                        return (
+                                          // <>
+                                          <div key={index}>
+                                            {chat.sender === userInfo.id ? (
+                                              <div
+                                                className={
+                                                  message.sendingcontainer
+                                                }
+                                              >
+                                                <p className={message.sending}>
+                                                  {chat.message.message}
+                                                </p>
+                                              </div>
+                                            ) : (
+                                              <div
+                                                className={
+                                                  message.incomingcontainer
+                                                }
+                                              >
+                                                <p className={message.incoming}>
+                                                  {chat.message.message}
+                                                </p>
+                                              </div>
+                                            )}
+                                          </div>
+                                          // </>
+                                        );
+                                      })}
+                                    </>
+                                  )}
                                 </div>
                               </>
                             ) : (
                               <div className={message.scrollchat}>
-                                {chats.map((chat, index) => {
-                                  return (
-                                    <div>
-                                      <div key={index}>
-                                        {chat.fromSelf ? (
-                                          <div
-                                            className={message.sendingcontainer}
-                                          >
-                                            <p className={message.sending}>
-                                              {chat.message}
-                                            </p>
+                                {isFetching ? null : (
+                                  <>
+                                    {allMessages.map((chat, index) => {
+                                      return (
+                                        <div>
+                                          <div key={index}>
+                                            {chat.sender === userInfo.id ? (
+                                              <div
+                                                className={
+                                                  message.sendingcontainer
+                                                }
+                                              >
+                                                <p className={message.sending}>
+                                                  {chat.message.message}
+                                                </p>
+                                              </div>
+                                            ) : (
+                                              <div
+                                                className={
+                                                  message.incomingcontainer
+                                                }
+                                              >
+                                                <p className={message.incoming}>
+                                                  {chat.message.message}
+                                                </p>
+                                              </div>
+                                            )}
                                           </div>
-                                        ) : (
-                                          <div
-                                            className={
-                                              message.incomingcontainer
-                                            }
-                                          >
-                                            <p className={message.incoming}>
-                                              {chat.message}
-                                            </p>
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
-                                  );
-                                })}
+                                        </div>
+                                      );
+                                    })}
+                                  </>
+                                )}
                               </div>
                             )}
                           </div>

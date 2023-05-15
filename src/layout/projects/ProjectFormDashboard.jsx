@@ -19,8 +19,6 @@ const ProjectFormDashboard = () => {
   const { data: user } = useGetDetailsQuery();
   // toast.configure();
 
-  console.log(user);
-
   const { register, control, reset, handleSubmit } = useForm();
 
   const submitForm = async (data) => {
@@ -31,7 +29,7 @@ const ProjectFormDashboard = () => {
         id: user._id,
       },
     };
-    console.log(useradditionaldetails);
+
     const completeform = {
       ...useradditionaldetails,
       ...data,
@@ -40,7 +38,6 @@ const ProjectFormDashboard = () => {
     delete completeform.firstname;
     delete completeform.lastname;
 
-    console.log(completeform);
     try {
       await toast.promise(addProjectDetailsMutation(completeform).unwrap(), {
         loading: "Saving Form",

@@ -31,7 +31,6 @@ const TasksDashboard = () => {
   const [tasked, setTasked] = useState("");
   const [display, setDisplay] = useState(false);
 
-  console.log(TasksTableCollection);
   const [filter, setFilter] = useState(null);
 
   const [setting, setSetting] = useState("");
@@ -69,10 +68,6 @@ const TasksDashboard = () => {
     return filteredData;
   }, [select, data]);
 
-  console.log(select);
-
-  console.log(data);
-  console.log(filteredCollection);
   // console.log(filteredCollection);
   const filteredApprovedData = TasksTableCollection.filter(
     (item) => item.status === "Approved"

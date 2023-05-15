@@ -35,7 +35,6 @@ const { MediaContextProvider, Media } = createMedia({
 
 const App = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  console.log(userInfo);
   return (
     <MediaContextProvider>
       <Media at="sm">

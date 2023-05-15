@@ -23,8 +23,6 @@ const Project = () => {
     return filteredData;
   }, [filter, UserProjectsCollection]);
 
-  console.log(data);
-
   return (
     <div className={project.projectcontainer1}>
       <div className={project.projectflexcontainer}>
