@@ -1,4 +1,4 @@
-import React, { useMemo, useState, forwardRef } from "react";
+import React, { useMemo, useState, forwardRef, useEffect } from "react";
 import { Container, Button, Image, Form } from "react-bootstrap";
 import task from "./task.module.css";
 import "./task.css";
@@ -81,6 +81,10 @@ const TasksDashboard = () => {
     setDisplay(true);
     // setMessage("There are no reports for selected task");
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container className={task.container}>

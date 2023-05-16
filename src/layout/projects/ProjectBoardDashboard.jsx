@@ -1,4 +1,4 @@
-import React, { useMemo, useState, forwardRef } from "react";
+import React, { useMemo, useState, forwardRef, useEffect } from "react";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import Header from "../../components/project/Header";
 import "./changes1.css";
@@ -79,6 +79,10 @@ const ProjectBoardDashboard = () => {
     );
     return filtereddata;
   }, [finalStartDate, finalEndDate, upcomingdata]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container className={grid.container}>

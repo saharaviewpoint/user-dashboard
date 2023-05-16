@@ -1,4 +1,4 @@
-import React, { useState, useMemo, forwardRef } from "react";
+import React, { useState, useMemo, forwardRef, useEffect } from "react";
 import { Container, Button, Image, Form } from "react-bootstrap";
 import report from "./reports.module.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
@@ -103,6 +103,10 @@ const ReportsDashboard = () => {
     );
     return filtereddata;
   }, [select, reportsCollection]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container className={report.container}>

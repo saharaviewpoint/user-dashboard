@@ -1,6 +1,6 @@
+import React, { useState, useMemo, forwardRef, useEffect } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import FileInputContainer from "@/components/reports/FileInputContainer";
-import React, { useState, useMemo, forwardRef } from "react";
 import Header from "../../components/reports/Header";
 import reportsgrid from "./reports.module.css";
 import { Container, Button, Image, Form } from "react-bootstrap";
@@ -90,6 +90,10 @@ const ReportsGridDashboard = () => {
     );
     return filtereddata;
   }, [select, ReportsCollection]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container className={reportsgrid.container}>

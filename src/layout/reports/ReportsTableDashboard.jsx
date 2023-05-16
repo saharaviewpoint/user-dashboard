@@ -1,6 +1,6 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import FileInputContainer from "@/components/reports/FileInputContainer";
-import React, { useState, useMemo, forwardRef } from "react";
+import React, { useState, useMemo, forwardRef, useEffect } from "react";
 import { Container, Button, Image, Form } from "react-bootstrap";
 import reporttable from "./reports.module.css";
 import "./changes.css";
@@ -102,6 +102,10 @@ const ReportsTableDashboard = () => {
     );
     return filtereddata;
   }, [select, ReportsCollection]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container className={reporttable.container}>

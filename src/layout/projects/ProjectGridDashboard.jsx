@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useMemo } from "react";
+import React, { forwardRef, useState, useMemo, useEffect } from "react";
 import { Container, Image, Button } from "react-bootstrap";
 import project from "./project.module.css";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
@@ -59,6 +59,11 @@ const ProjectGridDashboard = () => {
   const filteredCompleteData = ProjectGridCollection.filter(
     (item) => item.user_status === "Complete"
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">

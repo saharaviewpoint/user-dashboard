@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useMemo } from "react";
+import React, { useState, forwardRef, useMemo, useEffect } from "react";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import { Container, Image } from "react-bootstrap";
 import taskboard from "./task.module.css";
@@ -80,6 +80,10 @@ const TaskBoardDashboard = () => {
     );
     return filtereddata;
   }, [finalStartDate, finalEndDate, upcomingdata]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container className={taskboard.container}>

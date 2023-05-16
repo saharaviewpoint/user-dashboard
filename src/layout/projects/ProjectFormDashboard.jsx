@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import DashboardLayout from "../../components/dashboard/DashboardLayout";
 import projectform from "./project.module.css";
@@ -50,6 +50,10 @@ const ProjectFormDashboard = () => {
       toast.error(error);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   function MyBooleanInput({ control, name }) {
     return (
