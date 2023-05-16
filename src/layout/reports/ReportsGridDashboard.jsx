@@ -39,9 +39,6 @@ const ReportsGridDashboard = () => {
 
   const ReportsCollection = AdminReports || [];
 
-  console.log("Batman");
-  console.log(ReportsCollection);
-
   const [startDate, setStartDate] = useState(new Date("01/01/2022"));
   const [endDate, setEndDate] = useState(new Date("01/01/2029"));
 
@@ -65,16 +62,6 @@ const ReportsGridDashboard = () => {
     return filteredData;
   }, [task, data]);
 
-  // const dataByDate = useMemo(() => {
-  //   const filtereddata = data.filter(
-  //     (item) =>
-  //       finalStartDate <= new Date(item.date).getTime() &&
-  //       new Date(item.date).getTime() <= finalEndDate
-  //   );
-  //   return filtereddata;
-  // }, [finalStartDate, finalEndDate, data]);
-
-  // console.log(dataByDate);
   const filteredDocument = ReportsCollection.filter((item) =>
     item.type.startsWith("application")
   );
@@ -132,11 +119,11 @@ const ReportsGridDashboard = () => {
                 onClick={() => {
                   setFilter("image");
                   setTask(null);
-                  setMessage("There are no images");
+                  setMessage("There are no pictures");
                 }}
               />
               <NavCategories
-                name="Video"
+                name="Videos"
                 filter={filter}
                 filter1="video"
                 total={`(${filteredVideo.length})`}

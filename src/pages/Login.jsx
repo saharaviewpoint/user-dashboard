@@ -7,6 +7,7 @@ import login from "./General.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { EMAIL_VALIDATION } from "@/constants/Regex";
+import { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const { loading, userInfo } = useSelector((state) => state.auth);
@@ -107,37 +108,37 @@ const Login = () => {
                             Max length exceeded
                           </span>
                         )}
-                      {/* {errors.password && errors.password.type === "pattern" && (
-                  <span className={login.error}>
-                    Password should be at least 8 characters, At least 1
-                    uppercase character, 1 lowercase character and 1 number
-                  </span>
-                )} */}
+                      {errors.password &&
+                        errors.password.type === "pattern" && (
+                          <span className={login.error}>
+                            Password should be at least 8 characters, At least 1
+                            uppercase character, 1 lowercase character and 1
+                            number
+                          </span>
+                        )}
                     </div>
                   </Form.Group>
-                  {/* <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Confirm password</Form.Label>
-              <Form.Control
-                name="password"
-                type="password"
-                placeholder=""
-                {...register("confirmPassword", {
-                  required: "Confirm password is required",
-                  validate: (value) =>
-                    value === password || "The passwords do not match",
-                })}
-              />
-              <div className={login.errorcontainer}>
-                {errors.confirmPassword && (
-                  <span className={login.error}>
-                    {errors.confirmPassword.message}
-                  </span>
-                )}
-              </div>
-            </Form.Group> */}
-                  {/* {console.log(errors.confirmPassword.message)} */}
-                  {/* {console.log(errors.password_repeat.type === "validate"} */}
-                  {/* <Spinner /> */}
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Confirm password</Form.Label>
+                    <Form.Control
+                      name="password"
+                      type="password"
+                      placeholder=""
+                      {...register("confirmPassword", {
+                        required: "Confirm password is required",
+                        validate: (value) =>
+                          value === password || "The passwords do not match",
+                      })}
+                    />
+                    <div className={login.errorcontainer}>
+                      {errors.confirmPassword && (
+                        <span className={login.error}>
+                          {errors.confirmPassword.message}
+                        </span>
+                      )}
+                    </div>
+                  </Form.Group>
+
                   <Button
                     type="submit"
                     disabled={loading}
@@ -154,6 +155,31 @@ const Login = () => {
                 </p>
               </div>
             </div>
+            <Toaster
+              position="top-left"
+              gutter={8}
+              containerClassName=""
+              containerStyle={{}}
+              toastOptions={{
+                // Define default options
+                className: "",
+                duration: 5000,
+                style: {
+                  background: "#363636",
+                  color: "#fff",
+                  fontFamily: "Inter, sans-serif",
+                },
+
+                // Default options for specific types
+                success: {
+                  duration: 3000,
+                  theme: {
+                    primary: "green",
+                    secondary: "black",
+                  },
+                },
+              }}
+            />
           </div>
         </div>
       </div>

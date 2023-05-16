@@ -10,7 +10,6 @@
   justify-content: center;
 }
 
-
 .pointer {
   cursor: pointer;
 }
@@ -266,17 +265,18 @@ a {
 .title {
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 1.5rem;
-  margin-top: 6rem;
+  font-size: 24px;
+  margin-top: 64px;
   color: var(--SVP-main);
 }
 
 .description {
-  margin-top: 1.6rem;
+  margin-top: 16px;
   font-size: 16px;
   line-height: 19px;
   font-family: "Inter", sans-serif;
   margin-bottom: 0rem;
+  /* white-space: nowrap; */
   color: var(--textblack);
 }
 
@@ -811,6 +811,17 @@ td {
 .nothing {
   font-family: "Inter", sans-serif;
   font-size: 16px;
+  /* font-weight: 600; */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  /* background-color: var(--dashboard-yellow); */
+  /* text-align: center; */
+}
+
+.nothing1 {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  text-align: center;
   /* font-weight: 600; */
   padding-top: 1rem;
   padding-bottom: 1rem;

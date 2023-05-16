@@ -21,7 +21,7 @@ const ReportsTableDashboard = () => {
   const [select, setSelect] = useState("");
   const [task, setTask] = useState("");
   const [display, setDisplay] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState("There are no reports");
 
   const { data: AdminReports, isLoading } = useGetReportsDetailsQuery({
     refetchOnMountOrArgChange: true,
@@ -96,8 +96,6 @@ const ReportsTableDashboard = () => {
     setMessage("There are no reports for selected task");
   };
 
-  console.log(taskCollection);
-
   const filteredtasks = useMemo(() => {
     const filtereddata = taskCollection.filter(
       (item) => item.project.id === select
@@ -133,11 +131,11 @@ const ReportsTableDashboard = () => {
                 onClick={() => {
                   setFilter("image");
                   setTask(null);
-                  setMessage("There are no images");
+                  setMessage("There are no pictures");
                 }}
               />
               <NavCategories
-                name="Video"
+                name="Videos"
                 filter={filter}
                 filter1="video"
                 total={`(${filteredVideo.length})`}
@@ -266,9 +264,7 @@ const ReportsTableDashboard = () => {
                   </ReportsTableContents>
                 ) : (
                   <div style={{ marginTop: "3rem" }}>
-                    <p className={reporttable.nothing}>
-                      {message || "there are no reports"}
-                    </p>
+                    <p className={reporttable.nothing}>{message}</p>
                   </div>
                 )}
               </>

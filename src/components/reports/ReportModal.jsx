@@ -86,7 +86,7 @@ const ReportModal = (props) => {
       setfile(null);
       // toast.success("Project Registered Successfully");
     } catch (error) {
-      console.log("error", error);
+      toast.error(error);
     }
   };
 

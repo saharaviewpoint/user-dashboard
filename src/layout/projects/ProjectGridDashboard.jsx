@@ -20,6 +20,7 @@ const ProjectGridDashboard = () => {
   const ProjectGridCollection = UserProjectGrid || [];
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [message, setMessage] = useState("There are no projects");
 
   const convertedStartDate = new Date(startDate).toISOString();
   const convertedEndDate = new Date(endDate).toISOString();
@@ -76,6 +77,7 @@ const ProjectGridDashboard = () => {
                   setFilter(null);
                   setStartDate(null);
                   setEndDate(null);
+                  setMessage("There are no projects");
                 }}
               />
 
@@ -88,6 +90,7 @@ const ProjectGridDashboard = () => {
                   setFilter("Awaiting Approval");
                   setStartDate(null);
                   setEndDate(null);
+                  setMessage("There are no projects awaiting approval");
                 }}
               />
               <NavCategories
@@ -99,6 +102,7 @@ const ProjectGridDashboard = () => {
                   setFilter("In Progress");
                   setStartDate(null);
                   setEndDate(null);
+                  setMessage("There are no projects in progress");
                 }}
               />
               <NavCategories
@@ -108,6 +112,7 @@ const ProjectGridDashboard = () => {
                 total={`(${filteredCompleteData.length})`}
                 onClick={() => {
                   setFilter("Complete");
+                  setMessage("There are no completed projects");
                   setStartDate(null);
                   setEndDate(null);
                 }}
@@ -173,7 +178,7 @@ const ProjectGridDashboard = () => {
                 </div>
               ) : (
                 <div style={{ marginTop: "2rem" }}>
-                  <p className={project.nothing}>There are no projects</p>
+                  <p className={project.nothing}>{message}</p>
                 </div>
               )}
             </>

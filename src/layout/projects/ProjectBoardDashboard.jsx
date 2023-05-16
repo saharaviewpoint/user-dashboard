@@ -80,7 +80,6 @@ const ProjectBoardDashboard = () => {
     return filtereddata;
   }, [finalStartDate, finalEndDate, upcomingdata]);
 
-  console.log(inprogressdata);
   return (
     <Container className={grid.container}>
       <DashboardLayout name="Projects">
@@ -156,7 +155,7 @@ const ProjectBoardDashboard = () => {
                       ))}
                     </>
                   ) : (
-                    <div style={{ marginTop: "3rem" }}>
+                    <div style={{ marginTop: "2rem" }}>
                       <p className={grid.nothing}>
                         There are no projects in progress.
                       </p>

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, forwardRef } from "react";
+import React, { useMemo, useState, forwardRef, useEffect } from "react";
 import { Button, Container, Image, Row, Col } from "react-bootstrap";
 import project from "./project.module.css";
 import "./projects.css";
@@ -20,6 +20,7 @@ const ProjectDashboard = () => {
   const [filter, setFilter] = useState(null);
   const [modalShow, setModalShow] = React.useState(false);
   const [setting, setSetting] = useState("");
+  const [message, setMessage] = useState("There are no projects");
 
   const ProjectsCollection = UserTableProjects || [];
 
@@ -62,6 +63,10 @@ const ProjectDashboard = () => {
     (item) => item.user_status === "Complete"
   );
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container className={project.container}>
       <DashboardLayout name="Projects">
@@ -79,6 +84,7 @@ const ProjectDashboard = () => {
                   setFilter(null);
                   setStartDate(null);
                   setEndDate(null);
+                  setMessage("There are no projects");
                 }}
               />
 
@@ -91,6 +97,7 @@ const ProjectDashboard = () => {
                   setFilter("Awaiting Approval");
                   setStartDate(null);
                   setEndDate(null);
+                  setMessage("There are no projects awaiting approval");
                 }}
               />
               <NavCategories
@@ -102,6 +109,7 @@ const ProjectDashboard = () => {
                   setFilter("In Progress");
                   setStartDate(null);
                   setEndDate(null);
+                  setMessage("There are no projects in progress");
                 }}
               />
 
@@ -112,6 +120,7 @@ const ProjectDashboard = () => {
                 filter1="Complete"
                 onClick={() => {
                   setFilter("Complete");
+                  setMessage("There are no projects completed");
                   setStartDate(null);
                   setEndDate(null);
                 }}
@@ -209,8 +218,8 @@ const ProjectDashboard = () => {
                   ))}
                 </TableDisplay>
               ) : (
-                <div style={{ marginTop: "3rem" }}>
-                  <p className={project.nothing}>There are no projects</p>
+                <div style={{ marginTop: "2rem" }}>
+                  <p className={project.nothing}>{message}</p>
                 </div>
               )}
             </div>

@@ -67,7 +67,7 @@ const Register = () => {
                 {customError && <Error>{customError}</Error>} */}
                 <Form.Group className="mb-3" controlId="formBasicFirstName">
                   <Form.Label className={registerform.formlabel}>
-                    FirstName
+                    First Name
                   </Form.Label>
                   <Form.Control
                     type="text"
@@ -95,7 +95,7 @@ const Register = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicLastName">
                   <Form.Label className={registerform.formlabel}>
-                    LastName
+                    Last Name
                   </Form.Label>
                   <Form.Control
                     type="text"

@@ -104,7 +104,6 @@ const ReportsDashboard = () => {
     return filtereddata;
   }, [select, reportsCollection]);
 
-  // console.log(filteredImage);
   return (
     <Container className={report.container}>
       <DashboardLayout name="Reports">
@@ -133,11 +132,11 @@ const ReportsDashboard = () => {
                 onClick={() => {
                   setFilter("image");
                   setTask(null);
-                  setMessage("There are no images");
+                  setMessage("There are no pictures");
                 }}
               />
               <NavCategories
-                name="Video"
+                name="Videos"
                 filter={filter}
                 filter1="video"
                 total={`(${filteredVideo.length})`}

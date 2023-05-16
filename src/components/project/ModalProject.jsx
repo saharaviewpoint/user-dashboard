@@ -22,13 +22,6 @@ const ModalProject = (props) => {
 
   const ModalProjectsCollection = UserProjects || [];
 
-  console.log(ModalProjectsCollection);
-  // console.log(ModalTasks);
-
-  // const specificUserProjectTask = UserProjectTask || [];
-
-  // console.log(specificUserProjectTask);
-
   return (
     <Modal
       className={modal.modal}

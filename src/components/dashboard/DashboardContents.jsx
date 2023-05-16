@@ -43,17 +43,7 @@ const DashboardContents = () => {
             imagelink="/icons/dashboard/project-cards-icon.svg"
             text={ProjectsCollection.length}
             title="Projects"
-            description={ProjectsCollection.description}
             verb="ongoing"
-          />
-        </Link>
-        <Link to="/task">
-          <Cards
-            imagelink="/icons/dashboard/tasks-cards-icon.svg"
-            text={TaskCollection.length}
-            title="Tasks"
-            description={ProjectsCollection.description}
-            verb="new"
           />
         </Link>
         <Link to="/reports">
@@ -61,7 +51,14 @@ const DashboardContents = () => {
             imagelink="/icons/dashboard/reports-cards-icon.svg"
             text={ReportsCollection.length}
             title="Reports"
-            description={ProjectsCollection.description}
+            verb="new"
+          />
+        </Link>
+        <Link to="/message">
+          <Cards
+            imagelink="/icons/dashboard/tasks-cards-icon.svg"
+            text="0"
+            title="Messages"
             verb="new"
           />
         </Link>
@@ -89,7 +86,7 @@ const Cards = (props) => {
         </div>
         <p className={user.title}>{props.title}</p>
         <p className={user.description}>
-          You have {props.text} {props.verb} {props.title}
+          You have {props.text} {props.verb} <br /> {props.title}
         </p>
       </div>
     </div>

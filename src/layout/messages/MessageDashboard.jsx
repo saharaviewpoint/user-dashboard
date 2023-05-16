@@ -53,8 +53,6 @@ const MessageDashboard = () => {
   // prevents code breaks
   const chats = allChats || [];
 
-  console.log(chats);
-
   // useForm hook
   const { register, reset, handleSubmit } = useForm();
 
@@ -82,8 +80,6 @@ const MessageDashboard = () => {
 
   const allMessages =
     messages.sort((a, b) => a.time_stamp - b.time_stamp) || [];
-
-  console.log(allMessages);
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 

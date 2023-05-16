@@ -149,8 +149,8 @@ const TaskBoardDashboard = () => {
                       ))}
                     </>
                   ) : (
-                    <div style={{ marginTop: "3rem" }}>
-                      <p className={taskboard.nothing}>There are no projects</p>
+                    <div style={{ marginTop: "2rem" }}>
+                      <p className={taskboard.nothing}>There are no tasks</p>
                     </div>
                   )}
                 </>

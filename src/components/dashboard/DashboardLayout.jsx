@@ -20,8 +20,7 @@ const DashboardLayout = (props) => {
   const { data: user } = useGetDetailsQuery();
 
   const UserInfo = user || [];
-  // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  // console.log(userInfo);
+
   const LogOut = () => {
     dispatch(logout());
     dispatch(authApi.util.resetApiState());

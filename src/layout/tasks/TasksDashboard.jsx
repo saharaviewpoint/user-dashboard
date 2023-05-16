@@ -30,6 +30,7 @@ const TasksDashboard = () => {
   const [select, setSelect] = useState("");
   const [tasked, setTasked] = useState("");
   const [display, setDisplay] = useState(false);
+  const [message, setMessage] = useState("There are no tasks");
 
   const [filter, setFilter] = useState(null);
 
@@ -53,22 +54,12 @@ const TasksDashboard = () => {
     return filteredData;
   }, [filter, TasksTableCollection]);
 
-  // const dataByDate = useMemo(() => {
-  //   const filtereddata = data.filter(
-  //     (item) =>
-  //       finalStartDate <= new Date(item.due).getTime() &&
-  //       new Date(item.due).getTime() <= finalEndDate
-  //   );
-  //   return filtereddata;
-  // }, [finalStartDate, finalEndDate, data]);
   const filteredCollection = useMemo(() => {
     if (select === "Select A Project" || !select) return data;
     const filteredData = data.filter((item) => item.project.id === select);
-    // console.log(filteredData);
     return filteredData;
   }, [select, data]);
 
-  // console.log(filteredCollection);
   const filteredApprovedData = TasksTableCollection.filter(
     (item) => item.status === "Approved"
   );
@@ -87,17 +78,9 @@ const TasksDashboard = () => {
 
   const handleProject = (e) => {
     setSelect(e.target.value);
-    console.log(select);
     setDisplay(true);
     // setMessage("There are no reports for selected task");
   };
-
-  // const filteredtasks = useMemo(() => {
-  //   const filtereddata = TasksTableCollection.filter(
-  //     (item) => item.project.id === select
-  //   );
-  //   return filtereddata;
-  // }, [select, TasksTableCollection]);
 
   return (
     <Container className={task.container}>
@@ -113,6 +96,7 @@ const TasksDashboard = () => {
                 filter1={null}
                 onClick={() => {
                   setFilter(null);
+                  setMessage("There are no tasks");
                   setSelect("Select A Project");
                 }}
               />
@@ -124,6 +108,7 @@ const TasksDashboard = () => {
                 filter1="Approved"
                 onClick={() => {
                   setFilter("Approved");
+                  setMessage("There are no approved tasks");
                   setSelect("Select A Project");
                 }}
               />
@@ -134,6 +119,7 @@ const TasksDashboard = () => {
                 filter={filter}
                 onClick={() => {
                   setFilter("Awaiting Approval");
+                  setMessage("There are no tasks awaiting approval");
                   setSelect("Select A Project");
                 }}
               />
@@ -144,6 +130,7 @@ const TasksDashboard = () => {
                 filter={filter}
                 onClick={() => {
                   setFilter("In Progress");
+                  setMessage("There are no tasks in progress");
                   setSelect("Select A Project");
                 }}
               />
@@ -154,6 +141,7 @@ const TasksDashboard = () => {
                 filter1="Declined"
                 onClick={() => {
                   setFilter("Declined");
+                  setMessage("There are no declined tasks");
                   setSelect("Select A Project");
                 }}
               />
@@ -232,8 +220,8 @@ const TasksDashboard = () => {
                   ))}
                 </TaskTableDisplay>
               ) : (
-                <div style={{ marginTop: "3rem" }}>
-                  <p className={task.nothing}>There are no tasks</p>
+                <div style={{ marginTop: "2rem" }}>
+                  <p className={task.nothing}>{message}</p>
                 </div>
               )}
             </div>

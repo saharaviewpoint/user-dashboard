@@ -18,6 +18,7 @@ const Project = () => {
 
   const [modalShow, setModalShow] = React.useState(false);
   const [setting, setSetting] = useState("");
+  const [message, setMessage] = useState("There are no projects");
 
   const data = useMemo(() => {
     if (!filter) return UserProjectsCollection;
@@ -38,7 +39,10 @@ const Project = () => {
             name="All Categories"
             filter={filter}
             filter1={null}
-            onClick={() => setFilter(null)}
+            onClick={() => {
+              setFilter(null);
+              setMessage("There are no projects");
+            }}
           />
           <Buttons
             name="Active"
@@ -46,7 +50,10 @@ const Project = () => {
             filter1="In Progress"
             imagelink="/icons/dashboard/project/tick.svg"
             imagelinkinactive="/icons/dashboard/project/tickinactive.svg"
-            onClick={() => setFilter("In Progress")}
+            onClick={() => {
+              setFilter("In Progress");
+              setMessage("There are no active projects");
+            }}
           />
           <Buttons
             name="Inactive"
@@ -54,7 +61,10 @@ const Project = () => {
             imagelinkinactive="/icons/dashboard/project/cancelinactive.svg"
             filter={filter}
             filter1={"Awaiting Approval" || "Completed"}
-            onClick={() => setFilter("Awaiting Approval" || "Completed")}
+            onClick={() => {
+              setFilter("Awaiting Approval" || "Completed");
+              setMessage("There are no inactive projects");
+            }}
           />
         </div>
       </div>
@@ -116,7 +126,7 @@ const Project = () => {
               </Table>
             ) : (
               <div style={{ marginBottom: "3rem" }}>
-                <p className={project.nothing}>There are no projects</p>
+                <p className={project.nothing1}>{message}</p>
               </div>
             )}
           </div>
