@@ -20,7 +20,7 @@ const FileInputContainer = () => {
             className={input.button}
             onClick={() => {
               ProjectsCollection.length < 1
-                ? toast.error("No Project has been added")
+                ? toast.error("You have not added any projects. You can upload reports after adding projects")
                 : setModalShow(true);
             }}
           >

@@ -65,12 +65,6 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-    getAllChats: build.query({
-      query: (id) => ({
-        url: `/user/messages/${id}`,
-        method: "GET",
-      }),
-    }),
     getAllNotifications: build.query({
       query: () => ({
         url: `/user/notifications`,
@@ -100,7 +94,6 @@ export const {
   useGetAllMessagesQuery,
   useAddMessagesMutation,
   useGetProjectSpecificTaskQuery,
-  useGetAllChatsQuery,
   useAddReportsDetailsMutation,
   useGetAllNotificationsQuery,
   useAddProjectDetailsMutation,

@@ -190,7 +190,7 @@ const TaskBoardDashboard = () => {
                   ) : (
                     <div style={{ marginTop: "2rem" }}>
                       <p className={taskboard.nothing}>
-                        There are no upcoming tasks
+                        There are no tasks awaiting approval
                       </p>
                     </div>
                   )}
