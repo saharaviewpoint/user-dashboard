@@ -39,7 +39,7 @@ const ReportsDashboard = () => {
   const [select, setSelect] = useState("");
   const [task, setTask] = useState("");
   const [display, setDisplay] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState("There are no reports");
 
   const [startDate, setStartDate] = useState(new Date("01/01/2022"));
   const [endDate, setEndDate] = useState(new Date("01/01/2028"));

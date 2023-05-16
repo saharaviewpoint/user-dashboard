@@ -118,7 +118,7 @@ const Login = () => {
                         )}
                     </div>
                   </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                  {/* <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Confirm password</Form.Label>
                     <Form.Control
                       name="password"
@@ -137,7 +137,7 @@ const Login = () => {
                         </span>
                       )}
                     </div>
-                  </Form.Group>
+                  </Form.Group> */}
 
                   <Button
                     type="submit"
