@@ -147,6 +147,7 @@ const TaskBoardDashboard = () => {
                             setModalShow(true);
                           }}
                           date={filtereddata.due}
+                          value={filtereddata.attachments.length}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
                         />
@@ -183,6 +184,7 @@ const TaskBoardDashboard = () => {
                           }}
                           date={filtereddata.due}
                           imagelink={filtereddata.imagelink}
+                          value={filtereddata.attachments.length}
                           priority={filtereddata.priority}
                         />
                       ))}
@@ -215,6 +217,7 @@ const TaskBoardDashboard = () => {
                           content={filtereddata.comments}
                           date={filtereddata.duedate}
                           status={filtereddata.status}
+                          value={filtereddata.attachments.length}
                           onClick={() => {
                             setSetting(filtereddata._id);
                             setModalShow(true);
@@ -331,8 +334,7 @@ const ContentContainer = (props) => {
 
       <div className={taskboard.absoluterightcontainer}>
         <div className={taskboard.flexicon}>
-          <ImageTextIcon src="/icons/attach.svg" value="3" />
-          <ImageTextIcon src="/icons/message.svg" value="3" />
+          <ImageTextIcon src="/icons/attach.svg" value={props.value} />
         </div>
       </div>
     </div>

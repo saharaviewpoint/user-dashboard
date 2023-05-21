@@ -218,11 +218,13 @@ const ReportsGridDashboard = () => {
           </div>
           <div>
             {isLoading ? (
-              <Skeleton
-                baseColor="#ebab34"
-                highlightColor="#f2cb07"
-                width={300}
-              />
+              <div style={{ marginTop: "!rem" }}>
+                <Skeleton
+                  baseColor="#ebab34"
+                  highlightColor="#f2cb07"
+                  width={300}
+                />
+              </div>
             ) : (
               <>
                 {filteredCollection.length >= 1 ? (

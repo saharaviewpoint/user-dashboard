@@ -7,17 +7,18 @@ import "./Reportmodal.css";
 import toast, { Toaster } from "react-hot-toast";
 import Form from "react-bootstrap/Form";
 import {
-  useAddReportsDetailsMutation,
+  useAddReportDetailsMutation,
   useGetTaskDetailsQuery,
   useGetProjectDetailsQuery,
+  useGetSpecificProjectQuery,
 } from "../../app/services/auth/authService";
+import Skeleton from "react-loading-skeleton";
 
-const ReportModal = (props) => {
-  const [modalShow, setModalShow] = React.useState(true);
+const ReportModal = ({ show, onHide }) => {
   const [more, setMore] = useState(false);
   const [display, setDisplay] = useState(false);
   const [select, setSelect] = useState("");
-  const [addReportsMutation] = useAddReportsDetailsMutation();
+  const [addReportsMutation] = useAddReportDetailsMutation();
   const { data: TaskCollection } = useGetTaskDetailsQuery({
     refetchOnMountArgChange: true,
   });
@@ -33,9 +34,18 @@ const ReportModal = (props) => {
     refetchOnMountArgChange: true,
   });
 
+  const { data: specificproject, isLoading } =
+    useGetSpecificProjectQuery(select);
+
+  console.log(specificproject);
+
   const ProjectCollections = Projects || [];
 
   const { register, reset, handleSubmit } = useForm();
+
+  const filteredAsignedtoProjects = ProjectCollections.filter(
+    (item) => item.assigned_to != undefined
+  );
 
   // const handleFileChange = (e) => {
   //   setFile(e.target.files[0]);
@@ -45,6 +55,15 @@ const ReportModal = (props) => {
     setSelect(e.target.value);
     setDisplay(true);
   };
+
+  // const filteredProjects = useMemo(() => {
+  //   const filtereddata = ProjectCollections.filter(
+  //     (item) => item?.project?.id === select
+  //   );
+  //   return filtereddata;
+  // }, [select, ProjectCollections]);
+
+  // console.log(filteredProjects);
 
   const filteredtasks = useMemo(() => {
     const filtereddata = TaskCollections.filter(
@@ -67,13 +86,17 @@ const ReportModal = (props) => {
   const submitForm = async (data) => {
     if (!files.length) return toast.error("Select a file");
     const conversion = { ...data };
-    // const stringid = conversion.send_to.toString();
+    const stringid = conversion.send_to.toString();
     const formData = new FormData();
-    files.map((file) => {
-      return formData.append("attachments", file);
-    });
+    // files.map((file) => {
+    //   return formData.append("attachments", file);
+    // });
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`attachments`, files[i]);
+    }
     formData.append("project", conversion.project);
     formData.append("task", conversion.task);
+    formData.append("send_to", stringid);
     formData.append("note", conversion.note);
 
     try {
@@ -86,14 +109,16 @@ const ReportModal = (props) => {
       setfile(null);
       // toast.success("Project Registered Successfully");
     } catch (error) {
-      toast.error(error);
+      toast.error(error.status);
     }
+    onHide();
   };
 
   return (
     <Modal
       className={modal.modal}
-      {...props}
+      show={show}
+      onHide={onHide}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -129,10 +154,11 @@ const ReportModal = (props) => {
           <p className={modal.title}>Projects</p>
           {more ? (
             <>
-              {ProjectCollections.map((project, index) => (
+              {filteredAsignedtoProjects.map((project, index) => (
                 // <FormGroup>
                 <Form.Check
                   key={index}
+                  required
                   type="radio"
                   onClick={handleChanges}
                   // key={index}
@@ -147,12 +173,13 @@ const ReportModal = (props) => {
           ) : (
             // <div>
             <>
-              {ProjectCollections?.slice(0, 3)?.map((project, index) => (
+              {filteredAsignedtoProjects?.slice(0, 3)?.map((project, index) => (
                 // <FormGroup>
                 <Form.Check
                   type="radio"
                   // onClick={(e)=> setSelect(e.target.value)}
                   key={index}
+                  required
                   onClick={handleChanges}
                   {...register("project")}
                   // name="project"
@@ -164,7 +191,7 @@ const ReportModal = (props) => {
             </>
             // </div>
           )}
-          {ProjectCollections.length > 3 ? (
+          {filteredAsignedtoProjects.length > 3 ? (
             more ? (
               <p className={modal.title1} onClick={() => setMore(!more)}>
                 See Less
@@ -187,6 +214,7 @@ const ReportModal = (props) => {
                       type="radio"
                       key={index}
                       name="task"
+                      required
                       {...register("task")}
                       value={task._id}
                       label={task.name}
@@ -196,31 +224,52 @@ const ReportModal = (props) => {
               )}
             </>
           ) : null}
-          {/* <div className={modal.flexcontainer}>
-            <p className={modal.title}>Send to:</p>
-            <div className={modal.fileabsolutecenter}>
-              <div className={modal.searchiconcontainer}>
-                <input
-                  type="text"
-                  placeholder="Search Clients"
-                  className={modal.search}
-                ></input>
-                <Image src="/icons/search.svg" className={modal.searchicon} />
+          {display ? (
+            <>
+              <div className={modal.flexcontainer}>
+                <p className={modal.title}>Send to:</p>
+                <div className={modal.fileabsolutecenter}>
+                  <div className={modal.searchiconcontainer}>
+                    <input
+                      type="text"
+                      placeholder="Search Clients"
+                      className={modal.search}
+                    ></input>
+                    <Image
+                      src="/icons/search.svg"
+                      className={modal.searchicon}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div> */}
-
-          {/* {UserCollection.map((usercollect, index) => {
-            return (
-              <Form.Check
-                type="checkbox"
-                key={index}
-                {...register("send_to")}
-                value={usercollect._id}
-                label={usercollect?.firstname}
-              />
-            );
-          })} */}
+              <>
+                {isLoading ? (
+                  <Skeleton
+                    baseColor="#ebab34"
+                    highlightColor="#f2cb07"
+                    width={100}
+                  />
+                ) : (
+                  <>
+                    {specificproject?.participants?.map(
+                      (usercollect, index) => {
+                        return (
+                          <Form.Check
+                            type="checkbox"
+                            // required
+                            key={index}
+                            {...register("send_to")}
+                            value={usercollect.id}
+                            label={usercollect?.firstname}
+                          />
+                        );
+                      }
+                    )}
+                  </>
+                )}
+              </>
+            </>
+          ) : null}
           <p className={modal.title}>Note</p>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Control

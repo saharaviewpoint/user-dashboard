@@ -66,7 +66,8 @@ const Notification = () => {
               <NotificationContent
                 name={data.from_user.firstname}
                 type={data.type}
-                image={data.from_user.avatar}
+                firstname={data.from_user.firstname.charAt(0)}
+                lastname={data.from_user.lastname.charAt(0)}
                 time={data.date}
                 key={index}
               />
@@ -85,7 +86,8 @@ const Notification = () => {
             <NotificationContent
               name={data.from_user.firstname}
               type={data.type}
-              image={data.from_user.avatar}
+              firstname={data.from_user.firstname.charAt(0)}
+              lastname={data.from_user.lastname.charAt(0)}
               time={data.date}
               key={index}
             />
@@ -116,10 +118,10 @@ const NotificationContent = (props) => {
       <div className={notification.flexcontainercontents}>
         <div className={notification.flexedcontainer}>
           <div className={notification.centernotification}>
-            <Image
-              style={{ width: "48px", height: "48px" }}
-              src={`${props.image}`}
-            />
+            <p className={notification.avatar}>
+              <span className={notification.label}>{props.firstname}</span>
+              <span className={notification.label}>{props.lastname}</span>
+            </p>
           </div>
           <div>
             <p className={notification.notificationcontenttext}>

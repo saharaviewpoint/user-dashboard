@@ -60,27 +60,29 @@ const ModalProject = (props) => {
                     <>
                       <p className={modal.assigned}>Assigned to:</p>
                       <div className={modal.yellowbackground}>
-                        <Image
-                          src="/images/avatar.png"
-                          className={modal.imageavatar}
-                          alt="avatar"
-                        />
-                        {collect?.assigned_to?.firstname &&
-                        collect?.assigned_to?.lastname ? (
-                          <>
-                            <div className={modal.absolutecenter}>
-                              <p className={modal.textname}>
-                                {" "}
-                                {collect?.assigned_to?.firstname} &nbsp;
-                                <span>{collect?.assigned_to?.lastname}</span>
+                        <div className={modal.absolutecenter}>
+                          {collect?.assigned_to?.firstname &&
+                          collect?.assigned_to.lastname ? (
+                            <>
+                              <p className={modal.avatar}>
+                                <span className={modal.label}>
+                                  {collect?.assigned_to?.firstname?.charAt(0)}
+                                </span>
+                                <span className={modal.label}>
+                                  {collect?.assigned_to?.lastname?.charAt(0)}
+                                </span>
                               </p>
+                              <span className={modal.label1}>
+                                {collect?.assigned_to?.firstname}{" "}
+                                {collect?.assigned_to?.lastname}
+                              </span>
+                            </>
+                          ) : (
+                            <div className={modal.absolutecenter}>
+                              <p className={modal.unassigned}>Unassigned</p>
                             </div>
-                          </>
-                        ) : (
-                          <div className={modal.absolutecenter}>
-                            <p className={modal.title1}>Unassigned</p>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
 
                       <p className={modal.taskname}>Tasks</p>

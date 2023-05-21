@@ -210,7 +210,7 @@ const ProjectFormDashboard = () => {
               </Form.Group>
             </div>
             <div className={projectform.formcontainer1}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Group className="mb-3" controlId="formBasicSite">
                 <Form.Label className={projectform.form1}>
                   Building Type:
                 </Form.Label>
@@ -244,7 +244,7 @@ const ProjectFormDashboard = () => {
               </Form.Group>
             </div>
             <div className={projectform.formcontainer1}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Group className="mb-3" controlId="formBasicSite">
                 <Form.Label className={projectform.form1}>
                   Facilities surrounding site and on site:
                 </Form.Label>

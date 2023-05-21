@@ -59,6 +59,8 @@ const MessageDashboard = () => {
 
   const { error, sendMessage } = useSendMessage();
 
+  console.log(data);
+
   // useEffect to refresh every 1seconds to check for new mwssages
 
   const [defaultState, setDefaultState] = useState(true);
@@ -115,10 +117,10 @@ const MessageDashboard = () => {
                         {messageDetail?.project?.name ? (
                           <>
                             {active ? (
-                              <img src="/icons/profile-icon.svg" alt="avatar" />
+                              <img src="/icons/groupmessage.svg" alt="avatar" />
                             ) : (
                               <img
-                                src="/icons/profile-icon-black.svg"
+                                src="/icons/groupmessageblack.svg"
                                 alt="avatar"
                               />
                             )}
@@ -299,7 +301,7 @@ const MessageDashboard = () => {
                                           <p
                                             className={message.statusbuttontext}
                                           >
-                                            In Progress
+                                            {project?.project?.admin_Status}
                                           </p>
                                         </div>
                                       </div>
@@ -362,11 +364,7 @@ const MessageDashboard = () => {
                                           message.messagedescriptioncontent
                                         }
                                       >
-                                        Lorem ipsum dolor sit amet consectetur.
-                                        Lectus le leo enim quis facilisis. Elit
-                                        ut facilisi arcu nibh. Etia posuere
-                                        posuere rhoncus nam. Molestie lorem qui
-                                        id sed quis eu etiam commodo.
+                                        {project?.project?.details}
                                       </p>
                                     </div>
                                   </div>

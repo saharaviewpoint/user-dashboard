@@ -233,11 +233,13 @@ const ReportsDashboard = () => {
           </div>
           <div>
             {isLoading ? (
-              <Skeleton
-                baseColor="#ebab34"
-                highlightColor="#f2cb07"
-                width={300}
-              />
+              <div style={{ marginTop: "2rem" }}>
+                <Skeleton
+                  baseColor="#ebab34"
+                  highlightColor="#f2cb07"
+                  width={300}
+                />
+              </div>
             ) : (
               <>
                 {filteredCollection.length >= 1 ? (

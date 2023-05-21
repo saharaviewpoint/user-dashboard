@@ -348,10 +348,12 @@
 .textarea {
   background-color: var(--black200);
   font-family: "Inter", sans-serif;
+  border: 1px solid transparent;
 }
 
 .textarea:focus {
   background-color: var(--black200);
+  border: 1px solid transparent;
 }
 
 .textarea::placeholder {

@@ -1,36 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import modal from "./tasktable.module.css";
 import { Modal, Image } from "react-bootstrap";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import "../project/Modal.css";
-import { useGetTaskDetailsQuery } from "../../app/services/auth/authService";
-import ReportModal from "../reports/ReportModal";
+import {
+  useGetTaskDetailsQuery,
+  useGetSpecificTaskQuery,
+} from "../../app/services/auth/authService";
+import { Link } from "react-router-dom";
+import { truncateString } from "./../../../util/text";
+import ReportModalTask from "../reports/ReportModalTask";
 
-const ModalTask = (props) => {
+const ModalTask = ({ show, onHide, id }) => {
   const [modalShow, setModalShow] = React.useState(false);
-  const { data: UserTasks } = useGetTaskDetailsQuery({
+  const { data: UserTasks, refetch } = useGetTaskDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
 
   const ModalTaskCollection = UserTasks || [];
 
+  const { data: specificTask } = useGetSpecificTaskQuery(id);
+
+  const specified = specificTask || [];
+
+  useEffect(() => {
+    refetch();
+  }, [specified?.attachments]);
+
   return (
     <Modal
       className={modal.modal}
-      {...props}
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       {ModalTaskCollection.map((collect, index) =>
-        props.id === collect._id ? (
+        id === collect._id ? (
           <div key={index}>
+            {console.log(collect)}
             <Modal.Header closeButton>
               <Modal.Title
                 className={modal.containedmodaltitlecenter}
                 id="contained-modal-title-vcenter"
               >
-                {/* <div className={modal.absolutecenter}> */}
                 <div className={modal.flexheader}>
                   <StatusButton text={collect.status} />
                   <CalendarText
@@ -42,7 +56,6 @@ const ModalTask = (props) => {
                     date={new Date(collect.due).toLocaleDateString()}
                   />
                 </div>
-                {/* </div> */}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body className={modal.modalbody}>
@@ -74,50 +87,76 @@ const ModalTask = (props) => {
                         </div>
                       </div>
                     </div>
-                    <p className={modal.description}>{collect.description}</p>
+                    <p className={modal.description}>
+                      {collect.description || "No description available"}
+                    </p>
                     <p className={modal.assigned}>Assigned to:</p>
                     <div className={modal.yellowbackground}>
-                      <Image src="/images/avatar.png" alt="avatar" />
                       <div className={modal.absolutecenter}>
-                        <p className={modal.textname}>
-                          {" "}
-                          Project Manager
-                          {/* {collect.requested_by?.firstname || null} &nbsp;
-                          <span>{collect.requested_by?.lastname || null}</span> */}
-                        </p>
+                        {collect?.assigned_to?.firstname &&
+                        collect?.assigned_to.lastname ? (
+                          <>
+                            <p className={modal.avatar}>
+                              <span className={modal.label}>
+                                {collect?.assigned_to?.firstname?.charAt(0)}
+                              </span>
+                              <span className={modal.label}>
+                                {collect?.assigned_to?.lastname?.charAt(0)}
+                              </span>
+                            </p>
+                            <span className={modal.label1}>
+                              {collect?.assigned_to?.firstname} {""}
+                              {collect?.assigned_to?.lastname}
+                            </span>
+                          </>
+                        ) : (
+                          <div className={modal.absolutecenter}>
+                            <p className={modal.unassigned}>Unassigned</p>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <p className={modal.instructionheading}>Instruction</p>
-                    <p className={modal.instruction}>{collect.comments}</p>
+                    <p className={modal.instruction}>
+                      {collect.instruction || "No instructions available"}
+                    </p>
 
                     <p className={modal.taskname}>Attachment</p>
                     <div className={modal.attachmentflex}>
-                      {collect.attachments.length > 1 ? (
-                        collect.attachments.map((attachments, index) => {
-                          return (
-                            <div
-                              key={index}
-                              style={{ display: "flex", gap: "2rem" }}
-                            >
-                              <>
-                                {attachments
-                                  .slice(0, 2)
-                                  .map((attachment, index) => (
-                                    <div>
-                                      <Attachment
-                                        key={index}
-                                        name={attachment.name}
-                                        imagelink={attachment.type}
-                                        size={attachment.size}
-                                      />
-                                    </div>
-                                  ))}
-                              </>
-                            </div>
-                          );
-                        })
-                      ) : (
+                      {collect.attachments.length < 1 ? (
                         <p className={modal.attachmentempty}>No attachments</p>
+                      ) : (
+                        <>
+                          {collect.attachments
+                            .slice(0, 3)
+                            .map((attachment, index) => {
+                              return (
+                                <>
+                                  {Array.isArray(attachment) ? (
+                                    <>
+                                      {attachment.map((attach, index) => {
+                                        return (
+                                          <Attachment
+                                            key={index}
+                                            name={attach.name}
+                                            imagelink={attach.type}
+                                            size={attach.size}
+                                          />
+                                        );
+                                      })}
+                                    </>
+                                  ) : (
+                                    <Attachment
+                                      key={index}
+                                      name={attachment.name}
+                                      imagelink={attachment.type}
+                                      size={attachment.size}
+                                    />
+                                  )}
+                                </>
+                              );
+                            })}
+                        </>
                       )}
                     </div>
                     {collect.attachments.length > 2 ? (
@@ -138,7 +177,11 @@ const ModalTask = (props) => {
           </div>
         ) : null
       )}
-      <ReportModal show={modalShow} onHide={() => setModalShow(false)} />
+      <ReportModalTask
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        id={id}
+      />
     </Modal>
   );
 };
@@ -194,7 +237,7 @@ const Attachment = (props) => {
       ) : null}
       {/* </div> */}
       <div>
-        <p className={modal.attachmenttext}>{props.name}</p>
+        <p className={modal.attachmenttext}>{truncateString(props.name, 7)}</p>
         <p className={modal.attachmentsize}>
           {Math.round(props.size / 1000) + "kb"}
         </p>

@@ -152,6 +152,7 @@ const ProjectBoardDashboard = () => {
                             setModalShow(true);
                           }}
                           date={filtereddata.due}
+                          value={filtereddata.attachments.length}
                           status={filtereddata.user_status}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
@@ -188,6 +189,7 @@ const ProjectBoardDashboard = () => {
                             setModalShow(true);
                           }}
                           status={filtereddata.user_status}
+                          value={filtereddata.attachments.length}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
                         />
@@ -223,6 +225,7 @@ const ProjectBoardDashboard = () => {
                             setModalShow(true);
                           }}
                           status={filtereddata.user_status}
+                          value={filtereddata.attachments.length}
                           imagelink={filtereddata.imagelink}
                           priority={filtereddata.priority}
                         />
@@ -341,8 +344,7 @@ const ContentContainer = (props) => {
 
       <div className={grid.absoluterightcontainer}>
         <div className={grid.flexicon}>
-          <ImageTextIcon src="/icons/attach.svg" value="3" />
-          <ImageTextIcon src="/icons/message.svg" value="3" />
+          <ImageTextIcon src="/icons/attach.svg" value={props.value} />
         </div>
       </div>
     </div>

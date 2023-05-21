@@ -10,6 +10,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useGetDetailsQuery } from "@/app/services/auth/authService";
 import { authApi } from "../../app/services/auth/authService";
 import ModalContainer from "./ModalContainer";
+import { truncateString } from "./../../../util/text";
 
 const DashboardLayout = (props) => {
   const [display, setDisplay] = useState(false);
@@ -17,7 +18,7 @@ const DashboardLayout = (props) => {
   // const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data: user } = useGetDetailsQuery();
+  const { data: user, isFetching, isLoading } = useGetDetailsQuery();
 
   const UserInfo = user || [];
 
@@ -104,8 +105,13 @@ const DashboardLayout = (props) => {
             <div className={side.logOutContainer}>
               <div className={side.center}>
                 <div className={side.flex}>
-                  <div>
-                    <Image src="/images/avatar.png" alt="avatar" />
+                  <div className={side.absolutecenter}>
+                    <p className={side.avatar}>
+                      {UserInfo?.firstname?.charAt(0) || null}
+                      <span className={side.label}>
+                        {UserInfo?.lastname?.charAt(0) || null}
+                      </span>
+                    </p>
                   </div>
                   <div className={side.textcontainer}>
                     <p className={side.avatartitle}>
@@ -118,12 +124,17 @@ const DashboardLayout = (props) => {
                       )}
                     </p>
                     <p className={side.avatarcontext}>
-                      {UserInfo?.email?.substring?.(0, 17) || (
+                      {isLoading ? (
                         <Skeleton
                           baseColor="#ebab34"
                           highlightColor="#f2cb07"
                           width={100}
                         />
+                      ) : (
+                        truncateString(
+                          UserInfo.email || "",
+                          17
+                        )
                       )}
                     </p>
                   </div>
