@@ -141,7 +141,7 @@ const TaskBoardDashboard = () => {
                           firstname={filtereddata.assigned_to?.firstname}
                           lastname={filtereddata.assigned_to?.lastname}
                           headertext={filtereddata.projectname}
-                          content={filtereddata.comments}
+                          content={filtereddata.comments[0]}
                           onClick={() => {
                             setSetting(filtereddata._id);
                             setModalShow(true);
@@ -177,7 +177,7 @@ const TaskBoardDashboard = () => {
                           firstname={filtereddata.assigned_to?.firstname}
                           lastname={filtereddata.assigned_to?.lastname}
                           headertext={filtereddata.projectname}
-                          content={filtereddata.comments}
+                          content={filtereddata.comments[0]}
                           onClick={() => {
                             setSetting(filtereddata._id);
                             setModalShow(true);
@@ -214,7 +214,7 @@ const TaskBoardDashboard = () => {
                           firstname={filtereddata.assigned_to?.firstname}
                           lastname={filtereddata.assigned_to?.lastname}
                           headertext={filtereddata.projectname}
-                          content={filtereddata.comments}
+                          content={filtereddata.comments[0]}
                           date={filtereddata.duedate}
                           status={filtereddata.status}
                           value={filtereddata.attachments.length}
@@ -288,7 +288,9 @@ const ContentContainer = (props) => {
           {props.firstname} <span>{props.lastname}</span>
         </p>
         <p className={taskboard.contenttext}>{props.headertext}</p>
-        <p className={taskboard.content}>{props.content}</p>
+        <p className={taskboard.content}>
+          {props.content || "No description available"}
+        </p>
         <div className={taskboard.flextext}>
           <p className={taskboard.assigned1}>Due:</p>
           <p className={taskboard.value}>
