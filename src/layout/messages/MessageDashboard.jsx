@@ -50,16 +50,16 @@ const MessageDashboard = () => {
 
   // form hook submission of messages
   const submitForm = async (msg) => {
+    const stringmessage = msg.message.toString();
+    reset();
     const time = new Date().getTime();
     reset();
-    await sendMessage(filter, msg, time).then(() => {
+    await sendMessage(filter, stringmessage, time).then(() => {
       reset();
     });
   };
 
   const { error, sendMessage } = useSendMessage();
-
-  console.log(data);
 
   // useEffect to refresh every 1seconds to check for new mwssages
 
@@ -68,6 +68,10 @@ const MessageDashboard = () => {
   const { documents: messages, loading } = useCollection(
     `messages/${filter}/messages`
   );
+
+  useEffect(() => {
+    refetch();
+  }, [useCollection]);
 
   const allMessages =
     messages.sort((a, b) => a.time_stamp - b.time_stamp) || [];
@@ -374,6 +378,7 @@ const MessageDashboard = () => {
                                   {isFetching ? null : (
                                     <>
                                       {allMessages.map((chat, index) => {
+                                        console.log(allMessages);
                                         return (
                                           // <>
                                           <div key={index}>
@@ -384,7 +389,7 @@ const MessageDashboard = () => {
                                                 }
                                               >
                                                 <p className={message.sending}>
-                                                  {chat.message.message}
+                                                  {chat.message}
                                                 </p>
                                               </div>
                                             ) : (
@@ -404,7 +409,7 @@ const MessageDashboard = () => {
                                                   <p
                                                     className={message.incoming}
                                                   >
-                                                    {chat.message.message}
+                                                    {chat.message}
                                                   </p>
                                                 </div>
                                               </div>
@@ -432,7 +437,7 @@ const MessageDashboard = () => {
                                                 }
                                               >
                                                 <p className={message.sending}>
-                                                  {chat.message.message}
+                                                  {chat.message}
                                                 </p>
                                               </div>
                                             ) : (
@@ -442,7 +447,7 @@ const MessageDashboard = () => {
                                                 }
                                               >
                                                 <p className={message.incoming}>
-                                                  {chat.message.message}
+                                                  {chat.message}
                                                 </p>
                                               </div>
                                             )}
