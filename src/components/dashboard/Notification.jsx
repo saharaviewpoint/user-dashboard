@@ -36,6 +36,7 @@ const Notification = () => {
   const startOfWeekISO = new Date(startOfWeek).getTime();
   const endOfWeekISO = new Date(endOfWeek).getTime();
 
+  // filter for week but without the current day
   const filteredDataToday = useMemo(() => {
     const filtereddata = allnotifications.filter(
       (item) =>
@@ -46,7 +47,8 @@ const Notification = () => {
     return filtereddata;
   }, [startOfWeekISO, endOfWeekISO, todayISO, allnotifications]);
 
-  // filter for week but without the current day
+  const notificationweekly = filteredDataToday.reverse();
+
   const filteredToday = useMemo(() => {
     const filtereddata = allnotifications.filter(
       (item) =>
@@ -82,7 +84,7 @@ const Notification = () => {
       <p className={notification.firsttext}>THIS WEEK</p>
       {filteredDataToday.length >= 1 ? (
         <>
-          {filteredDataToday.slice(0, 3).map((data, index) => (
+          {notificationweekly.slice(0, 3).map((data, index) => (
             <NotificationContent
               name={data.from_user.firstname}
               type={data.type}

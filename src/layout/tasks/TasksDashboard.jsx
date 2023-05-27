@@ -11,11 +11,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   useGetProjectDetailsQuery,
   useGetTaskDetailsQuery,
+  useAddStarTaskMutation,
 } from "../../app/services/auth/authService";
 import SkeleteonLoaderTable from "../../components/dashboard/SkeleteonLoaderTable";
+import { toast, Toaster } from "react-hot-toast";
 
 const TasksDashboard = () => {
-  const { data: TaskCollection, isLoading } = useGetTaskDetailsQuery({
+  const {
+    data: TaskCollection,
+    isLoading,
+    refetch,
+  } = useGetTaskDetailsQuery({
     refetchOnMountArgChange: true,
   });
 
@@ -26,6 +32,13 @@ const TasksDashboard = () => {
   const TasksTableCollection = TaskCollection || [];
 
   const projects = projectsCollection || [];
+
+  const [addStarMutation] = useAddStarTaskMutation();
+
+  const sortedArray = [
+    ...TasksTableCollection.filter((item) => item.star === true),
+    ...TasksTableCollection.filter((item) => item.star === false),
+  ];
 
   const [select, setSelect] = useState("");
   const [tasked, setTasked] = useState("");
@@ -47,12 +60,10 @@ const TasksDashboard = () => {
   const finalEndDate = new Date(convertedEndDate).getTime();
 
   const data = useMemo(() => {
-    if (!filter) return TasksTableCollection;
-    const filteredData = TasksTableCollection.filter(
-      (item) => item.status === filter
-    );
+    if (!filter) return sortedArray;
+    const filteredData = sortedArray.filter((item) => item.status === filter);
     return filteredData;
-  }, [filter, TasksTableCollection]);
+  }, [filter, sortedArray]);
 
   const filteredCollection = useMemo(() => {
     if (select === "Select A Project" || !select) return data;
@@ -60,19 +71,19 @@ const TasksDashboard = () => {
     return filteredData;
   }, [select, data]);
 
-  const filteredApprovedData = TasksTableCollection.filter(
+  const filteredApprovedData = sortedArray.filter(
     (item) => item.status === "Approved"
   );
 
-  const filteredPendingData = TasksTableCollection.filter(
+  const filteredPendingData = sortedArray.filter(
     (item) => item.status === "Awaiting Approval"
   );
 
-  const filteredDeclinedData = TasksTableCollection.filter(
+  const filteredDeclinedData = sortedArray.filter(
     (item) => item.status === "Declined"
   );
 
-  const filteredInProgressData = TasksTableCollection.filter(
+  const filteredInProgressData = sortedArray.filter(
     (item) => item.status === "In Progress"
   );
 
@@ -173,21 +184,59 @@ const TasksDashboard = () => {
               {filteredCollection.length >= 1 ? (
                 <TaskTableDisplay>
                   {filteredCollection.map((taskcollect, index) => (
-                    <tr
-                      key={index}
-                      onClick={() => {
-                        setSetting(taskcollect._id);
-                        setModalShow(true);
-                      }}
-                    >
+                    <tr key={index}>
                       <td>
                         <div className={task.flexcontent}>
-                          {taskcollect.star === "true" ? (
-                            <Icon imagelink="/icons/dashboard/task/starred.svg" />
+                          {taskcollect.star ? (
+                            <div
+                              onClick={async (id) => {
+                                try {
+                                  await toast.promise(
+                                    addStarMutation(taskcollect._id).unwrap(),
+                                    {
+                                      loading: "Saving",
+                                      success: "Starred",
+                                      error: "Failed to star",
+                                    }
+                                  );
+                                  // toast.success("Project Registered Successfully");
+                                  refetch();
+                                } catch (error) {
+                                  toast.error(error.status);
+                                }
+                              }}
+                            >
+                              <Icon imagelink="/icons/dashboard/task/starred.svg" />
+                            </div>
                           ) : (
-                            <Icon imagelink="/icons/dashboard/task/star.svg" />
+                            <div
+                              onClick={async (id) => {
+                                try {
+                                  await toast.promise(
+                                    addStarMutation(taskcollect._id).unwrap(),
+                                    {
+                                      loading: "Saving",
+                                      success: "Starred",
+                                      error: "Failed to star",
+                                    }
+                                  );
+                                  // toast.success("Project Registered Successfully");
+                                  refetch();
+                                } catch (error) {
+                                  toast.error(error.status);
+                                }
+                              }}
+                            >
+                              <Icon imagelink="/icons/dashboard/task/star.svg" />
+                            </div>
                           )}
-                          <div className={task.centertext}>
+                          <div
+                            onClick={() => {
+                              setSetting(taskcollect._id);
+                              setModalShow(true);
+                            }}
+                            className={task.centertext}
+                          >
                             <p className={task.tasktitle}>{taskcollect.name}</p>
                           </div>
                         </div>
@@ -236,6 +285,32 @@ const TasksDashboard = () => {
         show={modalShow}
         onHide={() => setModalShow(false)}
         id={setting}
+      />
+      <Toaster
+        position="top-left"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+            fontFamily: "Inter, sans-serif",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
       />
     </Container>
   );

@@ -3,12 +3,16 @@ import project from "./User.module.css";
 import { Image } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import "./Modal.css";
-import { useGetProjectDetailsQuery } from "@/app/services/auth/authService";
+import {
+  useGetProjectDetailsQuery,
+  useAddStarProjectMutation,
+} from "@/app/services/auth/authService";
 import SkeletonLoader from "./SkeletonLoader";
 import ModalProject from "./../project/ModalProject";
+import { toast, Toaster } from "react-hot-toast";
 
 const Project = () => {
-  const { data: UserProjects, isLoading } = useGetProjectDetailsQuery({
+  const { data: UserProjects, isLoading, refetch } = useGetProjectDetailsQuery({
     refetchOnMountOrArgChange: true,
   });
 
@@ -19,6 +23,13 @@ const Project = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [setting, setSetting] = useState("");
   const [message, setMessage] = useState("There are no projects");
+
+  const sortedArray = [
+    ...UserProjectsCollection.filter((item) => item.star === true),
+    ...UserProjectsCollection.filter((item) => item.star === false),
+  ];
+
+  const [addStarMutation] = useAddStarProjectMutation();
 
   const data = useMemo(() => {
     if (!filter) return UserProjectsCollection;
@@ -83,19 +94,60 @@ const Project = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.slice(0, 5).map((projectdata, index) => (
-                    <tr
-                      key={index}
-                      className={project.pointer}
-                      onClick={() => {
-                        setSetting(projectdata._id);
-                        setModalShow(true);
-                      }}
-                    >
+                  {sortedArray.slice(0, 5).map((projectdata, index) => (
+                    <tr key={index} className={project.pointer}>
                       <td className={project.align}>
                         <div className={project.flexcontent}>
-                          <Icon imagelink="/icons/dashboard/task/star.svg" />
-                          <div className={project.centertext}>
+                          {projectdata.star ? (
+                            <div
+                              onClick={async (id) => {
+                                try {
+                                  await toast.promise(
+                                    addStarMutation(projectdata._id).unwrap(),
+                                    {
+                                      loading: "Saving",
+                                      success: "Starred",
+                                      error: "Failed to star",
+                                    }
+                                  );
+                                  // toast.success("Project Registered Successfully");
+                                  refetch();
+                                } catch (error) {
+                                  console.log(error);
+                                }
+                              }}
+                            >
+                              <Icon imagelink="/icons/dashboard/task/starred.svg" />
+                            </div>
+                          ) : (
+                            <div
+                              onClick={async (id) => {
+                                try {
+                                  await toast.promise(
+                                    addStarMutation(projectdata._id).unwrap(),
+                                    {
+                                      loading: "Saving",
+                                      success: "Starred",
+                                      error: "Failed to star",
+                                    }
+                                  );
+                                  // toast.success("Project Registered Successfully");
+                                  refetch();
+                                } catch (error) {
+                                  console.log(error);
+                                }
+                              }}
+                            >
+                              <Icon imagelink="/icons/dashboard/task/star.svg" />
+                            </div>
+                          )}
+                          <div
+                            onClick={() => {
+                              setSetting(projectdata._id);
+                              setModalShow(true);
+                            }}
+                            className={project.centertext}
+                          >
                             <p className={project.tasktitle}>
                               {projectdata.name}
                             </p>
@@ -136,6 +188,32 @@ const Project = () => {
         show={modalShow}
         onHide={() => setModalShow(false)}
         id={setting}
+      />
+      <Toaster
+        position="top-left"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 5000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+            fontFamily: "Inter, sans-serif",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
       />
     </div>
   );

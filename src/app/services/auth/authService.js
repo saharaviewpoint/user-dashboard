@@ -96,6 +96,18 @@ export const authApi = createApi({
         method: "GET",
       }),
     }),
+    addStarProject: build.mutation({
+      query: (id) => ({
+        url: `/user/projects/star/${id}`,
+        method: "POST",
+      }),
+    }),
+    addStarTask: build.mutation({
+      query: (id) => ({
+        url: `/user/tasks/star/${id}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -114,4 +126,6 @@ export const {
   useGetSpecificTaskQuery,
   useGetSpecificProjectQuery,
   useAddTaskReportMutation,
+  useAddStarProjectMutation,
+  useAddStarTaskMutation,
 } = authApi;
