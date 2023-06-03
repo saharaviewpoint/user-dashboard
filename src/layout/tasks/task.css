@@ -4,7 +4,8 @@
 }
 
 .rbc-toolbar {
-  display: none !important;
+  /* display: none !important; */
+  font-family: "Inter", sans-serif;
 }
 
 .rbc-ellipsis,
@@ -12,6 +13,14 @@
 .rbc-row-segment .rbc-event-content,
 .rbc-event-label {
   font-family: "Inter", sans-serif;
+}
+
+.rbc-ellipsis,
+.rbc-show-more,
+.rbc-row-segment .rbc-event-content,
+.rbc-event-label :hover {
+  font-family: "Inter", sans-serif;
+  border: none;
 }
 
 .rbc-header {

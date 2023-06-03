@@ -10,17 +10,32 @@ import "./task.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Container, Image } from "react-bootstrap";
 import { calendarevents } from "../../../data/calendarevents";
+import { useGetTaskDetailsQuery } from "@/app/services/auth/authService";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
-// const allViews = Object.keys(BigCalendar.Views).map(
-//   (k) => BigCalendar.Views[k]
-// );
-
 const TaskCalendarDashboard = () => {
   const [startDate, setStartDate] = useState(new Date("01/01/1998"));
   const [endDate, setEndDate] = useState(new Date("01/01/2024"));
+
+  const { data: TaskCollection, isLoading } = useGetTaskDetailsQuery({
+    refetchOnMountArgChange: true,
+  });
+
+  const TasksBoardCollection = TaskCollection || [];
+
+  const eventList = TasksBoardCollection.map((event) => {
+    new Date(moment(event.date).format("YYYY,MM,DD"));
+    return {
+      title: event.name,
+      start: new Date(moment(event.date).format("YYYY,MM,DD")),
+      end: new Date(moment(event.due).format("YYYY,MM,DD")),
+      // start: new Date(moment(event.date).format("YYYY-MM-DD")),
+      // end: new Date(moment(event.due).format("YYYY-MM-DD")),
+    };
+  });
+
   return (
     <Container className={taskcalendar.container}>
       <DashboardLayout name="Tasks">
@@ -60,13 +75,13 @@ const TaskCalendarDashboard = () => {
           </div>
           <div style={{ height: 700, marginTop: "2rem" }}>
             <Calendar
-              events={calendarevents}
+              events={eventList}
               step={60}
               localizer={localizer}
               // views={allViews}
               // defaultView={week}
               // views={["week"]}
-              defaultDate={new Date(2015, 3, 1)}
+              // defaultDate={new Date(2023, 5, 1)}
               // popup={false}
               //   onShowMore={(events, date) =>
               //     this.setState({ showModal: true, events })

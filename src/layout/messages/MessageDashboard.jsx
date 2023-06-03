@@ -8,9 +8,12 @@ import { getInitials } from "../../../util/text";
 import moment from "moment";
 import useSendMessage from "./../../../hooks/useSendMessage";
 import { useCollection } from "./../../../hooks/useCollection";
+import { Toaster } from "react-hot-toast";
+import { MessageUploadModal } from "./MessageUploadModal";
 
 const MessageDashboard = () => {
   // const [id, setId] = useState("");
+  const [modalShow, setModalShow] = React.useState(false);
   // fetching users and details about them
   const {
     data: allMessagesDetails,
@@ -48,18 +51,24 @@ const MessageDashboard = () => {
   //closing of messages that involves group chats
   const [open, setOpen] = useState(true);
 
+  // send message hook
+  const { error, sendMessage } = useSendMessage();
+
   // form hook submission of messages
   const submitForm = async (msg) => {
     const stringmessage = msg.message.toString();
     reset();
     const time = new Date().getTime();
+    const fileDetails = {
+      name: "",
+      size: "",
+      type: "",
+    };
     reset();
-    await sendMessage(filter, stringmessage, time).then(() => {
+    await sendMessage(filter, stringmessage, time, fileDetails).then(() => {
       reset();
     });
   };
-
-  const { error, sendMessage } = useSendMessage();
 
   // useEffect to refresh every 1seconds to check for new mwssages
 
@@ -378,19 +387,80 @@ const MessageDashboard = () => {
                                   {isFetching ? null : (
                                     <>
                                       {allMessages.map((chat, index) => {
-                                        console.log(allMessages);
                                         return (
                                           // <>
                                           <div key={index}>
-                                            {chat.sender === userInfo.id ? (
+                                            {chat.sender_id === userInfo.id ? (
                                               <div
                                                 className={
                                                   message.sendingcontainer
                                                 }
                                               >
-                                                <p className={message.sending}>
-                                                  {chat.message}
-                                                </p>
+                                                {chat?.type?.startsWith(
+                                                  "image"
+                                                ) ? (
+                                                  <div
+                                                    className={message.sending}
+                                                  >
+                                                    <Attachment
+                                                      imagelink="icons/reports/image-white.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      attachmenttype={chat.type}
+                                                      link={chat.message}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "application"
+                                                  ) ? (
+                                                  <div
+                                                    className={message.sending}
+                                                  >
+                                                    <Attachment
+                                                      imagelink="icons/reports/document-white.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      link={chat.message}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "video"
+                                                  ) ? (
+                                                  <div
+                                                    className={message.sending}
+                                                  >
+                                                    <Attachment
+                                                      imagelink="icons/reports/video-white.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      link={chat.message}
+                                                      attachmenttype={chat.type}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "text"
+                                                  ) ? (
+                                                  <p
+                                                    className={message.sending}
+                                                  >
+                                                    {chat.message}
+                                                  </p>
+                                                ) : (
+                                                  <p
+                                                    className={message.sending}
+                                                  >
+                                                    {chat.message}
+                                                  </p>
+                                                )}
                                               </div>
                                             ) : (
                                               <div
@@ -398,20 +468,135 @@ const MessageDashboard = () => {
                                                   message.incomingcontainergroup
                                                 }
                                               >
-                                                <div>
-                                                  <p
+                                                {chat?.type?.startsWith(
+                                                  "image"
+                                                ) ? (
+                                                  <div
                                                     className={
-                                                      message.projectgroup
+                                                      message.groupmessage
                                                     }
                                                   >
-                                                    {chat.sender_name}
-                                                  </p>
-                                                  <p
-                                                    className={message.incoming}
+                                                    <p
+                                                      className={
+                                                        message.projectgroup
+                                                      }
+                                                    >
+                                                      {chat.sender_name}
+                                                    </p>
+                                                    <div
+                                                      style={{
+                                                        padding: "0.3rem",
+                                                      }}
+                                                    >
+                                                      <AttachmentBlack
+                                                        imagelink="icons/reports/image.svg"
+                                                        alt="icons"
+                                                        attachmentname={
+                                                          chat.file_name
+                                                        }
+                                                        attachmenttype={
+                                                          chat.type
+                                                        }
+                                                        link={chat.message}
+                                                        attachmentsize={
+                                                          chat.size
+                                                        }
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "application"
+                                                  ) ? (
+                                                  <div
+                                                    className={
+                                                      message.groupmessage
+                                                    }
                                                   >
-                                                    {chat.message}
-                                                  </p>
-                                                </div>
+                                                    <p
+                                                      className={
+                                                        message.projectgroup
+                                                      }
+                                                    >
+                                                      {chat.sender_name}
+                                                    </p>
+                                                    <div
+                                                      style={{
+                                                        padding: "0.3rem",
+                                                      }}
+                                                    >
+                                                      <AttachmentBlack
+                                                        imagelink="icons/reports/document.svg"
+                                                        alt="icons"
+                                                        attachmentname={
+                                                          chat.file_name
+                                                        }
+                                                        link={chat.message}
+                                                        attachmentsize={
+                                                          chat.size
+                                                        }
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "video"
+                                                  ) ? (
+                                                  <div
+                                                    className={
+                                                      message.groupmessage
+                                                    }
+                                                  >
+                                                    <p
+                                                      className={
+                                                        message.projectgroup
+                                                      }
+                                                    >
+                                                      {chat.sender_name}
+                                                    </p>
+                                                    <div
+                                                      style={{
+                                                        padding: "0.3rem",
+                                                      }}
+                                                    >
+                                                      <AttachmentBlack
+                                                        imagelink="icons/reports/video.svg"
+                                                        alt="icons"
+                                                        attachmentname={
+                                                          chat.file_name
+                                                        }
+                                                        link={chat.message}
+                                                        attachmenttype={
+                                                          chat.type
+                                                        }
+                                                        attachmentsize={
+                                                          chat.size
+                                                        }
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "text"
+                                                  ) ? (
+                                                  <div
+                                                    className={
+                                                      message.groupmessagetext
+                                                    }
+                                                  >
+                                                    <p
+                                                      className={
+                                                        message.projectgroup
+                                                      }
+                                                    >
+                                                      {chat.sender_name}
+                                                    </p>
+                                                    <p
+                                                      className={
+                                                        message.incoming
+                                                      }
+                                                    >
+                                                      {chat.message}
+                                                    </p>
+                                                  </div>
+                                                ) : null}
                                               </div>
                                             )}
                                           </div>
@@ -430,15 +615,71 @@ const MessageDashboard = () => {
                                       return (
                                         <div>
                                           <div key={index}>
-                                            {chat.sender === userInfo.id ? (
+                                            {chat.sender_id === userInfo.id ? (
                                               <div
                                                 className={
                                                   message.sendingcontainer
                                                 }
                                               >
-                                                <p className={message.sending}>
-                                                  {chat.message}
-                                                </p>
+                                                {chat?.type?.startsWith(
+                                                  "image"
+                                                ) ? (
+                                                  <div
+                                                    className={message.sending}
+                                                  >
+                                                    <Attachment
+                                                      imagelink="icons/reports/image-white.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      attachmenttype={chat.type}
+                                                      link={chat.message}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "application"
+                                                  ) ? (
+                                                  <div
+                                                    className={message.sending}
+                                                  >
+                                                    <Attachment
+                                                      imagelink="icons/reports/document-white.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      link={chat.message}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "video"
+                                                  ) ? (
+                                                  <div
+                                                    className={message.sending}
+                                                  >
+                                                    <Attachment
+                                                      imagelink="icons/reports/video-white.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      link={chat.message}
+                                                      attachmenttype={chat.type}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "text"
+                                                  ) ? (
+                                                  <p
+                                                    className={message.sending}
+                                                  >
+                                                    {chat.message}
+                                                  </p>
+                                                ) : null}
                                               </div>
                                             ) : (
                                               <div
@@ -446,9 +687,65 @@ const MessageDashboard = () => {
                                                   message.incomingcontainer
                                                 }
                                               >
-                                                <p className={message.incoming}>
-                                                  {chat.message}
-                                                </p>
+                                                {chat?.type?.startsWith(
+                                                  "image"
+                                                ) ? (
+                                                  <div
+                                                    className={message.incoming}
+                                                  >
+                                                    <AttachmentBlack
+                                                      imagelink="icons/reports/image.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      attachmenttype={chat.type}
+                                                      link={chat.message}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "application"
+                                                  ) ? (
+                                                  <div
+                                                    className={message.incoming}
+                                                  >
+                                                    <AttachmentBlack
+                                                      imagelink="icons/reports/document.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      link={chat.message}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "video"
+                                                  ) ? (
+                                                  <div
+                                                    className={message.incoming}
+                                                  >
+                                                    <AttachmentBlack
+                                                      imagelink="icons/reports/video.svg"
+                                                      alt="icons"
+                                                      attachmentname={
+                                                        chat.file_name
+                                                      }
+                                                      link={chat.message}
+                                                      attachmenttype={chat.type}
+                                                      attachmentsize={chat.size}
+                                                    />
+                                                  </div>
+                                                ) : chat?.type?.startsWith(
+                                                    "text"
+                                                  ) ? (
+                                                  <p
+                                                    className={message.incoming}
+                                                  >
+                                                    {chat.message}
+                                                  </p>
+                                                ) : null}
                                               </div>
                                             )}
                                           </div>
@@ -470,6 +767,12 @@ const MessageDashboard = () => {
                             className={message.attachment}
                             src="/icons/attachment.svg"
                             alt="attach"
+
+                            onClick={() => {
+                              setModalShow(true);
+                              // onHide();
+                              // setId(props.id);
+                            }}
                           />
                         </div>
                         <div style={{ flex: "14" }}>
@@ -502,6 +805,37 @@ const MessageDashboard = () => {
             </div>
           </div>
         </div>
+        <MessageUploadModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          id={filter}
+        />
+        <Toaster
+          position="top-left"
+          reverseOrder={false}
+          gutter={8}
+          containerClassName=""
+          containerStyle={{}}
+          toastOptions={{
+            // Define default options
+            className: "",
+            duration: 5000,
+            style: {
+              background: "#363636",
+              color: "#fff",
+              fontFamily: "Inter, sans-serif",
+            },
+
+            // Default options for specific types
+            success: {
+              duration: 3000,
+              theme: {
+                primary: "green",
+                secondary: "black",
+              },
+            },
+          }}
+        />
       </DashboardLayout>
     </Container>
   );
@@ -514,6 +848,58 @@ const MessageDetails = (props) => {
     <div className={message.messagedetailscontainer}>
       <p>{props.title}</p>
       <p>{props.description}</p>
+    </div>
+  );
+};
+
+const Attachment = (props) => {
+  return (
+    <div className={message.attachmentcontainer}>
+      <div className={message.reportabsolutecenter}>
+        <Image src={`${props.imagelink}`} alt="icon" />
+      </div>
+      <div>
+        <p className={message.attachmenttext}>{props.attachmentname}</p>
+        {/* <p className={message.attachmenttext1}>{props.attachmenttype}</p> */}
+        <p className={message.attachmentsize}>
+          {Math.round(props.attachmentsize / 1000) + "kb"}
+        </p>
+      </div>
+      <div className={message.reportabsolutecenter}>
+        <a href={props.link}>
+          <Image
+            src="/icons/reports/download-white.svg"
+            style={{ cursor: "pointer", width: "20px" }}
+            alt="close"
+          />
+        </a>
+      </div>
+    </div>
+  );
+};
+
+const AttachmentBlack = (props) => {
+  return (
+    <div className={message.attachmentcontainer1}>
+      <div className={message.reportabsolutecenter}>
+        <Image src={`${props.imagelink}`} alt="icon" />
+      </div>
+      <div>
+        <p className={message.attachmenttext1}>{props.attachmentname}</p>
+        {/* <p className={message.attachmenttext1}>{props.attachmenttype}</p> */}
+        <p className={message.attachmentsize1}>
+          {Math.round(props.attachmentsize / 1000) + "kb"}
+        </p>
+      </div>
+      <div className={message.reportabsolutecenter}>
+        <a target="_blank" href={props.link}>
+          <Image
+            src="/icons/reports/download.svg"
+            style={{ cursor: "pointer", width: "20px" }}
+            alt="close"
+          />
+        </a>
+      </div>
     </div>
   );
 };
