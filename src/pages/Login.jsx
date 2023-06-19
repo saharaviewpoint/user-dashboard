@@ -140,7 +140,7 @@ const Login = () => {
                   </Form.Group> */}
 
                   <Button
-                    type="submit"
+                    // type="submit"
                     disabled={loading}
                     className={login.submitbutton}
                   >
@@ -149,9 +149,13 @@ const Login = () => {
                 </form>
                 <p className={login.text}>
                   First time here?
-                  <Link className={login.route} to="/register">
+                  {/* <Link className={login.route} to="/register">
+                    Sign Up
+                  </Link> */}
+                  <Link className={login.route} to="">
                     Sign Up
                   </Link>
+
                 </p>
               </div>
             </div>
