@@ -47,7 +47,7 @@ const App = () => {
             <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Homepage />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/project" element={<Projects />} />
+{/*             <Route path="/project" element={<Projects />} />
             <Route path="/project/board" element={<ProjectBoard />} />
             <Route path="/project/grid" element={<ProjectGrid />} />
             <Route path="/project/form" element={<ProjectForm />} />
@@ -59,7 +59,7 @@ const App = () => {
             <Route path="/reports/grid" element={<ReportsGrid />} />
             <Route path="/message" element={<Messages />} />
 
-            <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Register />} /> */}
             {/* <Route path="/admin" element={<HomepageAdmin />} /> */}
           </Routes>
         </BrowserRouter>
